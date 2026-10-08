@@ -14,6 +14,8 @@
   assign refs = section.blocks | where: 'type', 'reference'
 -%}
 {{ 'reserve-drive-history.css' | asset_url | stylesheet_tag }}
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@1&display=swap">
 <style>
   {{ font | font_face: font_display: 'swap' }}
   {%- if font_light %}{{ font_light | font_face: font_display: 'swap' }}{% endif -%}
@@ -23,10 +25,19 @@
 
 <section class="dh" aria-label="{{ section.settings.aria_label | escape }}">
   <div class="dh__text">
+    {%- if section.settings.latin_label != blank or section.settings.latin_name != blank -%}
+      <p class="dh__label">
+        {{- section.settings.latin_label | escape -}}
+        {%- if section.settings.latin_name != blank %} <i>· {{ section.settings.latin_name | escape }}</i>{% endif -%}
+      </p>
+    {%- endif -%}
     {%- if section.settings.body != blank -%}
       <div class="dh__body">{{ section.settings.body }}</div>
     {%- endif -%}
-    {%- if refs.size > 0 -%}
+  </div>
+
+  {%- comment -%} Own grid row, so the hairline lines up with the photo caption. {%- endcomment -%}
+  {%- if refs.size > 0 -%}
       <div class="dh__refs">
         <hr class="dh__rule">
         <p>
@@ -39,8 +50,7 @@
           {%- endfor -%}
         </p>
       </div>
-    {%- endif -%}
-  </div>
+  {%- endif -%}
 
   <div class="dh__media">
     {%- if image -%}
@@ -61,10 +71,10 @@
         alt="{{ section.settings.caption | escape }}"
       >
     {%- endif -%}
-    {%- if section.settings.caption != blank -%}
-      <p class="dh__cap">{{ section.settings.caption | escape }}</p>
-    {%- endif -%}
   </div>
+  {%- if section.settings.caption != blank -%}
+    <p class="dh__cap">{{ section.settings.caption | escape }}</p>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -73,6 +83,8 @@
   "enabled_on": { "templates": ["product"] },
   "settings": [
     { "type": "text", "id": "aria_label", "label": "Section name for screen readers", "default": "The history of Tongkat Ali" },
+    { "type": "text", "id": "latin_label", "label": "Small label", "default": "Latin" },
+    { "type": "text", "id": "latin_name", "label": "Latin name", "default": "Eurycoma longifolia" },
     { "type": "richtext", "id": "body", "label": "Text", "default": "<p>For centuries, men in Malaysia and Indonesia have brewed this bitter root for its strength, stamina, energy, libido, and vitality properties.</p><p>Today, Tongkat Ali (also known as “Longjack”) has been widely researched as a leading herb in increased total testosterone level, lowered cortisol, and lowered fatigue. That’s why we sourced a 100:1 water extract, made the same way the root has been brewed for centuries, and concentrated it into two gummies so that you’ve got the energy to perform and the drive to keep going. Hence the name: Drive.</p>" },
     { "type": "text", "id": "refs_label", "label": "References label", "default": "References:" },
     { "type": "image_picker", "id": "image", "label": "Image", "info": "Shown faded and sepia-toned. Leave empty to use the default archival photo." },
