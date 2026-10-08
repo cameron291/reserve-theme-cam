@@ -1,0 +1,25 @@
+/* Drive history section. Scoped to .dh so nothing leaks into the buy box. */
+.dh{--dh-bg:#16130f;--dh-ink:#ece4d6;--dh-faint:#8a8072;--dh-line:rgba(236,228,214,.16);position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:620px;background:var(--dh-bg);color:var(--dh-ink);font-family:var(--dh-font)}
+.dh__text{display:flex;flex-direction:column;justify-content:center;gap:28px;padding:80px 48px 80px max(28px,12%)}
+.dh__body{display:grid;gap:18px;max-width:46ch}
+.dh__body p{margin:0;font-weight:300;font-size:15.5px;line-height:1.75;color:inherit}
+.dh__refs{display:grid;gap:16px;max-width:46ch}
+.dh__rule{width:100%;height:1px;margin:0;border:0;background:var(--dh-line)}
+.dh__refs p{margin:0;font-size:12px;line-height:1.7;color:var(--dh-faint);overflow-wrap:anywhere}
+.dh__refs-label{font-weight:600;letter-spacing:.04em}
+.dh__refs a{color:var(--dh-faint);text-decoration:underline;text-decoration-color:rgba(138,128,114,.45);text-underline-offset:3px;transition:color .2s}
+.dh__refs a:hover,.dh__refs a:focus-visible{color:var(--dh-ink);text-decoration-color:currentColor}
+.dh__media{position:relative;overflow:hidden}
+.dh__media img{display:block;width:100%;height:100%;object-fit:cover;object-position:30% 40%;opacity:.62;filter:grayscale(1) sepia(.35) contrast(.92) brightness(.78)}
+.dh__media::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,var(--dh-bg) 0%,rgba(22,19,15,.55) 30%,rgba(22,19,15,.15) 70%,rgba(22,19,15,.35) 100%),
+  linear-gradient(0deg,rgba(22,19,15,.7) 0%,rgba(22,19,15,0) 40%)}
+.dh__cap{position:absolute;right:28px;bottom:24px;z-index:1;margin:0;text-align:right;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:13px;line-height:1.4;color:var(--dh-faint)}
+@media (max-width:749px){
+  .dh{grid-template-columns:1fr;min-height:0}
+  .dh__media{order:-1;height:300px}
+  .dh__media::after{background:linear-gradient(0deg,var(--dh-bg) 0%,rgba(22,19,15,.25) 55%,rgba(22,19,15,.4) 100%)}
+  .dh__cap{bottom:auto;top:16px;right:16px}
+  .dh__text{padding:8px 20px 56px}
+}
+@media (prefers-reduced-motion:reduce){.dh__refs a{transition:none}}

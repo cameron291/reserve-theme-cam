@@ -1,0 +1,95 @@
+{% comment %}
+  Section contract.
+  Drive history: dark split section. Copy and references on the left, a faded sepia archival
+  photo on the right that blends into the text side. Stacks image over text on phones.
+  Each reference is a Reference block, rendered as a comma-separated list of links.
+  Styles: assets/reserve-drive-history.css (loaded here only, so the buy box is unaffected).
+  Falls back to assets/reserve-drive-history-brewing.jpg when no image is picked.
+{% endcomment %}
+{%- liquid
+  assign font = section.settings.font
+  assign font_light = font | font_modify: 'weight', '300'
+  assign font_italic = font_light | font_modify: 'style', 'italic'
+  assign image = section.settings.image
+  assign refs = section.blocks | where: 'type', 'reference'
+-%}
+{{ 'reserve-drive-history.css' | asset_url | stylesheet_tag }}
+<style>
+  {{ font | font_face: font_display: 'swap' }}
+  {%- if font_light %}{{ font_light | font_face: font_display: 'swap' }}{% endif -%}
+  {%- if font_italic %}{{ font_italic | font_face: font_display: 'swap' }}{% endif %}
+  #shopify-section-{{ section.id }} { --dh-font: {{ font.family }}, {{ font.fallback_families }}; }
+</style>
+
+<section class="dh" aria-label="{{ section.settings.aria_label | escape }}">
+  <div class="dh__text">
+    {%- if section.settings.body != blank -%}
+      <div class="dh__body">{{ section.settings.body }}</div>
+    {%- endif -%}
+    {%- if refs.size > 0 -%}
+      <div class="dh__refs">
+        <hr class="dh__rule">
+        <p>
+          {%- if section.settings.refs_label != blank -%}<span class="dh__refs-label">{{ section.settings.refs_label | escape }}</span> {% endif -%}
+          {%- for block in refs -%}
+            {%- if block.settings.url != blank -%}
+              <a href="{{ block.settings.url }}" target="_blank" rel="noopener" {{ block.shopify_attributes }}>{{ block.settings.label | default: block.settings.url | escape }}</a>
+              {%- unless forloop.last %}, {% endunless -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </p>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="dh__media">
+    {%- if image -%}
+      {{ image | image_url: width: 1600 | image_tag:
+        widths: '600, 900, 1200, 1600',
+        sizes: '(min-width: 750px) 50vw, 100vw',
+        loading: 'lazy',
+        alt: image.alt | default: section.settings.caption
+      }}
+    {%- else -%}
+      <img
+        src="{{ 'reserve-drive-history-brewing.jpg' | asset_url }}"
+        srcset="{{ 'reserve-drive-history-brewing.jpg' | asset_img_url: '600x' }} 600w, {{ 'reserve-drive-history-brewing.jpg' | asset_url }} 1050w"
+        sizes="(min-width: 750px) 50vw, 100vw"
+        width="1050"
+        height="701"
+        loading="lazy"
+        alt="{{ section.settings.caption | escape }}"
+      >
+    {%- endif -%}
+    {%- if section.settings.caption != blank -%}
+      <p class="dh__cap">{{ section.settings.caption | escape }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Drive history",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "aria_label", "label": "Section name for screen readers", "default": "The history of Tongkat Ali" },
+    { "type": "richtext", "id": "body", "label": "Text", "default": "<p>For centuries, men in Malaysia and Indonesia have brewed this bitter root for its strength, stamina, energy, libido, and vitality properties.</p><p>Today, Tongkat Ali (also known as “Longjack”) has been widely researched as a leading herb in increased total testosterone level, lowered cortisol, and lowered fatigue. That’s why we sourced a 100:1 water extract, made the same way the root has been brewed for centuries, and concentrated it into two gummies so that you’ve got the energy to perform and the drive to keep going. Hence the name: Drive.</p>" },
+    { "type": "text", "id": "refs_label", "label": "References label", "default": "References:" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Shown faded and sepia-toned. Leave empty to use the default archival photo." },
+    { "type": "text", "id": "caption", "label": "Image caption", "default": "Preparing a root brew. Archival photograph." },
+    { "type": "font_picker", "id": "font", "label": "Font", "default": "raleway_n4" }
+  ],
+  "blocks": [
+    {
+      "type": "reference",
+      "name": "Reference",
+      "limit": 12,
+      "settings": [
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "text", "id": "label", "label": "Link text", "info": "Leave empty to show the full link." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Drive history" }]
+}
+{% endschema %}
