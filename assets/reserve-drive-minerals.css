@@ -1,0 +1,13 @@
+/* Drive minerals section. Scoped to .dm so nothing leaks into the buy box. */
+.dm{display:grid;gap:56px;padding:104px max(20px,6%) 96px;background:#f8f8f4;color:#1f2420;font-family:var(--dm-body-font);font-variant-numeric:lining-nums}
+.dm__title{margin:0;justify-self:center;max-width:22ch;text-align:center;font-family:var(--dm-head-font);font-weight:300;font-size:clamp(34px,3.4vw,50px);line-height:1.08;letter-spacing:-.01em;color:inherit;text-transform:none;text-wrap:balance}
+.dm__split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;gap:clamp(40px,6vw,96px);width:100%;max-width:1120px;justify-self:center}
+.dm__body{display:grid;gap:20px;max-width:48ch;min-width:0}
+.dm__body p{margin:0;font-weight:300;font-size:18px;line-height:1.7;text-wrap:pretty}
+.dm__media{margin:0;justify-self:center;width:100%;max-width:460px}
+.dm__media img{display:block;width:100%;height:auto}
+@media (max-width:749px){
+  .dm{gap:32px;padding:64px 20px 56px}
+  .dm__split{grid-template-columns:1fr;gap:32px}
+  .dm__media{order:-1;max-width:300px}
+}

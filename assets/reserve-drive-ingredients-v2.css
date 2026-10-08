@@ -1,0 +1,41 @@
+/* Drive ingredients, v2 layout: gummy image beside the cards, 3px borderless cards,
+   headline in the section's font picker, and the full ingredient list dialog.
+   Scoped to .dp-ings--v2 and .dp-ild so the buy box and other Drive sections are unchanged. */
+.dp-ings--v2 .dp-h2{font-family:var(--di-head-font);font-weight:300;font-size:clamp(34px,3.4vw,50px);line-height:1.08;letter-spacing:-.01em}
+.dp-ings--v2 .dp-ing-card{border:0;border-radius:3px;background:#f1f1ed}
+.dp-ings--v2 .dp-ing-img{display:grid;background:#e4e5df}
+.dp-ing-ph{display:grid;place-items:center;height:100%;padding:4px;font-size:9px;font-weight:700;letter-spacing:.1em;line-height:1.3;text-align:center;text-transform:uppercase;color:var(--dp-muted)}
+
+.dp-ing-split{display:grid;gap:16px}
+.dp-ings--v2 .dp-ing-grid--split{grid-template-columns:1fr}
+.dp-ing-diagram{position:relative;display:grid;align-content:center;margin:0}
+.dp-ing-diagram img,.dp-ing-diagram svg{display:block;width:100%;height:auto}
+.dp-ing-diagram figcaption{margin-top:4px;text-align:center;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dp-muted)}
+.dp-lead{stroke:var(--ink);stroke-width:1.1;fill:none}
+.dp-lead-dot{fill:var(--ink)}
+.dp-lbl-name{font:700 12px Arial,Helvetica,sans-serif;letter-spacing:.14em;fill:var(--dp-muted)}
+.dp-lbl-val{font:400 30px Georgia,"Times New Roman",serif;fill:var(--dp-accent)}
+.dp-g-top{fill:#f6ebe0}.dp-g-front{fill:#ead2b9}.dp-g-side{fill:#dfc3a4}
+.dp-gum path{stroke:rgba(30,32,30,.16);stroke-width:1;stroke-linejoin:round}
+
+.dp-ings--v2 .dp-center{flex-wrap:wrap;gap:12px}
+
+.dp-ild{width:calc(100% - 32px);max-width:560px;padding:0;border:0;border-radius:3px;background:var(--paper);color:var(--ink)}
+.dp-ild::backdrop{background:rgba(20,22,19,.55)}
+.dp-ild-in{position:relative;max-height:85vh;padding:30px 24px 26px;overflow:auto}
+.dp-ild-title{margin:0 0 14px;font-family:var(--di-head-font,Arial,sans-serif);font-weight:300;font-size:28px;line-height:1.1}
+.dp-ild img{display:block;width:100%;height:auto;border-radius:3px}
+.dp-label-ph{display:grid;place-items:center;aspect-ratio:4/5;border:1.5px dashed #c9cac3;border-radius:3px;background:repeating-linear-gradient(135deg,transparent 0 14px,#ecece7 14px 15px);text-align:center}
+.dp-label-ph span{padding:10px 14px;background:var(--paper);font-size:11px;font-weight:700;letter-spacing:.14em;line-height:1.6;text-transform:uppercase;color:var(--dp-muted)}
+
+@media (min-width:750px){
+  .dp-ings--v2 .dp-ing-grid--split{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dp-ings--v2 .dp-ing-grid--split .dp-ing-card:first-child{grid-column:1 / -1}
+}
+@media (min-width:990px){
+  .dp-ing-split{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+}
+@media (max-width:520px){
+  .dp-lbl-name{font-size:18px}
+  .dp-lbl-val{font-size:40px}
+}

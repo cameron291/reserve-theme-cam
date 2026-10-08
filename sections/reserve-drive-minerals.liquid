@@ -1,0 +1,64 @@
+{% comment %}
+  Section contract.
+  Drive minerals: centered headline row, then a split with the copy on the left (pinned to the top)
+  and a mineral image on the right. Image stacks above the copy on phones.
+  Styles: assets/reserve-drive-minerals.css (loaded here only, so the buy box is unaffected).
+  Falls back to assets/reserve-drive-minerals-powder.png when no image is picked.
+{% endcomment %}
+{%- liquid
+  assign head_font = section.settings.heading_font
+  assign head_light = head_font | font_modify: 'weight', '300'
+  assign body_font = section.settings.body_font
+  assign body_light = body_font | font_modify: 'weight', '300'
+  assign image = section.settings.image
+-%}
+{{ 'reserve-drive-minerals.css' | asset_url | stylesheet_tag }}
+<style>
+  {{ head_font | font_face: font_display: 'swap' }}
+  {%- if head_light %}{{ head_light | font_face: font_display: 'swap' }}{% endif %}
+  {{ body_font | font_face: font_display: 'swap' }}
+  {%- if body_light %}{{ body_light | font_face: font_display: 'swap' }}{% endif %}
+  #shopify-section-{{ section.id }} {
+    --dm-head-font: {{ head_font.family }}, {{ head_font.fallback_families }};
+    --dm-body-font: {{ body_font.family }}, {{ body_font.fallback_families }};
+  }
+</style>
+
+<section class="dm" aria-labelledby="dm-title-{{ section.id }}">
+  {%- if section.settings.title != blank -%}
+    <h2 class="dm__title" id="dm-title-{{ section.id }}">{{ section.settings.title | escape }}</h2>
+  {%- endif -%}
+  <div class="dm__split">
+    {%- if section.settings.body != blank -%}
+      <div class="dm__body">{{ section.settings.body }}</div>
+    {%- endif -%}
+    <figure class="dm__media">
+      {%- if image -%}
+        {{ image | image_url: width: 1000 | image_tag:
+          widths: '400, 600, 800, 1000',
+          sizes: '(min-width: 750px) 460px, 300px',
+          loading: 'lazy',
+          alt: image.alt | default: ''
+        }}
+      {%- else -%}
+        <img src="{{ 'reserve-drive-minerals-powder.png' | asset_url }}" width="459" height="459" loading="lazy" alt="Loose white mineral powder with broken chunks">
+      {%- endif -%}
+    </figure>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Drive minerals",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "title", "label": "Headline", "default": "Feed your testosterone first" },
+    { "type": "richtext", "id": "body", "label": "Text", "default": "<p>Most men are running low on zinc and don’t know it. About 1 in 7 American adults don’t get enough from their diet, and it gets worse with age.</p><p>Zinc is a building block for testosterone and healthy sperm production.</p><p>We use a synergistic combination of zinc to support testosterone and sperm production, and boron to free up testosterone that’s locked away by SHBG (Sex Hormone-Binding Globulin).</p><p>Combined with our potent Tongkat Ali formulation, you get access to more of your available testosterone working for you with every gummy.</p>" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "A transparent PNG works best. Leave empty to use the default mineral powder photo." },
+    { "type": "header", "content": "Fonts" },
+    { "type": "font_picker", "id": "heading_font", "label": "Headline font", "default": "raleway_n4" },
+    { "type": "font_picker", "id": "body_font", "label": "Body font", "default": "raleway_n4" }
+  ],
+  "presets": [{ "name": "Drive minerals" }]
+}
+{% endschema %}

@@ -1,8 +1,9 @@
 {% comment %}
   Section contract.
-  Drive ingredients: active ingredient cards, supporting-ingredient chips and the
-  supplement facts dialog, which the buy box button also opens. Ingredient blocks feed
-  both the cards and the facts panel.
+  Drive ingredients: gummy image with callouts beside the active ingredient cards,
+  supporting-ingredient chips, the supplement facts dialog (which the buy box button also
+  opens) and a full ingredient list dialog. Ingredient blocks feed the cards, the callouts
+  and the facts panel. Layout and type overrides: assets/reserve-drive-ingredients-v2.css.
   @example
   <!-- Section in templates/product.drive.json, after the Drive buy box -->
 {% endcomment %}
@@ -10,24 +11,73 @@
   assign s = section.settings
   assign ings = section.blocks | where: 'type', 'ingredient'
   assign servings = s.servings | default: 0
+  assign head_font = s.heading_font
+  assign head_light = head_font | font_modify: 'weight', '300'
 -%}
 {% render 'reserve-drive-styles' %}
+{{ 'reserve-drive-ingredients-v2.css' | asset_url | stylesheet_tag }}
+<style>
+  {{ head_font | font_face: font_display: 'swap' }}
+  {%- if head_light %}{{ head_light | font_face: font_display: 'swap' }}{% endif %}
+  #shopify-section-{{ section.id }} { --di-head-font: {{ head_font.family }}, {{ head_font.fallback_families }}; }
+</style>
 <script src="{{ 'reserve-drive-pdp.js' | asset_url }}" defer></script>
 
 <div class="dp">
   {%- if ings.size > 0 -%}
-    <section class="dp-sec dp-ings">
+    <section class="dp-sec dp-ings dp-ings--v2">
       <div class="dp-wrap">
         <div class="dp-head">
           {%- if s.eyebrow != blank -%}<p class="dp-eyebrow">{{ s.eyebrow | escape }}</p>{%- endif -%}
           <h2 class="dp-h2">{{ s.heading | escape }}</h2>
           {%- if s.sub != blank -%}<p class="dp-sub">{{ s.sub | escape }}</p>{%- endif -%}
         </div>
-        <div class="dp-ing-grid">
+        <div class="dp-ing-split">
+          <figure class="dp-ing-diagram">
+            {%- if s.diagram_image != blank -%}
+              {{ s.diagram_image | image_url: width: 1400 | image_tag: widths: '600, 900, 1200, 1400', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'lazy', alt: s.diagram_image.alt | default: '' }}
+            {%- else -%}
+              {%- comment -%} Placeholder until the designer's gummy photo is uploaded. Callouts read the first three active ingredients. {%- endcomment -%}
+              {%- capture callout_label -%}{%- assign n = 0 -%}{%- for block in ings -%}{%- if block.settings.featured and n < 3 -%}{%- assign n = n | plus: 1 -%}{% if n > 1 %}, {% endif %}{{ block.settings.name | escape }} {{ block.settings.amount | escape }}{%- endif -%}{%- endfor -%}{%- endcapture -%}
+              <svg viewBox="-60 40 680 420" role="img" aria-label="{{ callout_label }}">
+                <defs>
+                  <g id="dpgum-{{ section.id }}" class="dp-gum">
+                    <path class="dp-g-top" d="M210 230 L252 188 L392 188 L350 230 Z"/>
+                    <path class="dp-g-side" d="M350 230 L392 188 L392 298 L350 340 Z"/>
+                    <path class="dp-g-front" d="M210 230 L350 230 L350 340 L210 340 Z"/>
+                  </g>
+                </defs>
+                <use href="#dpgum-{{ section.id }}"/>
+                <use href="#dpgum-{{ section.id }}" transform="translate(318 18) scale(.5) rotate(-8 300 260)"/>
+                <use href="#dpgum-{{ section.id }}" transform="translate(300 182) scale(.42) rotate(10 300 260)"/>
+                {%- assign n = 0 -%}
+                {%- for block in ings -%}
+                  {%- unless block.settings.featured -%}{%- continue -%}{%- endunless -%}
+                  {%- assign n = n | plus: 1 -%}
+                  {%- if n > 3 -%}{%- break -%}{%- endif -%}
+                  {%- case n -%}
+                    {%- when 1 -%}{%- assign lead = 'M300 208 V132 H150' -%}{%- assign dx = 300 -%}{%- assign dy = 208 -%}{%- assign ly = 114 -%}
+                    {%- when 2 -%}{%- assign lead = 'M236 262 H150' -%}{%- assign dx = 236 -%}{%- assign dy = 262 -%}{%- assign ly = 244 -%}
+                    {%- else -%}{%- assign lead = 'M262 318 L232 372 H150' -%}{%- assign dx = 262 -%}{%- assign dy = 318 -%}{%- assign ly = 354 -%}
+                  {%- endcase -%}
+                  <path class="dp-lead" d="{{ lead }}"/>
+                  <circle class="dp-lead-dot" cx="{{ dx }}" cy="{{ dy }}" r="3.5"/>
+                  <text class="dp-lbl-name" x="140" y="{{ ly }}" text-anchor="end">{{ block.settings.name | upcase | escape }}</text>
+                  <text class="dp-lbl-val" x="140" y="{{ ly | plus: 36 }}" text-anchor="end">{{ block.settings.amount | escape }}</text>
+                {%- endfor -%}
+              </svg>
+              <figcaption>Placeholder: designer’s gummy photo</figcaption>
+            {%- endif -%}
+          </figure>
+        <div class="dp-ing-grid dp-ing-grid--split">
           {%- for block in ings -%}
             {%- if block.settings.featured -%}
               <article class="dp-ing-card" {{ block.shopify_attributes }}>
-                {%- if block.settings.image != blank -%}<div class="dp-ing-img">{{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}</div>{%- endif -%}
+                {%- if block.settings.image != blank -%}
+                  <div class="dp-ing-img">{{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}</div>
+                {%- else -%}
+                  <div class="dp-ing-img"><span class="dp-ing-ph">{{ block.settings.name | escape }}<br>photo</span></div>
+                {%- endif -%}
                 {%- if block.settings.amount != blank -%}<p class="dp-ing-amt">{{ block.settings.amount | escape }}<span>per serving</span></p>{%- endif -%}
                 <h3 class="dp-ing-name">{{ block.settings.name | escape }}</h3>
                 {%- if block.settings.short != blank -%}<p class="dp-ing-role">{{ block.settings.short | escape }}</p>{%- endif -%}
@@ -36,12 +86,16 @@
             {%- endif -%}
           {%- endfor -%}
         </div>
+        </div>
         {%- capture also_chips -%}{%- for block in ings -%}{%- unless block.settings.featured -%}<span class="dp-chip" {{ block.shopify_attributes }}>{{ block.settings.name | escape }}{% if block.settings.short != blank %} <span>&middot; {{ block.settings.short | escape }}</span>{% endif %}</span>{%- endunless -%}{%- endfor -%}{%- endcapture -%}
         {%- if also_chips != blank -%}
           <div class="dp-also">{%- if s.also_label != blank -%}<span class="dp-also-label">{{ s.also_label | escape }}</span>{%- endif -%}{{ also_chips }}</div>
         {%- endif -%}
-        {%- if s.show_facts -%}
-          <div class="dp-center"><button type="button" class="dp-pill-btn" data-dp-sf-open aria-controls="dp-sfd">{% render 'reserve-drive-icon', name: 'doc' %}{{ s.facts_button | default: 'View supplement facts' | escape }}</button></div>
+        {%- if s.show_facts or s.show_ingredient_list -%}
+          <div class="dp-center">
+            {%- if s.show_facts -%}<button type="button" class="dp-pill-btn" data-dp-sf-open aria-controls="dp-sfd">{% render 'reserve-drive-icon', name: 'doc' %}{{ s.facts_button | default: 'View supplement facts' | escape }}</button>{%- endif -%}
+            {%- if s.show_ingredient_list -%}<button type="button" class="dp-pill-btn" data-dp-il-open aria-controls="dp-ild-{{ section.id }}">{% render 'reserve-drive-icon', name: 'doc' %}{{ s.ingredient_list_button | default: 'Full ingredient list' | escape }}</button>{%- endif -%}
+          </div>
         {%- endif -%}
       </div>
     </section>
@@ -65,6 +119,31 @@
         {%- if s.other_ingredients != blank -%}<p class="dp-sf-other"><b>Other ingredients:</b> {{ s.other_ingredients | escape }}</p>{%- endif -%}
       </div>
     </dialog>
+
+    {%- comment -%} Separate class from .dp-sfd: reserve-drive-pdp.js opens the first .dp-sfd on the page for the buy box. {%- endcomment -%}
+    {%- if s.show_ingredient_list -%}
+      <dialog class="dp-ild" id="dp-ild-{{ section.id }}" aria-labelledby="dp-ild-title-{{ section.id }}">
+        <div class="dp-ild-in">
+          <button type="button" class="dp-sfd-x" data-dp-il-close aria-label="Close">&times;</button>
+          <h3 class="dp-ild-title" id="dp-ild-title-{{ section.id }}">{{ s.ingredient_list_button | default: 'Full ingredient list' | escape }}</h3>
+          {%- if s.ingredient_list_image != blank -%}
+            {{ s.ingredient_list_image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', sizes: '(min-width: 600px) 512px, 90vw', loading: 'lazy', alt: s.ingredient_list_image.alt | default: 'Ingredient list from the Drive label' }}
+          {%- else -%}
+            <div class="dp-label-ph"><span>Placeholder<br>Photo of the ingredient list<br>on the back of the bottle</span></div>
+          {%- endif -%}
+        </div>
+      </dialog>
+      <script>
+        (function () {
+          var dlg = document.getElementById('dp-ild-{{ section.id }}');
+          if (!dlg || !dlg.showModal) return;
+          var root = dlg.closest('.dp');
+          root.querySelectorAll('[data-dp-il-open]').forEach(function (b) { b.addEventListener('click', function () { dlg.showModal(); }); });
+          dlg.querySelector('[data-dp-il-close]').addEventListener('click', function () { dlg.close(); });
+          dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+        })();
+      </script>
+    {%- endif -%}
   {%- endif -%}
 </div>
 
@@ -80,6 +159,11 @@
     { "type": "text", "id": "also_label", "label": "Supporting ingredients label", "default": "Also in every gummy:" },
     { "type": "checkbox", "id": "show_facts", "label": "Show supplement facts button", "default": true },
     { "type": "text", "id": "facts_button", "label": "Supplement facts button", "default": "View supplement facts" },
+    { "type": "checkbox", "id": "show_ingredient_list", "label": "Show full ingredient list button", "default": true },
+    { "type": "text", "id": "ingredient_list_button", "label": "Full ingredient list button", "default": "Full ingredient list" },
+    { "type": "image_picker", "id": "ingredient_list_image", "label": "Ingredient list image", "info": "Photo of the ingredient list on the back of the bottle." },
+    { "type": "image_picker", "id": "diagram_image", "label": "Gummy image", "info": "Shown beside the ingredient cards. Leave empty to show the placeholder diagram." },
+    { "type": "font_picker", "id": "heading_font", "label": "Headline font", "default": "raleway_n4" },
     { "type": "header", "content": "Supplement facts" },
     { "type": "text", "id": "sf_tag", "label": "Tag", "default": "Target formula" },
     { "type": "text", "id": "serving_size", "label": "Serving size", "default": "2 gummies" },

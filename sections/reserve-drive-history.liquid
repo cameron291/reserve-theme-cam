@@ -1,26 +1,34 @@
 {% comment %}
   Section contract.
-  Drive history: dark split section. Copy and references on the left, a faded sepia archival
-  photo on the right that blends into the text side. Stacks image over text on phones.
+  Drive history: light split section. Serif copy and references on the left, a faded archival
+  engraving on the right that dissolves into the page. Stacks image over text on phones.
   Each reference is a Reference block, rendered as a comma-separated list of links.
   Styles: assets/reserve-drive-history.css (loaded here only, so the buy box is unaffected).
-  Falls back to assets/reserve-drive-history-brewing.jpg when no image is picked.
+  Falls back to assets/reserve-drive-history-engraving.jpg when no image is picked.
+  Body text uses EB Garamond (Google Fonts) unless "Body font source" is set to the font picker.
 {% endcomment %}
 {%- liquid
-  assign font = section.settings.font
-  assign font_light = font | font_modify: 'weight', '300'
-  assign font_italic = font_light | font_modify: 'style', 'italic'
+  assign label_font = section.settings.label_font
+  assign body_font = section.settings.body_font
   assign image = section.settings.image
   assign refs = section.blocks | where: 'type', 'reference'
+  assign use_picker = false
+  if section.settings.body_font_source == 'picker'
+    assign use_picker = true
+  endif
 -%}
 {{ 'reserve-drive-history.css' | asset_url | stylesheet_tag }}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&display=swap">
 <style>
-  {{ font | font_face: font_display: 'swap' }}
-  {%- if font_light %}{{ font_light | font_face: font_display: 'swap' }}{% endif -%}
-  {%- if font_italic %}{{ font_italic | font_face: font_display: 'swap' }}{% endif %}
-  #shopify-section-{{ section.id }} { --dh-font: {{ font.family }}, {{ font.fallback_families }}; }
+  {{ label_font | font_face: font_display: 'swap' }}
+  {%- if use_picker %}{{ body_font | font_face: font_display: 'swap' }}{% endif %}
+  #shopify-section-{{ section.id }} {
+    --dh-font: {{ label_font.family }}, {{ label_font.fallback_families }};
+    {%- if use_picker %}
+      --dh-body-font: {{ body_font.family }}, {{ body_font.fallback_families }};
+    {%- endif %}
+  }
 </style>
 
 <section class="dh" aria-label="{{ section.settings.aria_label | escape }}">
@@ -36,37 +44,33 @@
     {%- endif -%}
   </div>
 
-  {%- comment -%} Own grid row, so the hairline lines up with the photo caption. {%- endcomment -%}
+  {%- comment -%} Hairline and references get their own rows; the references share a baseline with the image caption. {%- endcomment -%}
   {%- if refs.size > 0 -%}
-      <div class="dh__refs">
-        <hr class="dh__rule">
-        <p>
-          {%- if section.settings.refs_label != blank -%}<span class="dh__refs-label">{{ section.settings.refs_label | escape }}</span> {% endif -%}
-          {%- for block in refs -%}
-            {%- if block.settings.url != blank -%}
-              <a href="{{ block.settings.url }}" target="_blank" rel="noopener" {{ block.shopify_attributes }}>{{ block.settings.label | default: block.settings.url | escape }}</a>
-              {%- unless forloop.last %}, {% endunless -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </p>
-      </div>
+    <div class="dh__rule"><hr></div>
+    <p class="dh__refs">
+      {%- if section.settings.refs_label != blank -%}<span class="dh__refs-label">{{ section.settings.refs_label | escape }}</span> {% endif -%}
+      {%- for block in refs -%}
+        {%- if block.settings.url != blank -%}
+          <a href="{{ block.settings.url }}" target="_blank" rel="noopener" {{ block.shopify_attributes }}>{{ block.settings.label | default: block.settings.url | escape }}</a>
+          {%- unless forloop.last %}, {% endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </p>
   {%- endif -%}
 
   <div class="dh__media">
     {%- if image -%}
-      {{ image | image_url: width: 1600 | image_tag:
-        widths: '600, 900, 1200, 1600',
-        sizes: '(min-width: 750px) 50vw, 100vw',
+      {{ image | image_url: width: 1400 | image_tag:
+        widths: '500, 800, 1100, 1400',
+        sizes: '(min-width: 750px) 40vw, 100vw',
         loading: 'lazy',
         alt: image.alt | default: section.settings.caption
       }}
     {%- else -%}
       <img
-        src="{{ 'reserve-drive-history-brewing.jpg' | asset_url }}"
-        srcset="{{ 'reserve-drive-history-brewing.jpg' | asset_img_url: '600x' }} 600w, {{ 'reserve-drive-history-brewing.jpg' | asset_url }} 1050w"
-        sizes="(min-width: 750px) 50vw, 100vw"
-        width="1050"
-        height="701"
+        src="{{ 'reserve-drive-history-engraving.jpg' | asset_url }}"
+        width="408"
+        height="612"
         loading="lazy"
         alt="{{ section.settings.caption | escape }}"
       >
@@ -87,9 +91,18 @@
     { "type": "text", "id": "latin_name", "label": "Latin name", "default": "Eurycoma longifolia" },
     { "type": "richtext", "id": "body", "label": "Text", "default": "<p>For centuries, men in Malaysia and Indonesia have brewed this bitter root for its strength, stamina, energy, libido, and vitality properties.</p><p>Today, Tongkat Ali (also known as “Longjack”) has been widely researched as a leading herb in increased total testosterone level, lowered cortisol, and lowered fatigue. That’s why we sourced a 100:1 water extract, made the same way the root has been brewed for centuries, and concentrated it into two gummies so that you’ve got the energy to perform and the drive to keep going. Hence the name: Drive.</p>" },
     { "type": "text", "id": "refs_label", "label": "References label", "default": "References:" },
-    { "type": "image_picker", "id": "image", "label": "Image", "info": "Shown faded and sepia-toned. Leave empty to use the default archival photo." },
-    { "type": "text", "id": "caption", "label": "Image caption", "default": "Preparing a root brew. Archival photograph." },
-    { "type": "font_picker", "id": "font", "label": "Font", "default": "raleway_n4" }
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Shown faded into the page. Leave empty to use the default engraving." },
+    { "type": "text", "id": "caption", "label": "Image caption", "default": "Dyak warrior, island of Borneo. Wood engraving, 19th century." },
+    { "type": "header", "content": "Fonts" },
+    { "type": "font_picker", "id": "label_font", "label": "Label and references font", "default": "raleway_n4" },
+    {
+      "type": "select", "id": "body_font_source", "label": "Body font source", "default": "garamond",
+      "options": [
+        { "value": "garamond", "label": "EB Garamond (default)" },
+        { "value": "picker", "label": "Use the body font below" }
+      ]
+    },
+    { "type": "font_picker", "id": "body_font", "label": "Body font", "default": "raleway_n4", "info": "Only used when Body font source is set to the body font." }
   ],
   "blocks": [
     {
