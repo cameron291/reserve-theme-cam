@@ -1,1 +1,349 @@
-{"sections":{"main":{"type":"reserve-drive-pdp","blocks":{"recharge_subscriptions_subscription_widget_v2_M8V9G3":{"type":"shopify://apps/recharge-subscriptions/blocks/subscription-widget-v2/371eed76-0b44-4869-9813-730372ea378e","settings":{}},"highlight_subscribe":{"type":"highlight","settings":{"icon":"refresh","text":"Subscribe & save 25%"}},"highlight_formula":{"type":"highlight","settings":{"icon":"doc","text":"Full formula disclosed"}},"highlight_gelatin":{"type":"highlight","settings":{"icon":"leaf","text":"Grass-fed gelatin base"}}},"block_order":["recharge_subscriptions_subscription_widget_v2_M8V9G3","highlight_subscribe","highlight_formula","highlight_gelatin"],"settings":{"badge_text":"New release","subtitle":"Daily male vitality gummy","lede":"200 mg of Tongkat Ali with zinc and boron, set in two grass-fed gelatin gummies a day.","checks":"Tongkat Ali centered: 200 mg per serving\nSupported by zinc and boron\n100% grass-fed bovine gelatin, no proprietary blend","servings":15,"show_facts":true,"facts_button":"View supplement facts","inside_list":"Tongkat Ali | 200 mg\nZinc | 10 mg\nBoron | 3 mg\nBovine gelatin | Base\nHoney | Other ingredient","other_ingredients":"100% grass-fed bovine gelatin, honey, purified water, natural flavor, citric acid, malic acid, coconut oil or MCT oil, carnauba wax, and fruit and/or vegetable juice concentrate for color if needed.","how_to":"Take two gummies daily. Each jar holds 30 gummies, or 15 daily servings.","allergens":"Made with 100% grass-fed bovine gelatin, so Drive is not vegetarian or vegan.","formula_note":"Target formula shown. Final doses, base, and shelf-life claims are confirmed through production and stability testing before launch.","show_sticky":true,"sticky_button":"Shop Drive"}},"tongkat":{"type":"reserve-drive-tongkat","settings":{"title":"Tongkat Ali","part_of_speech":"Noun.","show_rule":true,"definition":"Often referred to as “Malaysian ginseng.”","heading_font":"raleway_n4","text_color":"#1f2420","accent_color":"#9a4f1f"}},"history":{"type":"reserve-drive-history","blocks":{"ref_traditional":{"type":"reference","settings":{"url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC6274257/","label":"PMC6274257"}},"ref_strength":{"type":"reference","settings":{"url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC5214558/","label":"PMC5214558"}},"ref_testosterone":{"type":"reference","settings":{"url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC9415500/","label":"PMC9415500"}},"ref_fourth":{"type":"reference","settings":{"url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC8254464/","label":"PMC8254464"}}},"block_order":["ref_traditional","ref_strength","ref_testosterone","ref_fourth"],"settings":{"aria_label":"The history of Tongkat Ali","latin_label":"Latin","latin_name":"Eurycoma longifolia","body":"<p>For centuries, men in Malaysia and Indonesia have brewed this bitter root for its strength, stamina, energy, libido, and vitality properties.</p><p>Today, Tongkat Ali (also known as “Longjack”) has been widely researched as a leading herb in increased total testosterone level, lowered cortisol, and lowered fatigue. That’s why we sourced a 100:1 water extract, made the same way the root has been brewed for centuries, and concentrated it into two gummies so that you’ve got the energy to perform and the drive to keep going. Hence the name: Drive.</p>","refs_label":"References:","caption":"Dyak warrior, island of Borneo. Wood engraving, 19th century.","label_font":"raleway_n4","body_font_source":"garamond","body_font":"raleway_n4"}},"ingredients":{"type":"reserve-drive-ingredients","blocks":{"ingredient_tongkat":{"type":"ingredient","settings":{"name":"Tongkat Ali","short":"Primary active for daily vitality","amount":"200 mg","facts_label":"Tongkat Ali root extract","text":"Eurycoma longifolia root extract. Final extract specification and identity testing confirmed with the manufacturer.","featured":true}},"ingredient_zinc":{"type":"ingredient","settings":{"name":"Zinc","short":"Compact supporting mineral","amount":"10 mg","facts_label":"","text":"Target form is zinc citrate or zinc bisglycinate. Final form confirmed before production.","featured":true}},"ingredient_boron":{"type":"ingredient","settings":{"name":"Boron","short":"Supporting component of the stack","amount":"3 mg","facts_label":"","text":"Target form is boron citrate. Final form confirmed before production.","featured":true}},"ingredient_gelatin":{"type":"ingredient","settings":{"name":"Grass-Fed Gelatin","short":"100% grass-fed base","amount":"Base","facts_label":"","text":"The gummy base is 100% grass-fed bovine gelatin.","featured":false}},"ingredient_honey":{"type":"ingredient","settings":{"name":"Raw Honey","short":"Natural sweetener","amount":"Other ingredient","facts_label":"","text":"Honey is part of the target other-ingredient list.","featured":false}},"ingredient_juice":{"type":"ingredient","settings":{"name":"Organic Fruit Juice","short":"Natural color","amount":"Other ingredient","facts_label":"","text":"","featured":false}}},"block_order":["ingredient_tongkat","ingredient_zinc","ingredient_boron","ingredient_gelatin","ingredient_juice","ingredient_honey"],"settings":{"eyebrow":"","heading":"What’s Inside Drive?","sub":"Most gummies use BS sweeteners, pectins, and gut irritating binders. We sourced the highest quality ingredients for a gummy your body actually knows what to do with. Our mission is to make the #1 performance gummy on the market that not only supports performance, but is also gut-friendly.","also_label":"Also in every gummy:","show_facts":true,"facts_button":"View supplement facts","sf_tag":"Target formula","serving_size":"2 gummies","servings":15,"sf_footnote":"* Percent Daily Value confirmed with the final formula.\nTarget amounts per serving. Final amounts, ingredient forms, and serving details are confirmed after formulation and stability testing.","other_ingredients":"100% grass-fed bovine gelatin, honey, purified water, natural flavor, citric acid, malic acid, coconut oil or MCT oil, carnauba wax, and fruit and/or vegetable juice concentrate for color if needed.","show_ingredient_list":true,"ingredient_list_button":"Full ingredient list","heading_font":"raleway_n4"}},"why":{"type":"reserve-drive-why","blocks":{"why_focused":{"type":"card","settings":{"icon":"target","title":"Focused formula","text":"One primary active and two supporting minerals, in a compact three-ingredient stack."}},"why_disclosed":{"type":"card","settings":{"icon":"doc","title":"Fully disclosed","text":"Every active and its amount is named on the label. No proprietary blend."}},"why_base":{"type":"card","settings":{"icon":"leaf","title":"Grass-fed base","text":"Set in 100% grass-fed bovine gelatin for a dense, softened-cube chew."}},"why_daily":{"type":"card","settings":{"icon":"calendar","title":"Two a day","text":"Two gummies per serving. 30 gummies and 15 servings in every jar."}}},"block_order":["why_focused","why_disclosed","why_base","why_daily"],"settings":{"eyebrow":"Why Drive","heading":"Simple by design."}},"faq":{"type":"reserve-drive-faq","blocks":{"faq_take":{"type":"question","settings":{"question":"How do I take Drive?","answer":"Two gummies per serving. Each jar holds 30 gummies, or 15 daily servings."}},"faq_formula":{"type":"question","settings":{"question":"What is in the formula?","answer":"Tongkat Ali root extract, zinc, and boron. The final extract specification and ingredient forms are confirmed before production."}},"faq_vegan":{"type":"question","settings":{"question":"Is Drive vegetarian or vegan?","answer":"No. Drive is made with 100% grass-fed bovine gelatin."}},"faq_else":{"type":"question","settings":{"question":"What else is in the gummy?","answer":"Honey, purified water, natural flavor, citric acid, malic acid, coconut oil or MCT oil, carnauba wax, and fruit or vegetable juice concentrate for color if needed."}},"faq_final":{"type":"question","settings":{"question":"When are final doses confirmed?","answer":"The displayed amounts are targets. Final doses, stability, labeling, and regulatory requirements are confirmed before production."}}},"block_order":["faq_take","faq_formula","faq_vegan","faq_else","faq_final"],"settings":{"heading":"Questions, answered plainly.","sub":"Everything you need to know about Drive before your first jar.","legal":"These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."}},"cta":{"type":"reserve-drive-cta","settings":{"eyebrow":"Subscribe & save 25%","heading":"Start your daily Drive.","sub":"Two gummies a day. Subscribe for monthly delivery, or buy a single jar.","button":"Shop Drive"}},"minerals":{"type":"reserve-drive-minerals","settings":{"title":"Feed your testosterone first","body":"<p>Most men are running low on zinc and don’t know it. About 1 in 7 American adults don’t get enough from their diet, and it gets worse with age.</p><p>Zinc is a building block for testosterone and healthy sperm production.</p><p>We use a synergistic combination of zinc to support testosterone and sperm production, and boron to free up testosterone that’s locked away by SHBG (Sex Hormone-Binding Globulin).</p><p>Combined with our potent Tongkat Ali formulation, you get access to more of your available testosterone working for you with every gummy.</p>","heading_font":"raleway_n4","body_font":"raleway_n4"}}},"order":["main","tongkat","history","minerals","ingredients","why","faq","cta"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "reserve-drive-pdp",
+      "blocks": {
+        "recharge_subscriptions_subscription_widget_v2_M8V9G3": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget-v2/371eed76-0b44-4869-9813-730372ea378e",
+          "settings": {}
+        },
+        "highlight_subscribe": {
+          "type": "highlight",
+          "settings": {
+            "icon": "refresh",
+            "text": "Subscribe & save 25%"
+          }
+        },
+        "highlight_formula": {
+          "type": "highlight",
+          "settings": {
+            "icon": "doc",
+            "text": "Full formula disclosed"
+          }
+        },
+        "highlight_gelatin": {
+          "type": "highlight",
+          "settings": {
+            "icon": "leaf",
+            "text": "Grass-fed gelatin base"
+          }
+        }
+      },
+      "block_order": [
+        "recharge_subscriptions_subscription_widget_v2_M8V9G3",
+        "highlight_subscribe",
+        "highlight_formula",
+        "highlight_gelatin"
+      ],
+      "settings": {
+        "badge_text": "New release",
+        "subtitle": "Daily male vitality gummy",
+        "lede": "200 mg of Tongkat Ali with zinc and boron, set in two grass-fed gelatin gummies a day.",
+        "checks": "Tongkat Ali centered: 200 mg per serving\nSupported by zinc and boron\n100% grass-fed bovine gelatin, no proprietary blend",
+        "servings": 15,
+        "show_facts": true,
+        "facts_button": "View supplement facts",
+        "inside_list": "Tongkat Ali | 200 mg\nZinc | 10 mg\nBoron | 3 mg\nBovine gelatin | Base\nHoney | Other ingredient",
+        "other_ingredients": "100% grass-fed bovine gelatin, honey, purified water, natural flavor, citric acid, malic acid, coconut oil or MCT oil, carnauba wax, and fruit and/or vegetable juice concentrate for color if needed.",
+        "how_to": "Take two gummies daily. Each jar holds 30 gummies, or 15 daily servings.",
+        "allergens": "Made with 100% grass-fed bovine gelatin, so Drive is not vegetarian or vegan.",
+        "formula_note": "Target formula shown. Final doses, base, and shelf-life claims are confirmed through production and stability testing before launch.",
+        "show_sticky": true,
+        "sticky_button": "Shop Drive"
+      }
+    },
+    "tongkat": {
+      "type": "reserve-drive-tongkat",
+      "settings": {
+        "title": "Tongkat Ali",
+        "part_of_speech": "Noun.",
+        "show_rule": true,
+        "definition": "Often referred to as “Malaysian ginseng.”",
+        "heading_font": "raleway_n4",
+        "text_color": "#1f2420",
+        "accent_color": "#9a4f1f"
+      }
+    },
+    "history": {
+      "type": "reserve-drive-history",
+      "blocks": {
+        "ref_traditional": {
+          "type": "reference",
+          "settings": {
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6274257/",
+            "label": "PMC6274257"
+          }
+        },
+        "ref_strength": {
+          "type": "reference",
+          "settings": {
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5214558/",
+            "label": "PMC5214558"
+          }
+        },
+        "ref_testosterone": {
+          "type": "reference",
+          "settings": {
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9415500/",
+            "label": "PMC9415500"
+          }
+        },
+        "ref_fourth": {
+          "type": "reference",
+          "settings": {
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8254464/",
+            "label": "PMC8254464"
+          }
+        }
+      },
+      "block_order": [
+        "ref_traditional",
+        "ref_strength",
+        "ref_testosterone",
+        "ref_fourth"
+      ],
+      "settings": {
+        "aria_label": "The history of Tongkat Ali",
+        "latin_label": "Latin",
+        "latin_name": "Eurycoma longifolia",
+        "body": "<p>For centuries, men in Malaysia and Indonesia have brewed this bitter root for its strength, stamina, energy, libido, and vitality properties.</p><p>Today, Tongkat Ali (also known as “Longjack”) has been widely researched as a leading herb in increased total testosterone level, lowered cortisol, and lowered fatigue. That’s why we sourced a 100:1 water extract, made the same way the root has been brewed for centuries, and concentrated it into two gummies so that you’ve got the energy to perform and the drive to keep going. Hence the name: Drive.</p>",
+        "refs_label": "References:",
+        "caption": "Dyak warrior, island of Borneo. Wood engraving, 19th century.",
+        "label_font": "raleway_n4",
+        "body_font_source": "garamond",
+        "body_font": "raleway_n4"
+      }
+    },
+    "minerals": {
+      "type": "reserve-drive-minerals",
+      "settings": {
+        "title": "Feed your testosterone first",
+        "body": "<p>Most men are running low on zinc and don’t know it. About 1 in 7 American adults don’t get enough from their diet, and it gets worse with age.</p><p>Zinc is a building block for testosterone and healthy sperm production.</p><p>We use a synergistic combination of zinc to support testosterone and sperm production, and boron to free up testosterone that’s locked away by SHBG (Sex Hormone-Binding Globulin).</p><p>Combined with our potent Tongkat Ali formulation, you get access to more of your available testosterone working for you with every gummy.</p>",
+        "heading_font": "serif",
+        "body_font": "raleway_n4"
+      }
+    },
+    "ingredients": {
+      "type": "reserve-drive-ingredients",
+      "blocks": {
+        "ingredient_tongkat": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Tongkat Ali",
+            "short": "Primary active for daily vitality",
+            "amount": "200 mg",
+            "facts_label": "Tongkat Ali root extract",
+            "text": "Eurycoma longifolia root extract. Final extract specification and identity testing confirmed with the manufacturer.",
+            "featured": true
+          }
+        },
+        "ingredient_zinc": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc",
+            "short": "Compact supporting mineral",
+            "amount": "10 mg",
+            "facts_label": "",
+            "text": "Target form is zinc citrate or zinc bisglycinate. Final form confirmed before production.",
+            "featured": true
+          }
+        },
+        "ingredient_boron": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Boron",
+            "short": "Supporting component of the stack",
+            "amount": "3 mg",
+            "facts_label": "",
+            "text": "Target form is boron citrate. Final form confirmed before production.",
+            "featured": true
+          }
+        },
+        "ingredient_gelatin": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Grass-Fed Gelatin",
+            "short": "100% grass-fed base",
+            "amount": "Base",
+            "facts_label": "",
+            "text": "The gummy base is 100% grass-fed bovine gelatin.",
+            "featured": false
+          }
+        },
+        "ingredient_juice": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Organic Fruit Juice",
+            "short": "Natural color",
+            "amount": "Other ingredient",
+            "facts_label": "",
+            "text": "",
+            "featured": false
+          }
+        },
+        "ingredient_honey": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Raw Honey",
+            "short": "Natural sweetener",
+            "amount": "Other ingredient",
+            "facts_label": "",
+            "text": "Honey is part of the target other-ingredient list.",
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_tongkat",
+        "ingredient_zinc",
+        "ingredient_boron",
+        "ingredient_gelatin",
+        "ingredient_juice",
+        "ingredient_honey"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "What’s Inside Drive?",
+        "sub": "Most gummies use BS sweeteners, pectins, and gut irritating binders. We sourced the highest quality ingredients for a gummy your body actually knows what to do with. Our mission is to make the #1 performance gummy on the market that not only supports performance, but is also gut-friendly.",
+        "also_label": "Also in every gummy:",
+        "show_facts": true,
+        "facts_button": "View supplement facts",
+        "show_ingredient_list": true,
+        "ingredient_list_button": "Full ingredient list",
+        "heading_font": "serif",
+        "sf_tag": "Target formula",
+        "serving_size": "2 gummies",
+        "servings": 15,
+        "sf_footnote": "* Percent Daily Value confirmed with the final formula.\nTarget amounts per serving. Final amounts, ingredient forms, and serving details are confirmed after formulation and stability testing.",
+        "other_ingredients": "100% grass-fed bovine gelatin, honey, purified water, natural flavor, citric acid, malic acid, coconut oil or MCT oil, carnauba wax, and fruit and/or vegetable juice concentrate for color if needed."
+      }
+    },
+    "why": {
+      "type": "reserve-drive-why",
+      "blocks": {
+        "why_focused": {
+          "type": "card",
+          "settings": {
+            "icon": "target",
+            "title": "Focused formula",
+            "text": "One primary active and two supporting minerals, in a compact three-ingredient stack."
+          }
+        },
+        "why_disclosed": {
+          "type": "card",
+          "settings": {
+            "icon": "doc",
+            "title": "Fully disclosed",
+            "text": "Every active and its amount is named on the label. No proprietary blend."
+          }
+        },
+        "why_base": {
+          "type": "card",
+          "settings": {
+            "icon": "leaf",
+            "title": "Grass-fed base",
+            "text": "Set in 100% grass-fed bovine gelatin for a dense, softened-cube chew."
+          }
+        },
+        "why_daily": {
+          "type": "card",
+          "settings": {
+            "icon": "calendar",
+            "title": "Two a day",
+            "text": "Two gummies per serving. 30 gummies and 15 servings in every jar."
+          }
+        }
+      },
+      "block_order": [
+        "why_focused",
+        "why_disclosed",
+        "why_base",
+        "why_daily"
+      ],
+      "settings": {
+        "eyebrow": "Why Drive",
+        "heading": "Simple by design."
+      }
+    },
+    "faq": {
+      "type": "reserve-drive-faq",
+      "blocks": {
+        "faq_take": {
+          "type": "question",
+          "settings": {
+            "question": "How do I take Drive?",
+            "answer": "Two gummies per serving. Each jar holds 30 gummies, or 15 daily servings."
+          }
+        },
+        "faq_formula": {
+          "type": "question",
+          "settings": {
+            "question": "What is in the formula?",
+            "answer": "Tongkat Ali root extract, zinc, and boron. The final extract specification and ingredient forms are confirmed before production."
+          }
+        },
+        "faq_vegan": {
+          "type": "question",
+          "settings": {
+            "question": "Is Drive vegetarian or vegan?",
+            "answer": "No. Drive is made with 100% grass-fed bovine gelatin."
+          }
+        },
+        "faq_else": {
+          "type": "question",
+          "settings": {
+            "question": "What else is in the gummy?",
+            "answer": "Honey, purified water, natural flavor, citric acid, malic acid, coconut oil or MCT oil, carnauba wax, and fruit or vegetable juice concentrate for color if needed."
+          }
+        },
+        "faq_final": {
+          "type": "question",
+          "settings": {
+            "question": "When are final doses confirmed?",
+            "answer": "The displayed amounts are targets. Final doses, stability, labeling, and regulatory requirements are confirmed before production."
+          }
+        }
+      },
+      "block_order": [
+        "faq_take",
+        "faq_formula",
+        "faq_vegan",
+        "faq_else",
+        "faq_final"
+      ],
+      "settings": {
+        "heading": "Questions, answered plainly.",
+        "sub": "Everything you need to know about Drive before your first jar.",
+        "legal": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+      }
+    },
+    "cta": {
+      "type": "reserve-drive-cta",
+      "settings": {
+        "eyebrow": "Subscribe & save 25%",
+        "heading": "Start your daily Drive.",
+        "sub": "Two gummies a day. Subscribe for monthly delivery, or buy a single jar.",
+        "button": "Shop Drive"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "tongkat",
+    "history",
+    "minerals",
+    "ingredients",
+    "why",
+    "faq",
+    "cta"
+  ]
+}
