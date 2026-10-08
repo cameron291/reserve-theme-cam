@@ -128,7 +128,7 @@
       "settings": {
         "title": "Feed your testosterone first",
         "body": "<p>Most men are running low on zinc and don’t know it. About 1 in 7 American adults don’t get enough from their diet, and it gets worse with age.</p><p>Zinc is a building block for testosterone and healthy sperm production.</p><p>We use a synergistic combination of zinc to support testosterone and sperm production, and boron to free up testosterone that’s locked away by SHBG (Sex Hormone-Binding Globulin).</p><p>Combined with our potent Tongkat Ali formulation, you get access to more of your available testosterone working for you with every gummy.</p>",
-        "heading_font": "serif",
+        "heading_font": "ebgaramond_n4",
         "body_font": "raleway_n4"
       }
     },
@@ -219,7 +219,7 @@
         "facts_button": "View supplement facts",
         "show_ingredient_list": true,
         "ingredient_list_button": "Full ingredient list",
-        "heading_font": "serif",
+        "heading_font": "ebgaramond_n4",
         "sf_tag": "Target formula",
         "serving_size": "2 gummies",
         "servings": 15,
