@@ -21,6 +21,9 @@
   -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 55%),linear-gradient(0deg,transparent 0%,#000 32%);-webkit-mask-composite:source-in;
   mask-image:linear-gradient(90deg,transparent 0%,#000 55%),linear-gradient(0deg,transparent 0%,#000 32%);mask-composite:intersect}
 .dh__cap{grid-column:2;grid-row:3;align-self:baseline;justify-self:end;position:relative;z-index:1;margin:0;padding:0 28px 40px;text-align:right;font-family:var(--dh-serif);font-style:italic;font-size:13px;line-height:1.4;color:var(--dh-faint)}
+/* Dark scheme: same layout; the engraving stays as-is, faded and sepia-toned into the dark page. */
+.dh--dark{--dh-bg:#16130f;--dh-ink:#ece4d6;--dh-soft:#b3a794;--dh-faint:#8a8072;--dh-line:rgba(236,228,214,.16)}
+.dh--dark .dh__media img{mix-blend-mode:normal;opacity:.62;filter:grayscale(1) sepia(.35) contrast(.92) brightness(.78)}
 @media (max-width:749px){
   .dh{grid-template-columns:1fr;grid-template-rows:300px auto auto auto;min-height:0}
   .dh__media{grid-column:1;grid-row:1}

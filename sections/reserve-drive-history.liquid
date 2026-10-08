@@ -1,7 +1,7 @@
 {% comment %}
   Section contract.
-  Drive history: light split section. Serif copy and references on the left, a faded archival
-  engraving on the right that dissolves into the page. Stacks image over text on phones.
+  Drive history: split section, light or dark (Color scheme setting). Serif copy and references on the
+  left, a faded archival engraving on the right that dissolves into the page. Stacks image over text on phones.
   Each reference is a Reference block, rendered as a comma-separated list of links.
   Styles: assets/reserve-drive-history.css (loaded here only, so the buy box is unaffected).
   Falls back to assets/reserve-drive-history-engraving.jpg when no image is picked.
@@ -31,7 +31,7 @@
   }
 </style>
 
-<section class="dh" aria-label="{{ section.settings.aria_label | escape }}">
+<section class="dh{% if section.settings.color_scheme == 'dark' %} dh--dark{% endif %}" aria-label="{{ section.settings.aria_label | escape }}">
   <div class="dh__text">
     {%- if section.settings.latin_label != blank or section.settings.latin_name != blank -%}
       <p class="dh__label">
@@ -86,6 +86,10 @@
   "name": "Drive history",
   "enabled_on": { "templates": ["product"] },
   "settings": [
+    {
+      "type": "select", "id": "color_scheme", "label": "Color scheme", "default": "light",
+      "options": [ { "value": "light", "label": "Light" }, { "value": "dark", "label": "Dark" } ]
+    },
     { "type": "text", "id": "aria_label", "label": "Section name for screen readers", "default": "The history of Tongkat Ali" },
     { "type": "text", "id": "latin_label", "label": "Small label", "default": "Latin" },
     { "type": "text", "id": "latin_name", "label": "Latin name", "default": "Eurycoma longifolia" },

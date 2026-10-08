@@ -1,6 +1,6 @@
 {% comment %}
   Section contract.
-  Drive ingredients: gummy image with callouts beside the active ingredient cards,
+  Drive ingredients: gummy photo with dose callouts beside the active ingredient cards,
   supporting-ingredient chips, the supplement facts dialog (which the buy box button also
   opens) and a full ingredient list dialog. Ingredient blocks feed the cards, the callouts
   and the facts panel. Layout and type overrides: assets/reserve-drive-ingredients-v2.css.
@@ -37,36 +37,7 @@
             {%- if s.diagram_image != blank -%}
               {{ s.diagram_image | image_url: width: 1400 | image_tag: widths: '600, 900, 1200, 1400', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'lazy', alt: s.diagram_image.alt | default: '' }}
             {%- else -%}
-              {%- comment -%} Placeholder until the designer's gummy photo is uploaded. Callouts read the first three active ingredients. {%- endcomment -%}
-              {%- capture callout_label -%}{%- assign n = 0 -%}{%- for block in ings -%}{%- if block.settings.featured and n < 3 -%}{%- assign n = n | plus: 1 -%}{% if n > 1 %}, {% endif %}{{ block.settings.name | escape }} {{ block.settings.amount | escape }}{%- endif -%}{%- endfor -%}{%- endcapture -%}
-              <svg viewBox="-60 40 680 420" role="img" aria-label="{{ callout_label }}">
-                <defs>
-                  <g id="dpgum-{{ section.id }}" class="dp-gum">
-                    <path class="dp-g-top" d="M210 230 L252 188 L392 188 L350 230 Z"/>
-                    <path class="dp-g-side" d="M350 230 L392 188 L392 298 L350 340 Z"/>
-                    <path class="dp-g-front" d="M210 230 L350 230 L350 340 L210 340 Z"/>
-                  </g>
-                </defs>
-                <use href="#dpgum-{{ section.id }}"/>
-                <use href="#dpgum-{{ section.id }}" transform="translate(318 18) scale(.5) rotate(-8 300 260)"/>
-                <use href="#dpgum-{{ section.id }}" transform="translate(300 182) scale(.42) rotate(10 300 260)"/>
-                {%- assign n = 0 -%}
-                {%- for block in ings -%}
-                  {%- unless block.settings.featured -%}{%- continue -%}{%- endunless -%}
-                  {%- assign n = n | plus: 1 -%}
-                  {%- if n > 3 -%}{%- break -%}{%- endif -%}
-                  {%- case n -%}
-                    {%- when 1 -%}{%- assign lead = 'M300 208 V132 H150' -%}{%- assign dx = 300 -%}{%- assign dy = 208 -%}{%- assign ly = 114 -%}
-                    {%- when 2 -%}{%- assign lead = 'M236 262 H150' -%}{%- assign dx = 236 -%}{%- assign dy = 262 -%}{%- assign ly = 244 -%}
-                    {%- else -%}{%- assign lead = 'M262 318 L232 372 H150' -%}{%- assign dx = 262 -%}{%- assign dy = 318 -%}{%- assign ly = 354 -%}
-                  {%- endcase -%}
-                  <path class="dp-lead" d="{{ lead }}"/>
-                  <circle class="dp-lead-dot" cx="{{ dx }}" cy="{{ dy }}" r="3.5"/>
-                  <text class="dp-lbl-name" x="140" y="{{ ly }}" text-anchor="end">{{ block.settings.name | upcase | escape }}</text>
-                  <text class="dp-lbl-val" x="140" y="{{ ly | plus: 36 }}" text-anchor="end">{{ block.settings.amount | escape }}</text>
-                {%- endfor -%}
-              </svg>
-              <figcaption>Placeholder: designer’s gummy photo</figcaption>
+              <img src="{{ 'reserve-drive-ingredients-gummies.webp' | asset_url }}" width="1100" height="890" loading="lazy" alt="Drive gummies: Tongkat Ali 200 mg, zinc 10 mg, boron 3 mg per serving">
             {%- endif -%}
           </figure>
         <div class="dp-ing-grid dp-ing-grid--split">
@@ -162,7 +133,7 @@
     { "type": "checkbox", "id": "show_ingredient_list", "label": "Show full ingredient list button", "default": true },
     { "type": "text", "id": "ingredient_list_button", "label": "Full ingredient list button", "default": "Full ingredient list" },
     { "type": "image_picker", "id": "ingredient_list_image", "label": "Ingredient list image", "info": "Photo of the ingredient list on the back of the bottle." },
-    { "type": "image_picker", "id": "diagram_image", "label": "Gummy image", "info": "Shown beside the ingredient cards. Leave empty to show the placeholder diagram." },
+    { "type": "image_picker", "id": "diagram_image", "label": "Gummy image", "info": "Shown beside the ingredient cards. Leave empty to use the default gummy photo (assets/reserve-drive-ingredients-gummies.webp)." },
     { "type": "font_picker", "id": "heading_font", "label": "Headline font", "default": "raleway_n4" },
     { "type": "header", "content": "Supplement facts" },
     { "type": "text", "id": "sf_tag", "label": "Tag", "default": "Target formula" },

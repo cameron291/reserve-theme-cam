@@ -112,6 +112,7 @@
         "ref_fourth"
       ],
       "settings": {
+        "color_scheme": "dark",
         "aria_label": "The history of Tongkat Ali",
         "latin_label": "Latin",
         "latin_name": "Eurycoma longifolia",
