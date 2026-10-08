@@ -217,7 +217,7 @@
         "also_label": "Also in every gummy:",
         "show_facts": true,
         "facts_button": "View supplement facts",
-        "show_ingredient_list": true,
+        "show_ingredient_list": false,
         "ingredient_list_button": "Full ingredient list",
         "heading_font": "ebgaramond_n4",
         "sf_tag": "Target formula",
