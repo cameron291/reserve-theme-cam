@@ -1,0 +1,17 @@
+/* Drive Tongkat Ali section. Scoped to .dt-hero so nothing leaks into the buy box. */
+.dt-hero{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:flex-start;min-height:clamp(560px,50vw,860px);background:#dfe6e2;color:var(--dt-ink);font-family:var(--dt-font)}
+.dt-hero__media{position:absolute;inset:0;z-index:-1}
+.dt-hero__media img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+/* Soft fog behind the text so it reads even where the hillside turns green. */
+.dt-hero__media::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 50% 55% at 24% 36%,rgba(244,245,240,.6),rgba(244,245,240,0) 72%)}
+.dt-hero__copy{width:100%;max-width:440px;margin-left:max(24px,18%);padding:clamp(72px,11vw,200px) 0 64px}
+.dt-hero__title{margin:0;font-family:var(--dt-font);font-weight:300;font-size:clamp(38px,3.2vw,54px);line-height:1.08;letter-spacing:-.01em;color:inherit;text-transform:none}
+.dt-hero__pos{margin:.55em 0 0;font-style:italic;font-weight:400;font-size:clamp(15px,1.05vw,18px);letter-spacing:.02em;opacity:.75}
+.dt-hero__rule{width:80px;height:4px;margin:24px 0;border:0;background:var(--dt-accent)}
+.dt-hero__def{margin:0;font-weight:400;font-size:clamp(16px,1.05vw,18px);line-height:1.6}
+@media (max-width:749px){
+  .dt-hero{min-height:560px}
+  .dt-hero__media img{object-position:35% 0}
+  .dt-hero__media::after{background:radial-gradient(ellipse 90% 45% at 30% 22%,rgba(244,245,240,.6),rgba(244,245,240,0) 75%)}
+  .dt-hero__copy{max-width:none;margin:0;padding:56px 20px 48px}
+}

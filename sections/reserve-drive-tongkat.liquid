@@ -1,0 +1,82 @@
+{% comment %}
+  Section contract.
+  Drive Tongkat Ali: full-bleed photo with a dictionary-style headline set in the left fog.
+  Styles: assets/reserve-drive-tongkat.css (loaded here only, so the buy box is unaffected).
+  Falls back to assets/reserve-drive-tongkat-forest.jpg when no image is picked.
+{% endcomment %}
+{%- liquid
+  assign font = section.settings.heading_font
+  assign font_light = font | font_modify: 'weight', '300'
+  assign font_italic = font | font_modify: 'style', 'italic'
+  assign image = section.settings.image
+  if image
+    assign focal_style = 'object-position: ' | append: image.presentation.focal_point | append: ';'
+  endif
+-%}
+{{ 'reserve-drive-tongkat.css' | asset_url | stylesheet_tag }}
+<style>
+  {{ font | font_face: font_display: 'swap' }}
+  {%- if font_light %}{{ font_light | font_face: font_display: 'swap' }}{% endif -%}
+  {%- if font_italic %}{{ font_italic | font_face: font_display: 'swap' }}{% endif %}
+  #shopify-section-{{ section.id }} {
+    --dt-font: {{ font.family }}, {{ font.fallback_families }};
+    --dt-ink: {{ section.settings.text_color }};
+    --dt-accent: {{ section.settings.accent_color }};
+  }
+</style>
+
+<section class="dt-hero" aria-labelledby="dt-title-{{ section.id }}">
+  <div class="dt-hero__media">
+    {%- if image -%}
+      {{ image | image_url: width: 2400 | image_tag:
+        widths: '750, 1100, 1500, 1920, 2400',
+        sizes: '100vw',
+        loading: 'lazy',
+        alt: '',
+        style: focal_style
+      }}
+    {%- else -%}
+      <img
+        src="{{ 'reserve-drive-tongkat-forest.jpg' | asset_url }}"
+        srcset="{{ 'reserve-drive-tongkat-forest.jpg' | asset_img_url: '750x' }} 750w, {{ 'reserve-drive-tongkat-forest.jpg' | asset_img_url: '1100x' }} 1100w, {{ 'reserve-drive-tongkat-forest.jpg' | asset_img_url: '1500x' }} 1500w, {{ 'reserve-drive-tongkat-forest.jpg' | asset_url }} 1920w"
+        sizes="100vw"
+        width="1920"
+        height="1281"
+        loading="lazy"
+        alt=""
+      >
+    {%- endif -%}
+  </div>
+
+  <div class="dt-hero__copy">
+    {%- if section.settings.title != blank -%}
+      <h2 class="dt-hero__title" id="dt-title-{{ section.id }}">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.part_of_speech != blank -%}
+      <p class="dt-hero__pos">{{ section.settings.part_of_speech | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.show_rule -%}<hr class="dt-hero__rule">{%- endif -%}
+    {%- if section.settings.definition != blank -%}
+      <p class="dt-hero__def">{{ section.settings.definition | escape }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Drive Tongkat Ali",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image", "info": "Leave empty to use the default forest photo. Set a focal point on the image to control the crop." },
+    { "type": "text", "id": "title", "label": "Headline", "default": "Tongkat Ali" },
+    { "type": "text", "id": "part_of_speech", "label": "Word type", "default": "Noun." },
+    { "type": "checkbox", "id": "show_rule", "label": "Show accent bar", "default": true },
+    { "type": "text", "id": "definition", "label": "Definition", "default": "Often referred to as “Malaysian ginseng.”" },
+    { "type": "header", "content": "Style" },
+    { "type": "font_picker", "id": "heading_font", "label": "Font", "default": "raleway_n4" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#1f2420" },
+    { "type": "color", "id": "accent_color", "label": "Accent bar color", "default": "#9a4f1f" }
+  ],
+  "presets": [{ "name": "Drive Tongkat Ali" }]
+}
+{% endschema %}
