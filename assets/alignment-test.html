@@ -1,0 +1,57 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  :root{--ink:#1e201e;--ivory:#f4f1eb;--paper:#faf9f5;--line:#d9d4cb;--muted:#767a72}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ivory);font-family:Arial,sans-serif;color:var(--ink)}
+  .rp-hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding:70px 4vw}
+  .rp-main{aspect-ratio:1;background:#dfe6d9}
+  .rp-info{max-width:620px}
+  .rp-title{font:400 46px/1.1 Georgia,serif;margin:0 0 12px}
+  .rp-intro{font-size:17px;line-height:1.6;margin:0 0 26px}
+  .rp-check-h{margin:0 0 14px;font-size:16px;font-weight:600}
+  .rp-check{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:12px}
+  .rp-check li{display:flex;align-items:center;gap:12px;font-size:16px}
+  .rp-check li:before{content:"";width:18px;height:18px;border-radius:50%;background:var(--ink);flex:none}
+  .rp-panel{margin-top:4px}
+  .rp-app{width:100%;margin:0 0 22px;display:block;overflow:visible}
+  .rp-app > *,
+  .rp-app .shopify-app-block,
+  .rp-app .shopify-app-block > div,
+  .rp-app .shopify-app-block > div > div,
+  .rp-app .shopify-app-block > div > div > div{width:100%!important;max-width:none!important;margin:0!important;margin-inline:0!important;padding:0!important;padding-inline:0!important;box-sizing:border-box}
+  .rp-app .recharge-mock{border:1px solid var(--ink);background:var(--paper);padding:16px}
+  .rp-app .recharge-mock > div{border:1px solid var(--line);padding:14px;margin:0 0 10px;background:#fff}
+  .rp-app .recharge-mock > div:last-child{margin-bottom:0}
+  .rp-buy{width:100%;display:flex;align-items:stretch;gap:12px}
+  .rp-stepper{display:flex;align-items:center;border:1px solid var(--ink);height:56px;background:transparent;flex:none}
+  .rp-stepper button{width:40px;height:54px;border:0;background:transparent;font-size:20px}
+  .rp-stepper input{width:34px;height:54px;border:0;background:transparent;text-align:center;font-size:17px}
+  .rp-add{flex:1;min-height:56px;border:0;background:var(--ink);color:var(--ivory);font-size:16px}
+  .measure{font-size:12px;color:var(--muted);margin-top:14px}
+</style>
+<main class="rp-hero">
+  <div class="rp-main"></div>
+  <div class="rp-info">
+    <h1 class="rp-title">Drive</h1>
+    <p class="rp-intro">A daily male vitality formula built around a compact three-ingredient stack.</p>
+    <p class="rp-check-h">Why Drive:</p>
+    <ul class="rp-check"><li>Tongkat Ali centered</li><li>Zinc and boron support</li><li>100% grass-fed bovine gelatin</li><li>Two gummies per serving</li><li>Full formula disclosed</li></ul>
+    <div class="rp-panel">
+      <div class="rp-app">
+        <div class="shopify-app-block">
+          <div><div><div class="recharge-mock"><div>Subscribe &amp; save</div><div>One-time purchase</div></div></div></div>
+        </div>
+      </div>
+      <div class="rp-buy"><div class="rp-stepper"><button>−</button><input value="1" aria-label="Quantity"><button>+</button></div><button class="rp-add">Add to bag</button></div>
+      <div class="measure" id="result"></div>
+    </div>
+  </div>
+</main>
+<script>
+  const result=document.querySelector('#result');
+  const selectors=['.rp-check','.rp-app .recharge-mock','.rp-buy .rp-stepper','.rp-add'];
+  const boxes=selectors.map(s=>{const r=document.querySelector(s).getBoundingClientRect();return {selector:s,left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width)}});
+  result.textContent=JSON.stringify(boxes);
+  window.__alignmentTest={boxes,pass:boxes[1].left===boxes[0].left&&boxes[1].right===boxes[0].right&&boxes[2].left===boxes[0].left&&boxes[3].right===boxes[0].right};
+</script>

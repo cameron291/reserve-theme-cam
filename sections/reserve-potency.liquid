@@ -1,0 +1,68 @@
+<style>
+  .rp3{background:var(--paper);padding:110px 0 90px;border-bottom:1px solid var(--line)}
+  .rp3-grid{display:grid;grid-template-columns:1.05fr 1fr;align-items:start}
+  .rp3-copy{padding-right:72px}
+  .rp3-eye{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#a4563b;margin:0 0 30px}
+  .rp3-h{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:clamp(34px,4.6vw,var(--rp3-size,56px));line-height:1.04;letter-spacing:-.025em;color:#171a1c;margin:0 0 44px;max-width:none;text-wrap:balance}
+  .rp3-body p{font-size:17.5px;line-height:1.72;color:#43474a;margin:0 0 28px;max-width:600px}
+  .rp3-body p:last-child{margin-bottom:0}
+  .rp3-body strong,.rp3-body b{color:#171a1c;font-weight:700}
+  .rp3-side{border-left:1px solid #e0dbd3;padding-left:80px}
+  .rp3-st{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:clamp(28px,2.7vw,38px);line-height:1.1;letter-spacing:-.02em;color:#171a1c;margin:0 0 18px}
+  .rp3-list{list-style:none;margin:0;padding:0}
+  .rp3-item{display:grid;grid-template-columns:128px 1fr;align-items:center;padding:30px 0;border-bottom:1px solid #e6e1d9}
+  .rp3-item:last-child{border-bottom:0;padding-bottom:0}
+  .rp3-num{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:74px;line-height:.9;letter-spacing:-.04em;color:#d5cabd}
+  .rp3-txt{border-left:1px solid #ddd6cc;padding:4px 0 4px 44px}
+  .rp3-ie{font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#a4563b;margin:0 0 8px}
+  .rp3-it{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:26px;line-height:1.18;letter-spacing:-.015em;color:#171a1c;margin:0 0 10px}
+  .rp3-id{font-size:15px;line-height:1.6;color:#555a5d;margin:0;max-width:440px}
+  .rp3-foot{margin-top:64px;padding-top:22px;border-top:1px solid #e0dbd3}
+  .rp3-foot p{font-size:14px;line-height:1.6;color:#555a5d;margin:0}
+  .rp3-foot strong{color:#171a1c;font-weight:700}
+  @media(max-width:900px){
+    .rp3{padding:76px 0 64px}
+    .rp3-grid{grid-template-columns:1fr}
+    .rp3-copy{padding-right:0}
+    .rp3-side{border-left:0;padding-left:0;border-top:1px solid #e0dbd3;margin-top:52px;padding-top:48px}
+  }
+  @media(max-width:640px){
+    .rp3{padding:60px 0 52px}
+    .rp3-eye{font-size:10px;margin-bottom:20px}
+    .rp3-h{font-size:calc(var(--rp3-size,56px)*.7);margin-bottom:28px}
+    .rp3-body p{font-size:16px;line-height:1.66;margin-bottom:20px}
+    .rp3-st{font-size:28px;margin-bottom:6px}
+    .rp3-item{grid-template-columns:72px 1fr;padding:24px 0}
+    .rp3-num{font-size:48px}
+    .rp3-txt{padding-left:20px}
+    .rp3-ie{font-size:9.5px;margin-bottom:6px}
+    .rp3-it{font-size:21px;margin-bottom:8px}
+    .rp3-id{font-size:14.5px}
+    .rp3-foot{margin-top:44px}
+    .rp3-foot p{font-size:13px}
+  }
+</style>
+<section class="rp3" id="potency" style="--rp3-size:{{ section.settings.pot_title_size | default: 56 }}px">
+  <div class="wrap">
+    <div class="rp3-grid">
+      <div class="rp3-copy">
+        <p class="rp3-eye">{{ section.settings.pot_eyebrow | default: 'The problem with gummies' }}</p>
+        <h2 class="rp3-h">{{ section.settings.pot_title | default: 'Most gummies are BS.' }}</h2>
+        <div class="rp3-body">{{ section.settings.pot_body | default: '<p>Most gummies are made like candy. The base is glucose syrup and sugar, set with pectin or starch, and the actives get whatever room is left. When labs test them, the dose often doesn’t match the label.</p><p><strong>We use real ingredients.</strong> Real fruit, research‑backed actives at the doses used in human studies, and every amount printed on the label. No seed oils, nothing artificial.</p><p><strong>We use 100% grass‑fed beef gelatin, while others use pectin or starch.</strong> Classic pectin won’t set unless the mix is more than 55% sugar and other dissolved solids. Gelatin sets on its own, it’s over 92% protein, and it gives every gummy a dense, clean chew that melts in your mouth.</p>' }}</div>
+      </div>
+      <div class="rp3-side">
+        <h3 class="rp3-st">{{ section.settings.pot_side_title | default: 'What we do differently' }}</h3>
+        <ol class="rp3-list">
+          <li class="rp3-item"><span class="rp3-num">01</span><div class="rp3-txt"><p class="rp3-ie">{{ section.settings.pot_i1_eyebrow | default: 'The base' }}</p><h4 class="rp3-it">{{ section.settings.pot_i1_title | default: '100% grass‑fed beef gelatin' }}</h4><p class="rp3-id">{{ section.settings.pot_i1_text | default: 'Not pectin or starch. A protein base that sets without a sugar-heavy mix.' }}</p></div></li>
+          <li class="rp3-item"><span class="rp3-num">02</span><div class="rp3-txt"><p class="rp3-ie">{{ section.settings.pot_i2_eyebrow | default: 'The ingredients' }}</p><h4 class="rp3-it">{{ section.settings.pot_i2_title | default: 'Real fruit, nothing artificial' }}</h4><p class="rp3-id">{{ section.settings.pot_i2_text | default: 'No seed oils, no artificial colors, flavors or sweeteners.' }}</p></div></li>
+          <li class="rp3-item"><span class="rp3-num">03</span><div class="rp3-txt"><p class="rp3-ie">{{ section.settings.pot_i3_eyebrow | default: 'The dose' }}</p><h4 class="rp3-it">{{ section.settings.pot_i3_title | default: 'Full doses, tested' }}</h4><p class="rp3-id">{{ section.settings.pot_i3_text | default: 'Every active at the dose used in human research, printed on the label and tested in the finished product.' }}</p></div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="rp3-foot">
+      <p><strong>Why it matters:</strong> {{ section.settings.pot_why | default: 'In a 2023 JAMA study, 22 of 25 melatonin gummies didn’t match their label, with actual doses from 74% to 347% of the amount stated. In 2024, NOW tested 12 creatine gummy brands and 6 failed to meet their label claim.' }}</p>
+      <p><strong>Sources:</strong> {{ section.settings.pot_source | default: 'Cohen et al., JAMA, 2023; NOW, February 2024.' }}</p>
+    </div>
+  </div>
+</section>
+{% schema %}{"name": "Potency", "settings": [{"type": "text", "id": "pot_eyebrow", "label": "Eyebrow", "default": "The problem with gummies"}, {"type": "text", "id": "pot_title", "label": "Headline", "default": "Most gummies are BS."}, {"type": "range", "id": "pot_title_size", "label": "Headline size (desktop)", "min": 28, "max": 72, "step": 2, "unit": "px", "default": 56, "info": "Phones use about 70% of this size."}, {"type": "richtext", "id": "pot_body", "label": "Body", "default": "<p>Most gummies are made like candy. The base is glucose syrup and sugar, set with pectin or starch, and the actives get whatever room is left. When labs test them, the dose often doesn’t match the label.</p><p><strong>We use real ingredients.</strong> Real fruit, research‑backed actives at the doses used in human studies, and every amount printed on the label. No seed oils, nothing artificial.</p><p><strong>We use 100% grass‑fed beef gelatin, while others use pectin or starch.</strong> Classic pectin won’t set unless the mix is more than 55% sugar and other dissolved solids. Gelatin sets on its own, it’s over 92% protein, and it gives every gummy a dense, clean chew that melts in your mouth.</p>"}, {"type": "text", "id": "pot_side_title", "label": "Right column title", "default": "What we do differently"}, {"type": "header", "content": "Point 1"}, {"type": "text", "id": "pot_i1_eyebrow", "label": "Eyebrow", "default": "The base"}, {"type": "text", "id": "pot_i1_title", "label": "Title", "default": "100% grass‑fed beef gelatin"}, {"type": "textarea", "id": "pot_i1_text", "label": "Text", "default": "Not pectin or starch. A protein base that sets without a sugar-heavy mix."}, {"type": "header", "content": "Point 2"}, {"type": "text", "id": "pot_i2_eyebrow", "label": "Eyebrow", "default": "The ingredients"}, {"type": "text", "id": "pot_i2_title", "label": "Title", "default": "Real fruit, nothing artificial"}, {"type": "textarea", "id": "pot_i2_text", "label": "Text", "default": "No seed oils, no artificial colors, flavors or sweeteners."}, {"type": "header", "content": "Point 3"}, {"type": "text", "id": "pot_i3_eyebrow", "label": "Eyebrow", "default": "The dose"}, {"type": "text", "id": "pot_i3_title", "label": "Title", "default": "Full doses, tested"}, {"type": "textarea", "id": "pot_i3_text", "label": "Text", "default": "Every active at the dose used in human research, printed on the label and tested in the finished product."}, {"type": "header", "content": "Footnote"}, {"type": "textarea", "id": "pot_why", "label": "Why it matters", "default": "In a 2023 JAMA study, 22 of 25 melatonin gummies didn’t match their label, with actual doses from 74% to 347% of the amount stated. In 2024, NOW tested 12 creatine gummy brands and 6 failed to meet their label claim."}, {"type": "text", "id": "pot_source", "label": "Source", "default": "Cohen et al., JAMA, 2023; NOW, February 2024."}], "presets": [{"name": "Potency"}]}{% endschema %}

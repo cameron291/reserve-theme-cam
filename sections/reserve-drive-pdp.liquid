@@ -1,0 +1,158 @@
+{% comment %}
+  Section contract.
+  Drive buy box: gallery, title, purchase options (Recharge subscription app block),
+  highlight blocks, detail dropdowns and the sticky shop bar. The rest of the Drive page
+  is split into its own sections (reserve-drive-ingredients, -numbers, -why, -faq, -cta
+  and reserve-drive-standard) so each can be moved, hidden or removed in the theme editor.
+  Styles: snippets/reserve-drive-styles.liquid. Behavior: assets/reserve-drive-pdp.js.
+  @example
+  <!-- Main section of templates/product.drive.json -->
+{% endcomment %}
+{%- liquid
+  assign cv = product.selected_or_first_available_variant
+  assign servings = section.settings.servings | default: 0
+  assign rating = product.metafields.reviews.rating.value.rating | default: 0
+  assign rating_count = product.metafields.reviews.rating_count.value | default: 0
+  assign highlights = section.blocks | where: 'type', 'highlight'
+  assign has_app = false
+  for block in section.blocks
+    if block.type == '@app'
+      assign has_app = true
+    endif
+  endfor
+  assign per_serving = 0
+  if servings > 0
+    assign per_serving = cv.price | times: 1.0 | divided_by: servings | round
+  endif
+-%}
+{% render 'reserve-drive-styles' %}
+<script src="{{ 'reserve-drive-pdp.js' | asset_url }}" defer></script>
+
+<div class="dp" id="dp-{{ section.id }}" data-dp-root data-currency="{{ cart.currency.iso_code }}">
+  <section class="dp-hero">
+    <div class="dp-wrap dp-hero-grid">
+      {% render 'reserve-drive-pdp-gallery', product: product, section: section, show_facts: section.settings.show_facts %}
+
+      <div class="dp-info">
+        <div class="dp-meta">
+          {%- if rating_count > 0 -%}
+            <span class="dp-stars" style="--dp-r: {{ rating }}" aria-hidden="true">★★★★★</span>
+            <span><span class="dp-sr">Rated {{ rating | round: 1 }} out of 5, </span>{{ rating | round: 1 }}/5 ({{ rating_count }} {% if rating_count == 1 %}review{% else %}reviews{% endif %})</span>
+          {%- elsif section.settings.badge_text != blank -%}
+            <span class="dp-badge">{{ section.settings.badge_text | escape }}</span>
+          {%- endif -%}
+        </div>
+        <h1 class="dp-title">{{ product.title | escape }}</h1>
+        {%- if section.settings.subtitle != blank -%}<p class="dp-subtitle">{{ section.settings.subtitle | escape }}</p>{%- endif -%}
+        {%- if section.settings.lede != blank -%}<p class="dp-lede">{{ section.settings.lede | escape }}</p>{%- endif -%}
+        {%- if section.settings.checks != blank -%}
+          {%- assign check_lines = section.settings.checks | newline_to_br | split: '<br />' -%}
+          <ul class="dp-checks">
+            {%- for line in check_lines -%}{%- assign check = line | strip -%}{%- if check != blank -%}<li>{{ check | escape }}</li>{%- endif -%}{%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        <div class="dp-buy" id="dp-buy" data-dp-form data-servings="{{ servings }}">
+          {%- form 'product', product -%}
+            <input type="hidden" name="id" value="{{ cv.id }}" data-dp-variant-id>
+            {%- unless product.has_only_default_variant -%}
+              <label class="dp-label" for="dp-variant-{{ section.id }}">Format</label>
+              <select class="dp-select" id="dp-variant-{{ section.id }}" data-dp-variant-select>
+                {%- for variant in product.variants -%}
+                  <option value="{{ variant.id }}"{% if variant.id == cv.id %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title | escape }}</option>
+                {%- endfor -%}
+              </select>
+            {%- endunless -%}
+            {%- if has_app -%}
+              <div class="dp-app">
+                {%- for block in section.blocks -%}{%- if block.type == '@app' -%}{% render block %}{%- endif -%}{%- endfor -%}
+              </div>
+            {%- else -%}
+              <div class="dp-option">
+                <span class="dp-option-dot" aria-hidden="true"></span>
+                <span class="dp-option-copy"><strong>One-time purchase</strong>{% if servings > 0 %}<small>{{ servings }} servings per jar</small>{% endif %}</span>
+                <strong class="dp-option-price">{{ cv.price | money }}</strong>
+              </div>
+            {%- endif -%}
+            {%- if servings > 0 -%}
+              <p class="dp-per">That's <strong data-dp-per-price>{{ per_serving | money }}</strong> per serving &middot; {{ servings }} servings per jar</p>
+            {%- endif -%}
+            <div class="dp-buy-row">
+              <div class="dp-qty">
+                <button type="button" data-dp-dec aria-label="Decrease quantity">&minus;</button>
+                <label class="dp-sr" for="dp-qty-{{ section.id }}">Quantity</label>
+                <input id="dp-qty-{{ section.id }}" type="number" name="quantity" min="1" value="1" inputmode="numeric">
+                <button type="button" data-dp-inc aria-label="Increase quantity">+</button>
+              </div>
+              {%- if cv.available -%}
+                <button type="submit" name="add" class="dp-cta">Add to bag <span aria-hidden="true">&middot;</span> <span data-dp-add-price>{{ cv.price | money }}</span></button>
+              {%- else -%}
+                <a class="dp-cta" href="{{ routes.root_url }}#reserve">Join the first release</a>
+              {%- endif -%}
+            </div>
+          {%- endform -%}
+          <script type="application/json" data-dp-prices>{ {%- for v in product.variants -%}"{{ v.id }}":{"p":{{ v.price }},"s":{ {%- for a in v.selling_plan_allocations -%}"{{ a.selling_plan.id }}":{{ a.price }}{% unless forloop.last %},{% endunless %}{%- endfor -%} }}{% unless forloop.last %},{% endunless %}{%- endfor -%} }</script>
+        </div>
+
+        {% render 'reserve-drive-pdp-details', section: section, highlights: highlights %}
+      </div>
+    </div>
+  </section>
+
+  {%- if section.settings.show_sticky -%}
+    <div class="dp-sticky" data-dp-sticky inert>
+      <div class="dp-wrap dp-sticky-in">
+        <div class="dp-sticky-copy"><strong>{{ product.title | escape }}</strong>{%- if section.settings.subtitle != blank -%}<span>{{ section.settings.subtitle | escape }}</span>{%- endif -%}</div>
+        <a class="dp-cta" href="#dp-buy">{{ section.settings.sticky_button | default: 'Shop now' | escape }}</a>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Drive buy box",
+  "limit": 1,
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "badge_text", "label": "Badge", "info": "Shown above the title until the product has reviews.", "default": "New release" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Daily male vitality gummy" },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "200 mg of Tongkat Ali with zinc and boron, set in two grass-fed gelatin gummies a day." },
+    { "type": "textarea", "id": "checks", "label": "Checklist", "info": "One item per line.", "default": "Tongkat Ali centered: 200 mg per serving\nSupported by zinc and boron\n100% grass-fed bovine gelatin, no proprietary blend" },
+    { "type": "number", "id": "servings", "label": "Servings per container", "info": "Used for the per-serving price.", "default": 15 },
+    { "type": "checkbox", "id": "show_facts", "label": "Show supplement facts button", "info": "Opens the supplement facts from the Drive ingredients section.", "default": true },
+    { "type": "text", "id": "facts_button", "label": "Supplement facts button", "default": "View supplement facts" },
+    { "type": "header", "content": "Details dropdowns" },
+    { "type": "textarea", "id": "inside_list", "label": "What's inside", "info": "One per line, written as name | amount.", "default": "Tongkat Ali | 200 mg\nZinc | 10 mg\nBoron | 3 mg\nBovine gelatin | Base\nHoney | Other ingredient" },
+    { "type": "textarea", "id": "other_ingredients", "label": "Other ingredients", "default": "100% grass-fed bovine gelatin, honey, purified water, natural flavor, citric acid, malic acid, coconut oil or MCT oil, carnauba wax, and fruit and/or vegetable juice concentrate for color if needed." },
+    { "type": "textarea", "id": "how_to", "label": "How to take it", "default": "Take two gummies daily. Each jar holds 30 gummies, or 15 daily servings." },
+    { "type": "textarea", "id": "allergens", "label": "Allergens and diet", "default": "Made with 100% grass-fed bovine gelatin, so Drive is not vegetarian or vegan." },
+    { "type": "textarea", "id": "formula_note", "label": "About this formula", "default": "Target formula shown. Final doses, base, and shelf-life claims are confirmed through production and stability testing before launch." },
+    { "type": "header", "content": "Sticky bar" },
+    { "type": "checkbox", "id": "show_sticky", "label": "Show sticky bar", "info": "Appears after shoppers scroll past the buy button.", "default": true },
+    { "type": "text", "id": "sticky_button", "label": "Button label", "default": "Shop now" }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "highlight",
+      "name": "Highlight",
+      "limit": 4,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "target", "options": [{ "value": "refresh", "label": "Subscription" }, { "value": "shield", "label": "Shield" }, { "value": "leaf", "label": "Leaf" }, { "value": "calendar", "label": "Calendar" }, { "value": "doc", "label": "Label" }, { "value": "truck", "label": "Shipping" }, { "value": "flask", "label": "Lab" }, { "value": "target", "label": "Target" }] },
+        { "type": "text", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Drive buy box",
+      "blocks": [
+        { "type": "highlight", "settings": { "icon": "refresh", "text": "Subscribe & save 25%" } },
+        { "type": "highlight", "settings": { "icon": "doc", "text": "Full formula disclosed" } },
+        { "type": "highlight", "settings": { "icon": "leaf", "text": "Grass-fed gelatin base" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

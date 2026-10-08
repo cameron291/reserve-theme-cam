@@ -1,0 +1,89 @@
+{
+  "sections": {
+    "main": {
+      "type": "reserve-product",
+      "blocks": {
+        "recharge_subscriptions_subscription_widget_v2_M8V9G3": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget-v2/371eed76-0b44-4869-9813-730372ea378e",
+          "settings": {}
+        },
+        "ingredient_magtein": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Magnesium L-threonate",
+            "short": "supports brain magnesium levels",
+            "amount": "2 g",
+            "text": "As Magtein®, the clinically studied form of magnesium L-threonate.",
+            "art": "magnesium"
+          }
+        },
+        "ingredient_citicoline": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Citicoline",
+            "short": "supports focus and mental clarity",
+            "amount": "500 mg",
+            "text": "Also known as CDP-choline, a source of choline.",
+            "art": "citicoline"
+          }
+        },
+        "ingredient_theanine": {
+          "type": "ingredient",
+          "settings": {
+            "name": "L-theanine",
+            "short": "supports calm attention",
+            "amount": "200 mg",
+            "text": "An amino acid found naturally in tea leaves.",
+            "art": "theanine"
+          }
+        },
+        "ingredient_b6": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Vitamin B6",
+            "short": "supports neurotransmitter production",
+            "amount": "20 mg",
+            "text": "An essential B vitamin that works alongside B12 and folate.",
+            "art": "b6"
+          }
+        },
+        "ingredient_b12": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Vitamin B12",
+            "short": "supports energy metabolism and nervous system function",
+            "amount": "500 mcg",
+            "text": "An essential B vitamin found naturally in animal foods.",
+            "art": "b12"
+          }
+        },
+        "ingredient_folate": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Folate",
+            "short": "supports methylation and cellular function",
+            "amount": "800 mcg",
+            "text": "Vitamin B9, as methylfolate, its active form.",
+            "art": "folate"
+          }
+        }
+      },
+      "block_order": [
+        "recharge_subscriptions_subscription_widget_v2_M8V9G3",
+        "ingredient_magtein",
+        "ingredient_citicoline",
+        "ingredient_theanine",
+        "ingredient_b6",
+        "ingredient_folate",
+        "ingredient_b12"
+      ],
+      "settings": {
+        "qa_sub": "Cognition is made in the USA in a cGMP-certified facility and independently third-party tested for purity, consistency, and quality.",
+        "qa_points": "cGMP manufacturing\nThird-party tested\nMade in the USA\nScientifically formulated\nFull, disclosed doses\nNo proprietary blends"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

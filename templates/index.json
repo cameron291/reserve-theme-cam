@@ -1,0 +1,142 @@
+{
+  "sections": {
+    "main": {
+      "type": "reserve-home",
+      "settings": {
+        "hero_image": "shopify://shop_images/Gemini_Generated_Image_g0fd5jg0fd5jg0fd.jpg",
+        "hero_image_mobile": "shopify://shop_images/reserve-hero-phone.jpg",
+        "hero_title": "Ultra-clean functional",
+        "hero_title_em": "gummies.",
+        "hero_sub": "Made with grass-fed gelatin, real fruit and full research‑backed doses. No seed oils, nothing artificial.",
+        "hero_btn": "Shop Now",
+        "hero_chip1": "Third-Party Tested",
+        "hero_chip2": "Very Low Sugar",
+        "hero_chip3": "Made in the USA"
+      }
+    },
+    "potency": {
+      "type": "reserve-potency",
+      "settings": {
+        "pot_eyebrow": "The problem with gummies",
+        "pot_title": "Most gummies are BS.",
+        "pot_title_size": 64,
+        "pot_body": "<p>Most gummies are made like candy. The base is glucose syrup and sugar, set with pectin or starch, and the actives get whatever room is left. When labs test them, the dose often doesn’t match the label.</p><p><strong>We use real ingredients.</strong> Real fruit, research‑backed actives at the doses used in human studies, and every amount printed on the label. No seed oils, nothing artificial.</p><p><strong>We use 100% grass‑fed beef gelatin, while others use pectin or starch.</strong> Classic pectin won’t set unless the mix is more than 55% sugar and other dissolved solids. Gelatin sets on its own, it’s over 92% protein, and it gives every gummy a dense, clean chew that melts in your mouth.</p>",
+        "pot_side_title": "What we do differently",
+        "pot_i1_eyebrow": "The base",
+        "pot_i1_title": "100% grass‑fed beef gelatin",
+        "pot_i1_text": "Not pectin or starch. A protein base that sets without a sugar-heavy mix.",
+        "pot_i2_eyebrow": "The ingredients",
+        "pot_i2_title": "Real fruit, nothing artificial",
+        "pot_i2_text": "No seed oils, no artificial colors, flavors or sweeteners.",
+        "pot_i3_eyebrow": "The dose",
+        "pot_i3_title": "Full doses, tested",
+        "pot_i3_text": "Every active at the dose used in human research, printed on the label and tested in the finished product.",
+        "pot_why": "In a 2023 JAMA study, 22 of 25 melatonin gummies didn’t match their label, with actual doses from 74% to 347% of the amount stated. In 2024, NOW tested 12 creatine gummy brands and 6 failed to meet their label claim.",
+        "pot_source": "Cohen et al., JAMA, 2023; NOW, February 2024."
+      }
+    },
+    "more": {
+      "type": "reserve-home-more",
+      "settings": {}
+    },
+    "delivery": {
+      "type": "reserve-delivery",
+      "settings": {
+        "rd_image": "shopify://shop_images/reserve-delivery.jpg",
+        "rd_title_1": "Same science.",
+        "rd_title_2": "Upgraded",
+        "rd_title_em": "delivery.",
+        "rd_body": "<p>Reserve pairs 100% grass-fed beef gelatin with well-supported cognitive ingredients, including Magtein®, citicoline, L-theanine and B vitamins. The result is a premium gummy built for taste, texture and a cleaner daily ritual.</p>",
+        "rd_f1_title": "No grit, no chalkiness",
+        "rd_f1_text": "Just a smooth, premium gummy with a clean finish.",
+        "rd_f2_title": "Science-backed ingredients",
+        "rd_f2_text": "Magtein®, citicoline, L-theanine and B vitamins, thoughtfully combined.",
+        "rd_f3_title": "Built around the base",
+        "rd_f3_text": "100% grass-fed beef gelatin, chosen to support the formula and the experience."
+      }
+    },
+    "about": {
+      "type": "reserve-home-about",
+      "settings": {}
+    },
+    "ingredients": {
+      "type": "reserve-ingredients",
+      "disabled": true,
+      "blocks": {
+        "ing2": {
+          "type": "ingredient",
+          "settings": {
+            "art": "magnesium",
+            "tone": "#e3e5e1",
+            "name": "Magnesium L-threonate",
+            "dose": "2 g",
+            "dose_label": "per serving",
+            "use": "As Magtein®, a form of magnesium studied for memory and healthy cognitive aging."
+          }
+        },
+        "ing3": {
+          "type": "ingredient",
+          "settings": {
+            "art": "citicoline",
+            "tone": "#ece3d7",
+            "name": "Citicoline",
+            "dose": "500 mg",
+            "dose_label": "per serving",
+            "use": "Supplies choline for acetylcholine and healthy brain cell membranes."
+          }
+        },
+        "ing4": {
+          "type": "ingredient",
+          "settings": {
+            "art": "theanine",
+            "tone": "#e0e5d8",
+            "name": "L-theanine",
+            "dose": "200 mg",
+            "dose_label": "per serving",
+            "use": "An amino acid from tea that supports calm, focused attention."
+          }
+        },
+        "ing6": {
+          "type": "ingredient",
+          "settings": {
+            "art": "vitamins",
+            "tone": "#efe2d6",
+            "name": "Vitamins B6 + B12",
+            "dose": "20 mg + 500 mcg",
+            "dose_label": "per serving",
+            "use": "Support normal energy metabolism and nervous system function."
+          }
+        },
+        "ing7": {
+          "type": "ingredient",
+          "settings": {
+            "art": "bacopa",
+            "tone": "#dde2d5",
+            "name": "Folate",
+            "dose": "800 mcg",
+            "dose_label": "per serving",
+            "use": "Vitamin B9, as methylfolate, its active form. Works alongside B6 and B12."
+          }
+        }
+      },
+      "block_order": [
+        "ing2",
+        "ing3",
+        "ing4",
+        "ing6",
+        "ing7"
+      ],
+      "settings": {
+        "ri_note": "Amounts shown are targets for one daily serving and will be confirmed after production and stability testing. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "potency",
+    "delivery",
+    "about",
+    "ingredients",
+    "more"
+  ]
+}

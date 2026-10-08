@@ -1,0 +1,614 @@
+{% assign cv = product.selected_or_first_available_variant %}
+<style>
+  .rp-wrap{max-width:2000px;padding:0 clamp(18px,2.5vw,48px)}
+  .rp-crumb{font-size:13px;color:var(--muted);padding-top:34px}
+  .rp-crumb span{margin:0 9px;color:#b5b2aa}
+  .rp-crumb b{font-weight:500;color:var(--ink)}
+  .rp-crumb a:hover{color:var(--ink)}
+  .rp-hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding:26px 0 100px;align-items:start}
+  .rp-main{aspect-ratio:1;background:#e7e2d8;overflow:hidden;position:relative}
+  .rp-main img{width:100%;height:100%;object-fit:cover;display:block}
+  .rp-main img[hidden],.rp-main-ph[hidden]{display:none}
+  .rp-main-ph{position:absolute;inset:0}
+  .rp-main-ph svg,.rp-thumb svg{width:100%;height:100%;display:block;background:#e7e2d8;fill:#b3ab9d}
+  .rp-thumbs{position:relative;display:flex;gap:10px;margin-top:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .rp-thumbs::-webkit-scrollbar{display:none}
+  .rp-thumb{flex:0 0 calc((100% - 30px) / 4);scroll-snap-align:start;aspect-ratio:1;border:0;background:#e7e2d8;padding:0;cursor:pointer;overflow:hidden;opacity:.5;transition:opacity .25s ease}
+  .rp-thumb:hover{opacity:.8}
+  .rp-thumb:focus-visible{outline:1px solid var(--ink);outline-offset:2px}
+  .rp-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .rp-thumb[aria-current="true"]{opacity:1}
+  .rp-arrow{position:absolute;top:50%;z-index:2;width:56px;height:56px;margin-top:-28px;padding:0;border:0;border-radius:50%;background:rgba(244,241,235,.8);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease}
+  .rp-arrow:hover{background:var(--ivory)}
+  .rp-arrow:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+  .rp-arrow svg{width:20px;height:20px}
+  .rp-prev{left:18px}
+  .rp-next{right:18px}
+  @media(min-width:861px){
+    .rp-crumb{padding-top:74px}
+    .rp-gallery{display:grid;grid-template-columns:106px 1fr;gap:16px}
+    .rp-gallery .rp-main{grid-column:2;grid-row:1}
+    .rp-gallery .rp-thumbs{grid-column:1;grid-row:1;flex-direction:column;gap:14px;margin-top:0;height:0;min-height:100%;overflow-x:hidden;overflow-y:auto;scroll-snap-type:y mandatory}
+    .rp-gallery .rp-thumb{flex:0 0 auto;width:100%}
+  }
+  .rp-fallback{position:absolute;inset:0;background:radial-gradient(120% 120% at 60% 18%,#2d312c,#191b18);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f4f1eb;text-align:center}
+  .rp-fallback strong{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:34px;letter-spacing:.02em}
+  .rp-fallback span{margin-top:12px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#b9bcb4}
+  .rp-info{position:sticky;top:110px}
+  .rp-title{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:clamp(32px,3.3vw,46px);line-height:1.1;letter-spacing:-.01em;margin:0 0 12px}
+  .rp-intro{font-size:17px;line-height:1.6;color:#3a3d38;margin:0 0 26px}
+  .rp-intro strong{font-weight:600;color:var(--ink)}
+  .rp-check-h{margin:0 0 14px;font-size:16px;font-weight:600}
+  .rp-check{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:12px}
+  .rp-check li{display:flex;align-items:center;gap:12px;font-size:16px}
+  .rp-check li:before{content:"";flex:none;width:18px;height:18px;border-radius:50%;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.6 6.2 5 8.5l4.4-4.8' fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px 11px no-repeat}
+  .rp-rating{display:inline-flex;align-items:center;gap:10px;margin:0 0 20px;font-size:13px;color:var(--ink)}
+  .rp-stars{position:relative;display:inline-block;font-size:17px;letter-spacing:2px;line-height:1;color:#cfcac0;white-space:nowrap}
+  .rp-stars:before{content:"\2605\2605\2605\2605\2605";position:absolute;left:0;top:0;width:calc(var(--rp-r) / 5 * 100%);overflow:hidden;color:var(--ink)}
+  .rp-rating-sep{color:var(--muted)}
+  .rp-rating-count{font-size:14px;color:#3a3d38}
+  .rp-price-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:22px;font-size:17px;font-weight:600}
+  .rp-price-row .rp-sep{font-weight:400;color:var(--muted)}
+  .rp-price{font-size:inherit}
+  .rp-price-note{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .rp-facts{display:flex;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:18px;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .rp-facts span:not(:last-child):after{content:"·";margin-left:12px;color:#aaa}
+  .rp-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+  .rp-badges span{border:1px solid var(--line);padding:7px 11px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:var(--paper)}
+  .rp-badges span:first-child{background:var(--ink);border-color:var(--ink);color:var(--ivory)}
+  .rp-panel{margin-top:4px;scroll-margin-top:110px}
+  .rp-app{margin-bottom:22px}
+  .rp-buy{display:flex;align-items:stretch;gap:12px}
+  .rp-buy .rp-stepper{flex:none;height:56px;border:1px solid var(--ink);border-radius:6px;background:transparent}
+  .rp-buy .rp-stepper button{width:40px;height:54px}
+  .rp-buy .rp-stepper input{width:34px;height:54px;font-size:17px}
+  .rp-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .rp-option{display:flex;align-items:center;justify-content:space-between;gap:20px;border:1px solid var(--ink);background:var(--ivory);padding:16px;margin-bottom:18px}
+  .rp-option-copy{display:flex;align-items:center;gap:12px}
+  .rp-option-copy strong{display:block;font-size:14px;font-weight:500}
+  .rp-option-copy small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+  .rp-radio{width:16px;height:16px;border:1px solid var(--ink);border-radius:50%;position:relative;flex:none}
+  .rp-radio:after{content:"";position:absolute;inset:3px;background:var(--ink);border-radius:50%}
+  .rp-variant-field label,.rp-qty label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .rp-variant-field select{width:100%;height:50px;border:1px solid var(--line);background:var(--ivory);padding:0 14px;margin-bottom:18px}
+  .rp-controls{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:18px}
+  .rp-stepper{display:flex;align-items:center;border:1px solid var(--line);height:50px;background:var(--ivory)}
+  .rp-stepper button{width:42px;height:48px;border:0;background:transparent;font-size:20px;color:var(--ink);cursor:pointer}
+  .rp-stepper input{width:42px;height:48px;border:0;background:transparent;text-align:center;font:inherit;-moz-appearance:textfield}
+  .rp-stepper input::-webkit-outer-spin-button,.rp-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .rp-status{font-size:11px;color:var(--muted);text-align:right;padding-bottom:7px}
+  .rp-status:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#b9895f;margin-right:7px}
+  .rp-add{flex:1;min-width:0;min-height:56px;border-radius:6px;font-size:16px;font-weight:600;letter-spacing:0;text-transform:none}
+  .shopify-payment-button{margin-top:10px}
+  .rp-note{font-size:11px;line-height:1.55;color:var(--muted);margin:16px 0 0}
+  .rp-trust{margin-top:22px;display:grid;justify-items:center;gap:12px;font-size:15px}
+  .rp-trust-row{display:inline-flex;align-items:center;gap:10px;color:var(--ink)}
+  .rp-trust-row svg{flex:none;width:22px;height:22px}
+  .rp-trust-row .rp-flag{width:22px;height:15px}
+  a.rp-trust-row span{text-decoration:underline;text-underline-offset:3px}
+  .rp-lab{display:flex;align-items:center;gap:18px;margin-top:26px;padding:20px 22px;border:1px solid #8fa9c9;color:var(--ink)}
+  .rp-lab-check{flex:none;width:44px;height:44px;color:#5b86b8}
+  .rp-lab-check svg{display:block;width:100%;height:100%}
+  .rp-lab-copy{display:grid;gap:8px;min-width:0;padding-left:18px;border-left:1px solid var(--line)}
+  .rp-lab-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:17px}
+  .rp-lab-date{background:#6b92c4;color:#fff;border-radius:4px;padding:2px 10px;font-size:15px;letter-spacing:.04em}
+  .rp-lab-sub{font-size:15px;color:#8a8f95}
+  .rp-faq{margin-top:26px;border-top:1px solid var(--line)}
+  .rp-faq details{border-bottom:1px solid var(--line)}
+  .rp-faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0;font-size:18px;font-weight:500;line-height:1.35;cursor:pointer}
+  .rp-faq summary::-webkit-details-marker{display:none}
+  .rp-faq summary:after{content:"";flex:none;width:18px;height:18px;background:linear-gradient(var(--ink),var(--ink)) center/18px 1.5px no-repeat,linear-gradient(var(--ink),var(--ink)) center/1.5px 18px no-repeat}
+  .rp-faq details[open] summary:after{background:linear-gradient(var(--ink),var(--ink)) center/18px 1.5px no-repeat}
+  .rp-faq summary:focus-visible{outline:1px solid var(--ink);outline-offset:4px}
+  .rp-faq-a{margin:0 0 20px;font-size:15px;line-height:1.6;color:#3a3d38}
+  .rp-ing{background:var(--paper);padding:100px 0;overflow:hidden}
+  .rp-ing-head{text-align:center;max-width:780px;margin:0 auto 60px}
+  .rp-ing h2{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;font-weight:400;font-size:clamp(34px,4.4vw,60px);line-height:1.04;letter-spacing:-.02em;margin:0 0 20px}
+  .rp-ing h2 span{display:block}
+  .rp-ing-sub{font-size:17px;line-height:1.65;color:#3a3d38;margin:0 auto;max-width:640px}
+  .rp-ing-btn{display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:0 28px;border:0;background:var(--ink);color:var(--ivory);font:inherit;font-size:14px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+  .rp-ing-btn:hover{background:#3c403b}
+  .rp-ing-btn svg{width:16px;height:16px}
+  .rp-ing-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:72px;align-items:center;max-width:1180px;margin:0 auto}
+  .rp-ing-visual{display:grid;justify-items:center;gap:36px}
+  .rp-ing-facts{justify-content:center;min-width:min(100%,340px)}
+  .rp-ing-facts svg{width:16px;height:16px}
+  .rp-hex{position:relative;width:100%;max-width:540px;aspect-ratio:560/589}
+  .rp-hex-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;transition:opacity .6s ease}
+  .rp-hex-lines g{color:#a88462;transition:color .3s ease}
+  .rp-hex-lines line{stroke:currentColor;stroke-width:1.3}
+  .rp-hex-lines circle{fill:currentColor}
+  .rp-hex-lines g.is-on{color:var(--ink)}
+  .rp-hex-cell{position:absolute;width:35.714%;height:29.412%;padding:0;margin:0;border:0;background:none;color:var(--ink);font:inherit;appearance:none;-webkit-tap-highlight-color:transparent;transition:transform .4s cubic-bezier(.2,.7,.2,1),opacity .4s ease}
+  button.rp-hex-cell{cursor:pointer}
+  .rp-hex-shape{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 12px 16px rgba(70,52,34,.09)) drop-shadow(0 2px 3px rgba(70,52,34,.06));transition:filter .4s ease}
+  .rp-hex-shape path{stroke:rgba(30,32,30,.09);stroke-width:1;transition:stroke .3s ease}
+  .rp-hex-cell img{position:absolute;left:17%;top:11%;width:66%;height:50%;object-fit:contain;mix-blend-mode:multiply;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .rp-hex-art{position:absolute;left:0;right:0;top:27%;text-align:center;font:500 28px Georgia,serif;letter-spacing:.08em;color:#a88462}.rp-hex-label{position:absolute;left:12%;right:12%;top:62%;bottom:9%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;line-height:1.35;letter-spacing:.16em;text-transform:uppercase}
+  .rp-hex-core img{left:13%;top:8%;width:74%;height:84%;animation:rp-float 6s ease-in-out infinite}.rp-drive-gummy{position:absolute;left:19%;top:20%;width:62%;height:58%;border-radius:18%;background:linear-gradient(145deg,#f2a46c 0%,#c8582b 48%,#813217 100%);box-shadow:inset 12px 10px 18px rgba(255,255,255,.22),inset -12px -14px 18px rgba(75,24,8,.28),0 18px 20px rgba(75,36,16,.2);display:flex;align-items:center;justify-content:center;color:#fff3df;font:500 18px Georgia,serif;letter-spacing:.16em;transform:rotate(-4deg)}
+  .rp-hex-p1{left:32.143%;top:0.000%}
+  .rp-hex-p2{left:0.000%;top:17.647%}
+  .rp-hex-p3{left:64.286%;top:17.647%}
+  .rp-hex-p4{left:0.000%;top:52.941%}
+  .rp-hex-p5{left:32.143%;top:70.588%}
+  .rp-hex-p6{left:64.286%;top:52.941%}
+  .rp-hex-core{left:32.143%;top:35.294%}
+  button.rp-hex-cell:hover,.rp-hex-cell.is-on{transform:translateY(-5px) scale(1.035);z-index:2}
+  button.rp-hex-cell:hover img,.rp-hex-cell.is-on img{transform:scale(1.06)}
+  button.rp-hex-cell:hover .rp-hex-shape,.rp-hex-cell.is-on .rp-hex-shape{filter:drop-shadow(0 18px 22px rgba(70,52,34,.14)) drop-shadow(0 2px 4px rgba(70,52,34,.08))}
+  .rp-hex-cell.is-on .rp-hex-shape path{stroke:var(--ink);stroke-width:1.4}
+  .rp-hex.has-on button.rp-hex-cell:not(.is-on){opacity:.5}
+  .rp-hex-cell:focus-visible{outline:none}
+  .rp-hex-cell:focus-visible .rp-hex-shape path{stroke:var(--ink);stroke-width:2}
+  .rp-hex.is-pre .rp-hex-cell{opacity:0;transform:scale(.82)}
+  .rp-hex.is-pre .rp-hex-lines{opacity:0}
+  .rp-hex.is-in .rp-hex-cell{transition-delay:calc(var(--i,0) * 80ms)}
+  .rp-hex.is-in .rp-hex-lines{transition-delay:.55s}
+  @keyframes rp-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-1.5deg)}}
+  .rp-ingl{border-top:1px solid var(--line)}
+  .rp-ingl details{border-bottom:1px solid var(--line)}
+  .rp-ingl summary{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:24px;align-items:center;padding:18px 6px;cursor:pointer}
+  .rp-ingl summary::-webkit-details-marker{display:none}
+  .rp-ingl summary:focus-visible{outline:1px solid var(--ink);outline-offset:2px}
+  .rp-ingl-name{grid-column:1;font-size:17px;line-height:1.3;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+  .rp-ingl-short{grid-column:1;margin-top:3px;font-size:15px;line-height:1.45;color:#5d615b}
+  .rp-ingl summary:after{content:"";grid-column:2;grid-row:1/span 2;width:22px;height:22px;background:linear-gradient(var(--ink),var(--ink)) center/22px 1.2px no-repeat,linear-gradient(var(--ink),var(--ink)) center/1.2px 22px no-repeat;transition:transform .3s ease}
+  .rp-ingl details[open] summary:after{background:linear-gradient(var(--ink),var(--ink)) center/22px 1.2px no-repeat;transform:rotate(180deg)}
+  .rp-ingl details.is-on .rp-ingl-name{color:#9c6f47}
+  .rp-ingl-body{display:grid;gap:6px;padding:0 6px 22px}
+  .rp-ingl-amt{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:21px;line-height:1.2}
+  .rp-ingl-amt small{font-family:inherit;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-left:8px}
+  .rp-ingl-text{margin:0;font-size:15px;line-height:1.6;color:#3a3d38}
+  @media(prefers-reduced-motion:reduce){
+    .rp-hex-core img{animation:none}
+    .rp-hex-cell,.rp-hex-cell img,.rp-hex-lines{transition:none}
+  }
+  .rp-sfd{border:0;padding:0;width:calc(100% - 32px);max-width:560px;background:var(--paper);color:var(--ink)}
+  .rp-sfd::backdrop{background:rgba(20,22,19,.55)}
+  .rp-sfd-in{position:relative;padding:30px 24px 26px;max-height:85vh;overflow:auto}
+  .rp-sfd-x{position:absolute;top:8px;right:8px;width:40px;height:40px;border:0;background:transparent;font-size:26px;line-height:1;color:var(--ink);cursor:pointer}
+  .rp-sfd .sf{max-width:none}
+  .rp-sfd .rp-other{max-width:none}
+  .rp-qa{padding:100px 0;background:var(--ivory)}
+  .rp-qa-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"text img" "cta img";column-gap:72px;align-items:start}
+  .rp-qa-text{grid-area:text;align-self:end}
+  .rp-qa-media{grid-area:img;align-self:center}
+  .rp-qa-cta{grid-area:cta;margin-top:34px}
+  .rp-qa h2{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;font-weight:400;font-size:clamp(34px,4vw,56px);line-height:1.05;letter-spacing:-.01em;margin:0 0 18px}
+  .rp-qa h2 span{display:block}
+  .rp-qa-sub{font-size:17px;line-height:1.6;color:#3a3d38;margin:0 0 26px;max-width:540px}
+  .rp-qa-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .rp-qa-list li{display:flex;align-items:center;gap:12px;font-size:17px}
+  .rp-qa-list li:before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--ink)}
+  .rp-qa-media{aspect-ratio:5/4;overflow:hidden;background:#e7e2d8}
+  .rp-qa-media img{width:100%;height:100%;object-fit:cover;display:block}
+  .rp-qa-media svg{width:100%;height:100%;display:block;fill:#b3ab9d}
+  .rp-qa-cta .rp-ing-btn{text-decoration:none}
+  .rp-why{background:radial-gradient(120% 120% at 70% 20%,#2d312c 0%,#20231f 46%,#141613 100%);color:var(--ivory);padding:110px 0}
+  .rp-why-in{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+  .rp-why .eyebrow{color:#a9ada4}
+  .rp-why h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(40px,5vw,72px);line-height:.95;letter-spacing:-.02em;margin:0 0 24px;color:#f6f3ec}
+  .rp-why h2 em{color:#e8dbca}
+  .rp-why p{font-size:17px;line-height:1.65;color:#c4c8bf;max-width:470px;margin:0 0 40px}
+  .rp-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #34382f}
+  .rp-stats div{padding:22px 16px 0 0}
+  .rp-stats strong{display:block;font-family:Georgia,serif;font-weight:500;font-size:40px;color:#f6f3ec;line-height:1}
+  .rp-stats span{display:block;margin-top:10px;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#a9ada4}
+  .rp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;max-width:400px;margin:0 auto}
+  .rp-cube{aspect-ratio:1;border-radius:18%;box-shadow:inset 0 -6px 12px rgba(0,0,0,.14),inset 0 5px 8px rgba(255,255,255,.28),0 14px 22px rgba(0,0,0,.35)}
+  .rp-y{background:linear-gradient(160deg,#f1e3a4,#d7bf66)}
+  .rp-b{background:linear-gradient(160deg,#d98a57,#ad5229)}
+  .rp-p{background:linear-gradient(160deg,#f1d0b8,#d9a684)}
+  .rp-legend{display:flex;justify-content:center;gap:22px;margin-top:34px;flex-wrap:wrap}
+  .rp-legend span{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#c4c8bf}
+  .rp-legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+  .rp-sfb{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .rp-tag{display:inline-block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ivory);background:#b9895f;padding:6px 10px;margin-bottom:14px}
+  .sf{border:2px solid var(--ink);background:#fdfcf9;padding:14px 16px;color:var(--ink);font-family:Arial,Helvetica,sans-serif;max-width:480px}
+  .sf h3{font-size:32px;font-weight:800;letter-spacing:-.01em;margin:0 0 4px;line-height:1}
+  .sf-serv{font-size:13px;line-height:1.5;padding-bottom:8px;border-bottom:9px solid var(--ink)}
+  .sf-row{display:grid;grid-template-columns:1fr auto 44px;gap:12px;padding:8px 0;border-bottom:1px solid var(--ink);font-size:13px;align-items:baseline}
+  .sf-row.sf-head{font-size:11px;font-weight:700;border-bottom:4px solid var(--ink)}
+  .sf-row b{font-weight:700}
+  .sf-row em{font-style:normal;font-size:11px;color:var(--muted)}
+  .sf-row .dv{text-align:right}
+  .sf-end{border-bottom:9px solid var(--ink)}
+  .sf-foot{font-size:11px;line-height:1.5;padding-top:8px}
+  .rp-other{font-size:13px;line-height:1.6;color:var(--muted);max-width:480px;margin:18px 0 0}
+  .rp-other b{color:var(--ink);font-weight:600}
+  .rp-base h2{margin-bottom:22px}
+  .rp-base>p{font-size:17px;line-height:1.65;color:#3a3d38;max-width:520px;margin:0 0 30px}
+  .rp-points{border-top:1px solid var(--line)}
+  .rp-points>div{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:20px 0;border-bottom:1px solid var(--line)}
+  .rp-points .index{padding-top:3px}
+  .rp-points strong{display:block;font-weight:500;font-size:16px;margin-bottom:6px}
+  .rp-points p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+  .rp-legal{font-size:11px;line-height:1.55;color:var(--muted);max-width:820px;margin:40px 0 0}
+  @media(max-width:860px){
+    .rp-hero{grid-template-columns:1fr;gap:30px;padding-bottom:70px}
+    .rp-arrow{width:42px;height:42px;margin-top:-21px}
+    .rp-prev{left:12px}
+    .rp-next{right:12px}
+    .rp-info{position:static}
+    .rp-controls{flex-direction:column;align-items:flex-start}
+    .rp-status{text-align:left;padding-bottom:0}
+    .rp-why{padding:76px 0}
+    .rp-why-in{grid-template-columns:1fr;gap:54px}
+    .rp-grid{gap:11px;max-width:320px}
+    .rp-sfb{grid-template-columns:1fr;gap:56px}
+    .rp-stats strong{font-size:34px}
+    .rp-ing{padding:64px 0}
+    .rp-ing-head{margin-bottom:30px}
+    .rp-ing-sub{font-size:16px}
+    .rp-ing-grid{grid-template-columns:minmax(0,1fr);row-gap:34px}
+    .rp-ing-visual{gap:28px}
+    .rp-hex{max-width:440px}
+    .rp-hex-label{font-size:9.5px;letter-spacing:.1em;left:9%;right:9%}
+    .rp-ing-facts{min-width:0;width:auto;padding:0 24px;font-size:13px;letter-spacing:.14em;white-space:nowrap}
+    .rp-ingl summary{padding:16px 4px}
+    .rp-ingl-name{font-size:15.5px;letter-spacing:.1em}
+    .rp-ingl-short{font-size:14px}
+    .rp-ingl summary:after{width:20px;height:20px}
+    .rp-qa{padding:70px 0}
+    .rp-qa-grid{grid-template-columns:1fr;grid-template-areas:"text" "img" "cta";row-gap:34px}
+    .rp-qa-cta{margin-top:0}
+  }
+</style>
+
+<div class="wrap rp-wrap">
+  <nav class="rp-crumb" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Home</a><span aria-hidden="true">|</span><b>{{ product.title }}</b></nav>
+  <section class="rp-hero">
+    <div class="rp-gallery" data-rp-gallery>
+      <div class="rp-main">
+        {% if product.featured_media %}
+          {{ product.featured_media.preview_image | image_url: width: 1400 | image_tag: alt: product.title, loading: 'eager' }}
+        {% else %}
+          <div class="rp-fallback"><strong>Reserve Nutrition</strong><span>Drive</span></div>
+        {% endif %}
+        <div class="rp-main-ph" data-rp-main-ph hidden></div>
+        <button type="button" class="rp-arrow rp-prev" data-rp-prev aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button type="button" class="rp-arrow rp-next" data-rp-next aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      {%- assign rp_ph_count = 4 | minus: product.media.size -%}
+      {%- assign rp_ph_names = 'product-2,product-3,product-4,product-5' | split: ',' -%}
+      <div class="rp-thumbs">
+        {%- for media in product.media -%}<button type="button" class="rp-thumb" data-rp-thumb data-full="{{ media.preview_image | image_url: width: 1400 }}" aria-label="View image {{ forloop.index }}" {% if forloop.first %}aria-current="true"{% endif %}>{{ media.preview_image | image_url: width: 240 | image_tag: alt: '' }}</button>{%- endfor -%}
+        {%- if rp_ph_count > 0 -%}{%- for i in (1..rp_ph_count) -%}<button type="button" class="rp-thumb" data-rp-thumb aria-label="View placeholder image {{ i }}">{{ rp_ph_names[forloop.index0] | placeholder_svg_tag }}</button>{%- endfor -%}{%- endif -%}
+      </div>
+    </div>
+
+    <div class="rp-info">
+      {%- assign rp_rating = product.metafields.reviews.rating.value.rating | default: 0 -%}
+      {%- assign rp_count = product.metafields.reviews.rating_count.value | default: 0 -%}
+      <h1 class="rp-title">{{ product.title }}</h1>
+      <a class="rp-rating" href="#judgeme_product_reviews"><span class="rp-stars" style="--rp-r:{{ rp_rating }}" aria-hidden="true">★★★★★</span><span class="rp-rating-count">{% if rp_count > 0 %}{{ rp_count }} {% if rp_count == 1 %}Review{% else %}Reviews{% endif %}{% else %}No reviews yet{% endif %}</span></a>
+      <p class="rp-intro"><strong>Drive is built around a compact three-ingredient stack.</strong> Tongkat Ali is the primary active, supported by zinc and boron in a daily male vitality gummy.</p>
+      <p class="rp-check-h">Why Drive:</p>
+      <ul class="rp-check"><li>Tongkat Ali centered</li><li>Zinc and boron support</li><li>100% grass-fed bovine gelatin</li><li>Two gummies per serving</li><li>Full formula disclosed</li></ul>
+
+      <div class="rp-panel" id="rp-buy-{{ section.id }}" data-rp-form>
+        {%- assign rp_has_app = false -%}{%- for block in section.blocks -%}{%- if block.type == '@app' -%}{%- assign rp_has_app = true -%}{%- endif -%}{%- endfor -%}
+        {% form 'product', product %}
+          <input type="hidden" name="id" value="{{ cv.id }}" data-rp-variant-id>
+          {%- unless rp_has_app -%}
+          <div class="rp-option">
+            <div class="rp-option-copy"><span class="rp-radio" aria-hidden="true"></span><span><strong>One-time purchase</strong><small>30 gummies</small></span></div>
+            <strong>{% if cv.price > 0 %}{{ cv.price | money }}{% else %}Price to be confirmed{% endif %}</strong>
+          </div>
+          {%- endunless -%}
+          <div class="rp-variant-field">{% if product.variants.size > 1 %}<label for="rp-variant-{{ section.id }}">Format</label><select id="rp-variant-{{ section.id }}" data-rp-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" {% if variant.id == cv.id %}selected{% endif %}>{{ variant.title }}</option>{% endfor %}</select>{% endif %}</div>
+          {%- for block in section.blocks -%}{%- if block.type == '@app' -%}<div class="rp-app">{% render block %}</div>{%- endif -%}{%- endfor -%}
+          <div class="rp-buy">
+            <label class="rp-sr" for="rp-qty-{{ section.id }}">Quantity</label>
+            <div class="rp-stepper"><button type="button" data-rp-dec aria-label="Decrease quantity">−</button><input id="rp-qty-{{ section.id }}" type="number" name="quantity" min="1" value="1" inputmode="numeric"><button type="button" data-rp-inc aria-label="Increase quantity">+</button></div>
+            {% if cv.available %}
+              <button class="button button-dark rp-add" type="submit"><span>Add to bag - <span data-rp-add-price>{% if cv.price > 0 %}{{ cv.price | money }}{% else %}Price to be confirmed{% endif %}</span></span></button>
+            {% else %}
+              <a class="button button-dark rp-add" href="/#reserve">Join the first release</a>
+            {% endif %}
+          </div>
+        {% endform %}
+        <div class="rp-trust">
+          {%- if section.settings.guarantee_text != blank -%}
+          <a class="rp-trust-row" href="{{ section.settings.guarantee_url | default: '/policies/refund-policy' }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4.5v3.9h3.9"/><path d="M12 7.5v9"/><path d="M14.4 9.6c-.4-.8-1.3-1.2-2.4-1.2-1.3 0-2.4.7-2.4 1.7 0 2.4 4.8 1.2 4.8 3.8 0 1-1.1 1.8-2.4 1.8-1.2 0-2.1-.5-2.6-1.3"/></svg><span>{{ section.settings.guarantee_text }}</span></a>
+          {%- endif -%}
+          {%- if section.settings.origin_text != blank -%}
+          <div class="rp-trust-row"><svg class="rp-flag" viewBox="0 0 22 15" aria-hidden="true"><rect x=".5" y=".5" width="21" height="14" fill="none" stroke="currentColor"/><path d="M1 2.5h20M1 5h20M1 7.5h20M1 10h20M1 12.5h20" stroke="currentColor" stroke-width="1.1"/><rect x=".5" y=".5" width="9" height="7.5" fill="currentColor"/></svg>{{ section.settings.origin_text }}</div>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.lab_name != blank -%}
+        <a class="rp-lab" href="{{ section.settings.lab_url | default: '#' }}">
+          <span class="rp-lab-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg></span>
+          <span class="rp-lab-copy">
+            <span class="rp-lab-top">Tested by {{ section.settings.lab_name }}{% if section.settings.lab_date != blank %} in <span class="rp-lab-date">{{ section.settings.lab_date }}</span>{% endif %}</span>
+            {%- if section.settings.lab_sub != blank -%}<span class="rp-lab-sub">{{ section.settings.lab_sub }} <span aria-hidden="true">&rarr;</span></span>{%- endif -%}
+          </span>
+        </a>
+        {%- endif -%}
+        <div class="rp-faq">
+          {%- for i in (1..4) -%}
+            {%- capture rp_qk -%}q{{ i }}{%- endcapture -%}
+            {%- capture rp_ak -%}a{{ i }}{%- endcapture -%}
+            {%- if section.settings[rp_qk] != blank -%}
+            <details><summary>{{ section.settings[rp_qk] }}</summary><p class="rp-faq-a">{{ section.settings[rp_ak] }}</p></details>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <p class="rp-note">Target formula shown. Final doses, base, and shelf-life claims are confirmed through production and stability testing before launch.</p>
+        <script type="application/json" data-rp-variants>{{ product.variants | json }}</script>
+        <script type="application/json" data-rp-prices>{ {%- for v in product.variants -%}"{{ v.id }}":{"p":{{ v.price }},"s":{ {%- for a in v.selling_plan_allocations -%}"{{ a.selling_plan.id }}":{{ a.price }}{% unless forloop.last %},{% endunless %}{%- endfor -%} }}{% unless forloop.last %},{% endunless %}{%- endfor -%} }</script>
+      </div>
+    </div>
+  </section>
+</div>
+
+{%- assign rp_ings = section.blocks | where: 'type', 'ingredient' -%}
+{%- if rp_ings.size > 0 -%}
+<section class="rp-ing" data-rp-ing>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="rp-hexg-{{ section.id }}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcfbf8"/><stop offset="1" stop-color="#efebe4"/></linearGradient></defs></svg>
+  <div class="wrap">
+    <div class="rp-ing-head">
+      <h2>{{ section.settings.ing_title_1 }}{% if section.settings.ing_title_2 != blank %}<span>{{ section.settings.ing_title_2 }}</span>{% endif %}</h2>
+      {%- if section.settings.ing_sub != blank -%}<p class="rp-ing-sub">{{ section.settings.ing_sub }}</p>{%- endif -%}
+    </div>
+    <div class="rp-ing-grid">
+      <div class="rp-ing-visual">
+        <div class="rp-hex">
+          <svg class="rp-hex-lines" viewBox="0 0 560 589" preserveAspectRatio="none" aria-hidden="true"><g data-rp-line><line x1="280.0" y1="201.8" x2="280.0" y2="179.2"/><circle cx="280.0" cy="179.2" r="3"/></g><g data-rp-line><line x1="199.8" y1="248.1" x2="180.2" y2="236.8"/><circle cx="180.2" cy="236.8" r="3"/></g><g data-rp-line><line x1="360.2" y1="248.1" x2="379.8" y2="236.8"/><circle cx="379.8" cy="236.8" r="3"/></g><g data-rp-line><line x1="199.8" y1="340.7" x2="180.2" y2="352.1"/><circle cx="180.2" cy="352.1" r="3"/></g><g data-rp-line><line x1="280.0" y1="387.1" x2="280.0" y2="409.7"/><circle cx="280.0" cy="409.7" r="3"/></g><g data-rp-line><line x1="360.2" y1="340.7" x2="379.8" y2="352.1"/><circle cx="379.8" cy="352.1" r="3"/></g></svg>
+          <div class="rp-hex-cell rp-hex-core"><svg class="rp-hex-shape" viewBox="0 0 200 173.2" aria-hidden="true"><path d="M193.5 75.3Q200.0 86.6 193.5 97.9L156.5 161.9Q150.0 173.2 137.0 173.2L63.0 173.2Q50.0 173.2 43.5 161.9L6.5 97.9Q0.0 86.6 6.5 75.3L43.5 11.3Q50.0 0.0 63.0 0.0L137.0 0.0Q150.0 0.0 156.5 11.3Z" fill="url(#rp-hexg-{{ section.id }})"/></svg>{%- if section.settings.ing_center_image != blank -%}{{ section.settings.ing_center_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{% if product.featured_media %}{{ product.featured_media.preview_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: product.title }}{% else %}<div class="rp-drive-gummy" aria-label="Drive gummy placeholder">DRIVE</div>{% endif %}{%- endif -%}</div>
+          {%- for block in rp_ings limit: 6 -%}
+          <button type="button" class="rp-hex-cell rp-hex-p{{ forloop.index }}" style="--i:{{ forloop.index }}" data-rp-hex aria-controls="rp-ingd-{{ block.id }}" aria-expanded="false"><svg class="rp-hex-shape" viewBox="0 0 200 173.2" aria-hidden="true"><path d="M193.5 75.3Q200.0 86.6 193.5 97.9L156.5 161.9Q150.0 173.2 137.0 173.2L63.0 173.2Q50.0 173.2 43.5 161.9L6.5 97.9Q0.0 86.6 6.5 75.3L43.5 11.3Q50.0 0.0 63.0 0.0L137.0 0.0Q150.0 0.0 156.5 11.3Z" fill="url(#rp-hexg-{{ section.id }})"/></svg>{%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}{%- elsif block.settings.art != blank and block.settings.art != 'none' -%}<img src="{{ 'rp-ing-' | append: block.settings.art | append: '.webp' | asset_url }}" alt="" loading="lazy">{%- endif -%}<span class="rp-hex-art">{{ block.settings.name | slice: 0, 2 }}</span><span class="rp-hex-label">{{ block.settings.name | replace: '-', '‑' }}</span></button>
+          {%- endfor -%}
+        </div>
+        <button type="button" class="rp-ing-btn rp-ing-facts" data-rp-sf-open aria-controls="rp-sfd-{{ section.id }}">{{ section.settings.ing_facts_btn }} <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg></button>
+      </div>
+      <div class="rp-ing-list">
+        <div class="rp-ingl">
+          {%- for block in rp_ings -%}
+          <details id="rp-ingd-{{ block.id }}" data-rp-ingd {{ block.shopify_attributes }}>
+            <summary><span class="rp-ingl-name">{{ block.settings.name }}</span>{%- if block.settings.short != blank -%}<span class="rp-ingl-short">{{ block.settings.short }}</span>{%- endif -%}</summary>
+            <div class="rp-ingl-body">
+              {%- if block.settings.amount != blank -%}<p class="rp-ingl-amt">{{ block.settings.amount }}<small>per serving</small></p>{%- endif -%}
+              {%- if block.settings.text != blank -%}<p class="rp-ingl-text">{{ block.settings.text }}</p>{%- endif -%}
+            </div>
+          </details>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  <dialog class="rp-sfd" id="rp-sfd-{{ section.id }}" aria-label="Supplement Facts">
+    <div class="rp-sfd-in">
+      <button type="button" class="rp-sfd-x" data-rp-sf-close aria-label="Close">&times;</button>
+            <div class="rp-tag">Target formula</div>
+            <div class="sf">
+              <h3>Supplement Facts</h3>
+              <div class="sf-serv">Serving size: 2 gummies<br>Servings per container: 15</div>
+              <div class="sf-row sf-head"><span>Amount per serving</span><span></span><span class="dv">% DV</span></div>
+              <div class="sf-row"><span><b>Tongkat Ali</b> root extract</span><span>200 mg</span><span class="dv">*</span></div>
+              <div class="sf-row"><span><b>Zinc</b></span><span>10 mg</span><span class="dv">*</span></div>
+              <div class="sf-row sf-end"><span><b>Boron</b></span><span>3 mg</span><span class="dv">*</span></div>
+              <div class="sf-foot">* Percent Daily Value confirmed with the final formula.<br>Target amounts per serving. Final amounts, ingredient forms, and serving details are confirmed after formulation and stability testing.</div>
+            </div>
+            <p class="rp-other"><b>Other ingredients:</b> 100% grass-fed bovine gelatin, honey, purified water, natural flavor, citric acid, malic acid, coconut oil or MCT oil, carnauba wax, and fruit and/or vegetable juice concentrate for color if needed.</p>
+    </div>
+  </dialog>
+</section>
+{%- endif -%}
+
+{%- if section.settings.qa_heading != blank -%}
+<section class="rp-qa">
+  <div class="wrap rp-qa-grid">
+    <div class="rp-qa-text">
+      <h2><span>{{ section.settings.qa_heading }}</span>{% if section.settings.qa_heading_2 != blank %}<span>{{ section.settings.qa_heading_2 }} <em>{{ section.settings.qa_heading_em }}</em></span>{% endif %}</h2>
+      {%- if section.settings.qa_sub != blank -%}<p class="rp-qa-sub">{{ section.settings.qa_sub }}</p>{%- endif -%}
+      {%- assign rp_qa_items = section.settings.qa_points | newline_to_br | split: '<br />' -%}
+      <ul class="rp-qa-list">
+        {%- for item in rp_qa_items -%}{%- assign rp_qa_item = item | strip -%}{%- if rp_qa_item != blank -%}<li>{{ rp_qa_item }}</li>{%- endif -%}{%- endfor -%}
+      </ul>
+    </div>
+    <div class="rp-qa-media">
+      {%- if section.settings.qa_image -%}
+        {{ section.settings.qa_image | image_url: width: 1400 | image_tag: loading: 'lazy', alt: section.settings.qa_image.alt }}
+      {%- else -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag }}
+      {%- endif -%}
+    </div>
+    <div class="rp-qa-cta">
+      <a class="rp-ing-btn" href="#rp-buy-{{ section.id }}">{{ section.settings.qa_button }} <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></a>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+<section class="rp-why">
+  <div class="wrap rp-why-in">
+    <div>
+      <div class="eyebrow">The serving</div>
+      <h2>Full doses.<br><em>Nothing hidden.</em></h2>
+      <p>Drive keeps the active stack compact and fully disclosed: Tongkat Ali root extract, zinc, and boron, spread across two gummies per serving.</p>
+      <div class="rp-stats"><div><strong>200 mg</strong><span>Tongkat Ali per serving</span></div><div><strong>10 mg</strong><span>Zinc per serving</span></div><div><strong>30</strong><span>Gummies per jar</span></div></div><div><strong>500 mg</strong><span>Zinc per serving</span></div><div><strong>30</strong><span>Gummies per jar</span></div></div>
+    </div>
+    <div>
+      <div class="rp-grid" aria-hidden="true">
+        <i class="rp-cube rp-y"></i><i class="rp-cube rp-b"></i><i class="rp-cube rp-p"></i><i class="rp-cube rp-b"></i><i class="rp-cube rp-y"></i>
+        <i class="rp-cube rp-p"></i><i class="rp-cube rp-y"></i><i class="rp-cube rp-b"></i><i class="rp-cube rp-p"></i><i class="rp-cube rp-b"></i>
+        <i class="rp-cube rp-b"></i><i class="rp-cube rp-p"></i><i class="rp-cube rp-y"></i><i class="rp-cube rp-y"></i><i class="rp-cube rp-p"></i>
+      </div>
+      <div class="rp-legend"><span><i class="rp-y"></i>Tongkat Ali</span><span><i class="rp-b"></i>Zinc</span><span><i class="rp-p"></i>Boron</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="facts" class="section paper">
+  <div class="wrap">
+    <div class="rp-base">
+      <div class="eyebrow">The base</div>
+      <h2>100% grass-fed<br>beef gelatin.</h2>
+      <p>Every cube is set in 100% grass-fed bovine gelatin. It gives Drive its dense, softened-cube chew and carries the three-ingredient formula in a simple daily format.</p>
+      <div class="rp-points">
+        <div><span class="index">01</span><div><strong>Sourcing</strong><p>The gelling base is 100% grass-fed beef gelatin.</p></div></div>
+        <div><span class="index">02</span><div><strong>Texture</strong><p>A firm, clean, softened-cube bite that reads as a confection, not a candy.</p></div></div>
+        <div><span class="index">03</span><div><strong>Profile</strong><p>Gelatin is naturally rich in the amino acids glycine, proline, and hydroxyproline.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Three actives.<br>One formula.</h2><p class="lead">Tongkat Ali is supported by zinc and boron in a compact daily male vitality stack. Every active is named plainly.</p></div>
+    <div class="flavors">
+      <article class="flavor"><div class="flavor-name">01 · Tongkat Ali</div><div class="flavor-note">The primary active in Drive.</div></article>
+      <article class="flavor"><div class="flavor-name">02 · Zinc</div><div class="flavor-note">A compact supporting mineral.</div></article>
+      <article class="flavor"><div class="flavor-name">03 · Boron</div><div class="flavor-note">The final part of the three-ingredient stack.</div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section paper">
+  <div class="wrap">
+    <div class="section-head"><h2>Questions, answered plainly.</h2></div>
+    <div class="faq">
+      <details><summary>How many gummies are in a serving?</summary><p>Two gummies. Each jar holds 30 gummies, or 15 daily servings.</p></details>
+      <details><summary>What are the active ingredients?</summary><p>Tongkat Ali root extract, zinc, and boron. The final extract specification and ingredient forms are confirmed with the manufacturer before production.</p></details>
+      <details><summary>Is Drive vegetarian or vegan?</summary><p>No. Drive is designed with 100% grass-fed bovine gelatin.</p></details>
+      <details><summary>What else is in the gummy?</summary><p>Honey, purified water, natural flavor, citric acid, malic acid, coconut oil or MCT oil, carnauba wax, and fruit or vegetable juice concentrate for color if needed.</p></details>
+      <details><summary>What form will the ingredients take?</summary><p>The target forms are standardized Tongkat Ali root extract, zinc citrate or zinc bisglycinate, and boron citrate. Final forms are confirmed before production.</p></details>
+      <details><summary>When will final doses be confirmed?</summary><p>The amounts shown are targets. Final doses, stability, labeling, and regulatory requirements are confirmed with the manufacturer before production.</p></details>
+    </div>
+        <p class="rp-legal">These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+  </div>
+</section>
+
+<script>
+  (function () {
+    document.querySelectorAll('[data-rp-form]').forEach(function (panel) {
+      var qty = panel.querySelector('input[name="quantity"]');
+      var set = function (v) { qty.value = Math.max(1, parseInt(v, 10) || 1); };
+      var dec = panel.querySelector('[data-rp-dec]');
+      var inc = panel.querySelector('[data-rp-inc]');
+      if (dec) dec.addEventListener('click', function () { set(Number(qty.value) - 1); });
+      if (inc) inc.addEventListener('click', function () { set(Number(qty.value) + 1); });
+      if (qty) qty.addEventListener('change', function () { set(qty.value); });
+      var select = panel.querySelector('[data-rp-variant-select]');
+      var idInput = panel.querySelector('[data-rp-variant-id]');
+      if (select && idInput) select.addEventListener('change', function () { idInput.value = select.value; });
+      var form = panel.querySelector('form');
+      var pricesEl = panel.querySelector('[data-rp-prices]');
+      var addPrice = panel.querySelector('[data-rp-add-price]');
+      if (form && pricesEl && addPrice) {
+        var prices = {};
+        try { prices = JSON.parse(pricesEl.textContent); } catch (e) {}
+        var fmt = new Intl.NumberFormat(document.documentElement.lang || 'en', { style: 'currency', currency: '{{ cart.currency.iso_code }}' });
+        var render = function () {
+          var fd = new FormData(form);
+          var v = prices[fd.get('id')] || prices[Object.keys(prices)[0]];
+          if (!v) return;
+          var plan = fd.get('selling_plan');
+          var unit = plan && v.s[plan] != null ? v.s[plan] : v.p;
+          var q = Math.max(1, parseInt(fd.get('quantity'), 10) || 1);
+          addPrice.textContent = fmt.format(unit * q / 100);
+        };
+        var later = function () { setTimeout(render, 30); setTimeout(render, 300); };
+        ['click', 'input', 'change', 'keyup'].forEach(function (t) { form.addEventListener(t, later); });
+        [0, 800, 2000, 4000].forEach(function (ms) { setTimeout(render, ms); });
+      }
+    });
+    document.querySelectorAll('[data-rp-ing]').forEach(function (sec) {
+      var hex = sec.querySelector('.rp-hex');
+      var cells = Array.prototype.slice.call(sec.querySelectorAll('[data-rp-hex]'));
+      var items = Array.prototype.slice.call(sec.querySelectorAll('[data-rp-ingd]'));
+      var lines = Array.prototype.slice.call(sec.querySelectorAll('[data-rp-line]'));
+      var mark = function (i) {
+        cells.forEach(function (c, k) { c.classList.toggle('is-on', k === i); c.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+        lines.forEach(function (l, k) { l.classList.toggle('is-on', k === i); });
+        items.forEach(function (d, k) { d.classList.toggle('is-on', k === i); });
+        if (hex) hex.classList.toggle('has-on', i > -1);
+      };
+      items.forEach(function (d, i) {
+        d.addEventListener('toggle', function () {
+          if (d.open) {
+            items.forEach(function (x, k) { if (k !== i && x.open) x.open = false; });
+            mark(i);
+          } else if (d.classList.contains('is-on')) {
+            mark(-1);
+          }
+        });
+      });
+      cells.forEach(function (c, i) {
+        c.addEventListener('click', function () {
+          var d = items[i];
+          if (!d) return;
+          var opening = !d.open;
+          items.forEach(function (x, k) { if (k !== i && x.open) x.open = false; });
+          d.open = opening;
+          if (opening && window.matchMedia('(max-width: 860px)').matches) {
+            setTimeout(function () {
+              var r = d.getBoundingClientRect();
+              if (r.bottom > window.innerHeight || r.top < 90) d.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 60);
+          }
+        });
+      });
+      if (hex && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        hex.classList.add('is-pre');
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            io.disconnect();
+            hex.classList.add('is-in');
+            requestAnimationFrame(function () { requestAnimationFrame(function () { hex.classList.remove('is-pre'); }); });
+            setTimeout(function () { hex.classList.remove('is-in'); }, 1600);
+          });
+        }, { threshold: 0.2 });
+        io.observe(hex);
+      }
+    });
+    document.querySelectorAll('[data-rp-sf-open]').forEach(function (btn) {
+      var dlg = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!dlg || !dlg.showModal) return;
+      btn.addEventListener('click', function () { dlg.showModal(); });
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+      var x = dlg.querySelector('[data-rp-sf-close]');
+      if (x) x.addEventListener('click', function () { dlg.close(); });
+    });
+    document.querySelectorAll('[data-rp-gallery]').forEach(function (gallery) {
+      var main = gallery.querySelector('.rp-main img');
+      var ph = gallery.querySelector('[data-rp-main-ph]');
+      var thumbList = Array.prototype.slice.call(gallery.querySelectorAll('[data-rp-thumb]'));
+      var step = function (dir) {
+        if (!thumbList.length) return;
+        var cur = 0;
+        thumbList.forEach(function (t, k) { if (t.getAttribute('aria-current') === 'true') cur = k; });
+        var next = thumbList[(cur + dir + thumbList.length) % thumbList.length];
+        next.click();
+        var box = next.parentNode;
+        if (box.scrollHeight > box.clientHeight) box.scrollTop = next.offsetTop - (box.clientHeight - next.offsetHeight) / 2;
+        if (box.scrollWidth > box.clientWidth) box.scrollLeft = next.offsetLeft - (box.clientWidth - next.offsetWidth) / 2;
+      };
+      var prevBtn = gallery.querySelector('[data-rp-prev]');
+      var nextBtn = gallery.querySelector('[data-rp-next]');
+      if (prevBtn) prevBtn.addEventListener('click', function () { step(-1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { step(1); });
+      gallery.querySelectorAll('[data-rp-thumb]').forEach(function (thumb) {
+        thumb.addEventListener('click', function () {
+          var full = thumb.getAttribute('data-full');
+          if (full) {
+            if (main) { main.hidden = false; main.src = full; main.removeAttribute('srcset'); }
+            if (ph) ph.hidden = true;
+          } else if (ph) {
+            ph.innerHTML = thumb.innerHTML;
+            ph.hidden = false;
+            if (main) main.hidden = true;
+          }
+          gallery.querySelectorAll('[data-rp-thumb]').forEach(function (t) { t.removeAttribute('aria-current'); });
+          thumb.setAttribute('aria-current', 'true');
+        });
+      });
+    });
+  })();
+</script>
+{% schema %}
+{"name":"Reserve product","settings":[{"type":"header","content":"Trust"},{"type":"text","id":"guarantee_text","label":"Guarantee text"},{"type":"url","id":"guarantee_url","label":"Guarantee link","info":"Defaults to your refund policy page."},{"type":"text","id":"origin_text","label":"Origin text"},{"type":"text","id":"lab_name","label":"Lab name"},{"type":"text","id":"lab_date","label":"Test date"},{"type":"text","id":"lab_sub","label":"Lab card subtitle"},{"type":"url","id":"lab_url","label":"Lab report link"},{"type":"header","content":"Questions"},{"type":"text","id":"q1","label":"Question 1","default":"What makes Drive different from other male vitality gummies?"},{"type":"textarea","id":"a1","label":"Answer 1","default":"Drive is built around three named active ingredients: Tongkat Ali root extract, zinc, and boron, set in 100% grass-fed bovine gelatin."},{"type":"text","id":"q2","label":"Question 2","default":"How do I take them?"},{"type":"textarea","id":"a2","label":"Answer 2","default":"Drive is designed as two gummies per serving. Each jar holds 30 gummies, or 15 daily servings."},{"type":"text","id":"q3","label":"Question 3","default":"What's in the formula?"},{"type":"textarea","id":"a3","label":"Answer 3","default":"Tongkat Ali root extract, zinc, and boron, with the final ingredient forms and specifications confirmed with the manufacturer before production."},{"type":"text","id":"q4","label":"Question 4","default":"What else is in the gummy?"},{"type":"textarea","id":"a4","label":"Answer 4","default":"100% grass-fed bovine gelatin, honey, purified water, natural flavor, citric acid, malic acid, coconut oil or MCT oil, carnauba wax, and fruit and/or vegetable juice concentrate for color if needed."},{"type":"header","content":"Ingredients"},{"type":"text","id":"ing_title_1","label":"Heading line 1","default":"Three actives."},{"type":"text","id":"ing_title_2","label":"Heading line 2","default":"One focused formula."},{"type":"textarea","id":"ing_sub","label":"Intro","default":"Tongkat Ali is supported by zinc and boron in a compact daily male vitality stack. The other ingredients are listed plainly below."},{"type":"image_picker","id":"ing_center_image","label":"Center image","info":"Optional. Replaces the gummy in the middle of the graphic."},{"type":"text","id":"ing_facts_btn","label":"Supplement facts button","default":"View supplement facts"},{"type":"header","content":"Quality"},{"type":"text","id":"qa_heading","label":"Heading line 1","default":"Built for"},{"type":"text","id":"qa_heading_2","label":"Heading line 2","default":"daily"},{"type":"text","id":"qa_heading_em","label":"Heading line 2 (italic end)","default":"drive."},{"type":"textarea","id":"qa_sub","label":"Intro","default":"Drive is built around a compact three-ingredient active stack, with the final specification confirmed through manufacturing and stability testing."},{"type":"textarea","id":"qa_points","label":"Bullet points","info":"One per line.","default":"Tongkat Ali centered\nZinc and boron support\n100% grass-fed bovine gelatin\nFull formula disclosed"},{"type":"image_picker","id":"qa_image","label":"Image"},{"type":"text","id":"qa_button","label":"Button label","default":"Review the Drive formula"}],"blocks":[{"type":"@app"},{"type":"ingredient","name":"Ingredient","limit":6,"settings":[{"type":"text","id":"name","label":"Name"},{"type":"text","id":"short","label":"Short line"},{"type":"text","id":"amount","label":"Amount"},{"type":"textarea","id":"text","label":"Details"},{"type":"select","id":"art","label":"Graphic","default":"none","options":[{"value":"magnesium","label":"White powder"},{"value":"citicoline","label":"Clear droplets"},{"value":"theanine","label":"Tea leaves"},{"value":"b6","label":"Golden droplets"},{"value":"folate","label":"Leafy greens"},{"value":"b12","label":"Red powder"},{"value":"none","label":"None"}]},{"type":"image_picker","id":"image","label":"Custom image","info":"Optional. Replaces the graphic."}]}]}
+{% endschema %}

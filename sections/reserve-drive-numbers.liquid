@@ -1,0 +1,57 @@
+{% comment %}
+  Section contract.
+  Drive numbers: dark band of per-serving figures. Each figure is a Number block.
+  @example
+  <!-- Section in templates/product.drive.json -->
+{% endcomment %}
+{%- assign stats = section.blocks | where: 'type', 'stat' -%}
+{% render 'reserve-drive-styles' %}
+
+<div class="dp">
+  {%- if stats.size > 0 -%}
+    <section class="dp-stats">
+      <div class="dp-wrap">
+        {%- if section.settings.heading != blank -%}<h2 class="dp-h2">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        <dl class="dp-stats-grid">
+          {%- for block in stats -%}
+            {%- if block.settings.value != blank -%}<div {{ block.shopify_attributes }}><dt>{{ block.settings.label | escape }}</dt><dd>{{ block.settings.value | escape }}</dd></div>{%- endif -%}
+          {%- endfor -%}
+        </dl>
+        {%- if section.settings.note != blank -%}<p class="dp-stats-note">{{ section.settings.note | escape }}</p>{%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Drive numbers",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Every dose, in plain numbers." },
+    { "type": "text", "id": "note", "label": "Note", "default": "Target amounts per serving. Final amounts are confirmed after formulation and stability testing." }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Number",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "info": "For example 200 mg." },
+        { "type": "text", "id": "label", "label": "Label" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Drive numbers",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "200 mg", "label": "Tongkat Ali root extract" } },
+        { "type": "stat", "settings": { "value": "10 mg", "label": "Zinc" } },
+        { "type": "stat", "settings": { "value": "3 mg", "label": "Boron" } },
+        { "type": "stat", "settings": { "value": "15", "label": "Servings per jar" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

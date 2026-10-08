@@ -1,0 +1,63 @@
+<style>
+  .ri{background:var(--paper);padding:110px 0 96px;overflow:hidden;border-bottom:1px solid var(--line)}
+  .ri-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:44px}
+  .ri-h{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:clamp(34px,4.2vw,54px);line-height:1.05;letter-spacing:-.022em;color:#171a1c;margin:0 0 18px}
+  .ri-h em{font-style:italic;display:block}
+  .ri-intro{font-size:17px;line-height:1.6;color:#555a5d;margin:0;max-width:520px}
+  .ri-nav{display:flex;gap:10px;flex:none}
+  .ri-nav button{width:50px;height:50px;border-radius:50%;border:1px solid rgba(30,32,30,.35);background:transparent;color:#1e201e;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,opacity .2s}
+  .ri-nav button:hover{background:#1e201e;color:#f4f1eb}
+  .ri-nav button:disabled{opacity:.3;pointer-events:none}
+  .ri-nav svg{width:16px;height:16px}
+  .ri-track{--pad:max(28px,calc((100vw - var(--max,1240px))/2 + 28px));display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:var(--pad);padding:0 var(--pad) 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .ri-track::-webkit-scrollbar{display:none}
+  .ri-card{flex:0 0 330px;scroll-snap-align:start;margin:0}
+  .ri-vis{position:relative;aspect-ratio:1/1.05;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .ri-vis svg{width:64%;height:auto}
+  .ri-vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ri-idx{position:absolute;top:16px;left:18px;font-size:10.5px;letter-spacing:.2em;color:rgba(30,32,30,.55)}
+  .ri-body{padding:20px 2px 0}
+  .ri-name{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:23px;line-height:1.2;letter-spacing:-.01em;color:#171a1c;margin:0}
+  .ri-dose{display:flex;align-items:baseline;gap:10px;margin:14px 0 12px;padding-top:14px;border-top:1px solid rgba(30,32,30,.14)}
+  .ri-amt{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-size:32px;line-height:1;letter-spacing:-.02em;color:#171a1c}
+  .ri-per{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7b7f7a}
+  .ri-use{font-size:15px;line-height:1.55;color:#555a5d;margin:0}
+  .ri-bar{position:relative;height:1px;background:rgba(30,32,30,.15);margin-top:40px;overflow:hidden}
+  .ri-bar i{position:absolute;left:0;top:0;height:1px;background:#1e201e;width:30%}
+  .ri-note{font-size:12px;line-height:1.6;color:#7b7f7a;margin:18px 0 0;max-width:720px}
+  @media(max-width:760px){
+    .ri{padding:60px 0 56px}
+    .ri-head{margin-bottom:28px}
+    .ri-h{font-size:clamp(32px,9vw,40px);margin-bottom:14px}
+    .ri-intro{font-size:16px}
+    .ri-nav{display:none}
+    .ri-track{--pad:18px;gap:14px}
+    .ri-card{flex-basis:66vw}
+    .ri-name{font-size:20px}
+    .ri-amt{font-size:28px}
+    .ri-use{font-size:14.5px}
+    .ri-bar{margin-top:28px}
+  }
+</style>
+<section class="ri" id="ri-{{ section.id }}">
+  <div class="wrap ri-head">
+    <div>
+      <h2 class="ri-h">{{ section.settings.ri_title | default: 'Nothing hidden' }} <em>{{ section.settings.ri_title_em | default: 'in the fine print.' }}</em></h2>
+      <p class="ri-intro">{{ section.settings.ri_intro | default: 'Every active is named and dosed. Swipe through one daily serving.' }}</p>
+    </div>
+    <div class="ri-nav"><button type="button" data-prev aria-label="Previous"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M10 3 5 8l5 5"/></svg></button><button type="button" data-next aria-label="Next"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 3l5 5-5 5"/></svg></button></div>
+  </div>
+  <div class="ri-track">
+{%- for block in section.blocks -%}
+    <article class="ri-card" {{ block.shopify_attributes }}><div class="ri-vis" style="background:{{ block.settings.tone }}">{%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 761px) 330px, 66vw', widths: '400, 600, 900', alt: block.settings.name }}{%- else -%}{%- case block.settings.art -%}{%- when 'creatine' -%}<svg viewBox="0 0 200 200" fill="none" stroke="#1e201e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><g opacity="0.8"><path d="M74 105.24 L96 111.62 L74 118 L52 111.62 Z" fill="rgba(255,255,255,.55)"/><path d="M52 111.62 L74 118 L74 143.3 L52 136.92000000000002 Z" fill="rgba(30,32,30,.05)"/><path d="M96 111.62 L74 118 L74 143.3 L96 136.92000000000002 Z" fill="rgba(30,32,30,.11)"/></g><g opacity="0.7"><path d="M132 115.56 L150 120.78 L132 126 L114 120.78 Z" fill="rgba(255,255,255,.55)"/><path d="M114 120.78 L132 126 L132 146.7 L114 141.48 Z" fill="rgba(30,32,30,.05)"/><path d="M150 120.78 L132 126 L132 146.7 L150 141.48 Z" fill="rgba(30,32,30,.11)"/></g><g opacity="1"><path d="M100 73.44 L132 82.72 L100 92 L68 82.72 Z" fill="rgba(255,255,255,.55)"/><path d="M68 82.72 L100 92 L100 128.8 L68 119.52000000000001 Z" fill="rgba(30,32,30,.05)"/><path d="M132 82.72 L100 92 L100 128.8 L132 119.52000000000001 Z" fill="rgba(30,32,30,.11)"/></g></svg>{%- when 'magnesium' -%}<svg viewBox="0 0 200 200" fill="none" stroke="#1e201e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="45" y="45" width="110" height="110" fill="rgba(255,255,255,.4)"/><text x="56" y="66" font-family='Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif' font-size="12" fill="#1e201e" stroke="none">12</text><text x="100" y="118" text-anchor="middle" font-family='Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif' font-size="46" fill="#1e201e" stroke="none">Mg</text><text x="100" y="140" text-anchor="middle" font-family='Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif' font-size="10" letter-spacing="1.5" fill="#1e201e" stroke="none">24.305</text></svg>{%- when 'citicoline' -%}<svg viewBox="0 0 200 200" fill="none" stroke="#1e201e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M100 64 L127 80 L127 112 L100 128 L73 112 L73 80 Z" fill="rgba(255,255,255,.4)"/><path d="M100 72 L120 84 M80 108 L100 120 M127 112 L152 127 L152 152 M73 80 L48 65 L48 40 M100 128 L100 156 L124 170"/><g fill="#f7f4ee"><circle cx="100" cy="64" r="4"/><circle cx="127" cy="80" r="4"/><circle cx="127" cy="112" r="4"/><circle cx="100" cy="128" r="4"/><circle cx="73" cy="112" r="4"/><circle cx="73" cy="80" r="4"/><circle cx="152" cy="127" r="4"/><circle cx="152" cy="152" r="4"/><circle cx="48" cy="65" r="4"/><circle cx="48" cy="40" r="4"/><circle cx="100" cy="156" r="4"/><circle cx="124" cy="170" r="4"/></g></svg>{%- when 'theanine' -%}<svg viewBox="0 0 200 200" fill="none" stroke="#1e201e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M60 150 C52 96 88 52 150 44 C156 104 120 146 60 150 Z" fill="rgba(255,255,255,.45)"/><path d="M60 150 C88 118 116 84 146 50"/><path d="M78 128 L74 106 M92 112 L90 88 M106 96 L106 74 M120 80 L122 62 M84 124 L106 124 M98 108 L120 106 M112 92 L132 88"/><path d="M60 150 L50 164"/></svg>{%- when 'bacopa' -%}<svg viewBox="0 0 200 200" fill="none" stroke="#1e201e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M70 170 C82 130 104 98 136 34"/><ellipse cx="65" cy="146" rx="13" ry="7" transform="rotate(-28 65 146)" fill="rgba(255,255,255,.45)"/><ellipse cx="95" cy="140" rx="13" ry="7" transform="rotate(-50 95 140)" fill="rgba(255,255,255,.45)"/><ellipse cx="79" cy="116" rx="13" ry="7" transform="rotate(-28 79 116)" fill="rgba(255,255,255,.45)"/><ellipse cx="109" cy="110" rx="13" ry="7" transform="rotate(-50 109 110)" fill="rgba(255,255,255,.45)"/><ellipse cx="95" cy="88" rx="13" ry="7" transform="rotate(-28 95 88)" fill="rgba(255,255,255,.45)"/><ellipse cx="125" cy="82" rx="13" ry="7" transform="rotate(-50 125 82)" fill="rgba(255,255,255,.45)"/><ellipse cx="110" cy="62" rx="13" ry="7" transform="rotate(-28 110 62)" fill="rgba(255,255,255,.45)"/><ellipse cx="140" cy="56" rx="13" ry="7" transform="rotate(-50 140 56)" fill="rgba(255,255,255,.45)"/></svg>{%- when 'vitamins' -%}<svg viewBox="0 0 200 200" fill="none" stroke="#1e201e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="82" cy="100" r="40" fill="rgba(255,255,255,.4)"/><circle cx="118" cy="100" r="40" fill="rgba(255,255,255,.25)"/><text x="70" y="106" text-anchor="middle" font-family='Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif' font-size="18" fill="#1e201e" stroke="none">B6</text><text x="132" y="106" text-anchor="middle" font-family='Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif' font-size="18" fill="#1e201e" stroke="none">B12</text></svg>{%- endcase -%}{%- endif -%}<span class="ri-idx">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></div><div class="ri-body"><h3 class="ri-name">{{ block.settings.name }}</h3><div class="ri-dose"><span class="ri-amt">{{ block.settings.dose }}</span><span class="ri-per">{{ block.settings.dose_label }}</span></div><p class="ri-use">{{ block.settings.use }}</p></div></article>
+    {%- endfor -%}
+  </div>
+  <div class="wrap"><div class="ri-bar"><i></i></div><p class="ri-note">{{ section.settings.ri_note | default: 'Amounts shown are targets for one daily serving of 15 gummies and will be confirmed after production and stability testing. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.' }}</p></div>
+</section>
+<script>
+(function(){var r=document.getElementById('ri-{{ section.id }}');if(!r)return;var t=r.querySelector('.ri-track'),b=r.querySelector('.ri-bar i'),p=r.querySelector('[data-prev]'),n=r.querySelector('[data-next]');
+function u(){var m=t.scrollWidth-t.clientWidth,f=Math.min(1,t.clientWidth/t.scrollWidth);b.style.width=(f*100)+'%';b.style.transform='translateX('+(m>0?(t.scrollLeft/m)*(1/f-1)*100:0)+'%)';p.disabled=t.scrollLeft<4;n.disabled=t.scrollLeft>m-4}
+function go(d){var c=t.querySelector('.ri-card');if(c)t.scrollBy({left:d*(c.offsetWidth+20),behavior:'smooth'})}
+p.addEventListener('click',function(){go(-1)});n.addEventListener('click',function(){go(1)});t.addEventListener('scroll',u,{passive:true});window.addEventListener('resize',u);u()})();
+</script>
+{% schema %}{"name": "Ingredients", "max_blocks": 12, "settings": [{"type": "text", "id": "ri_title", "label": "Headline", "default": "Nothing hidden"}, {"type": "text", "id": "ri_title_em", "label": "Headline italic line", "default": "in the fine print."}, {"type": "textarea", "id": "ri_intro", "label": "Intro", "default": "Every active is named and dosed. Swipe through one daily serving."}, {"type": "textarea", "id": "ri_note", "label": "Note under carousel", "default": "Amounts shown are targets for one daily serving of 15 gummies and will be confirmed after production and stability testing. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."}], "blocks": [{"type": "ingredient", "name": "Ingredient", "settings": [{"type": "image_picker", "id": "image", "label": "Photo", "info": "Optional. Replaces the illustration."}, {"type": "select", "id": "art", "label": "Illustration", "default": "creatine", "options": [{"value": "creatine", "label": "Crystal cubes"}, {"value": "magnesium", "label": "Element tile"}, {"value": "citicoline", "label": "Molecule"}, {"value": "theanine", "label": "Tea leaf"}, {"value": "bacopa", "label": "Herb sprig"}, {"value": "vitamins", "label": "B vitamins"}, {"value": "none", "label": "None"}]}, {"type": "color", "id": "tone", "label": "Card color", "default": "#ebe5dc"}, {"type": "text", "id": "name", "label": "Ingredient", "default": "Ingredient"}, {"type": "text", "id": "dose", "label": "Amount", "default": "100 mg"}, {"type": "text", "id": "dose_label", "label": "Amount label", "default": "per serving"}, {"type": "textarea", "id": "use", "label": "What it is for", "default": "What this ingredient does."}]}], "presets": [{"name": "Ingredients", "blocks": [{"type": "ingredient"}]}]}{% endschema %}

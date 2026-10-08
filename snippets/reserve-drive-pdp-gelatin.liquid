@@ -1,0 +1,83 @@
+{% doc %}
+  Drive product page grid explaining the gummy base (grass-fed beef gelatin), laid out
+  after the Nutrops "not all mushrooms are created equal" section. Each card is a
+  gelatin_card block showing a built-in graphic (compare, amino, flow, melt) or an
+  uploaded image, then a title and text. Hidden when gel_heading_1 is blank.
+  @param {object} section - Owning section; reads gel_* settings and gelatin_card blocks
+  @example
+  {% render 'reserve-drive-pdp-gelatin', section: section %}
+{% enddoc %}
+{%- assign cards = section.blocks | where: 'type', 'gelatin_card' -%}
+{%- if cards.size > 0 and section.settings.gel_heading_1 != blank -%}
+  {{ 'reserve-drive-pdp-gelatin.css' | asset_url | stylesheet_tag }}
+  <section class="dp-sec dp-gel">
+    <div class="dp-wrap">
+      <div class="dp-head">
+        {%- if section.settings.gel_eyebrow != blank -%}<p class="dp-eyebrow">{{ section.settings.gel_eyebrow | escape }}</p>{%- endif -%}
+        <h2 class="dp-h2">{{ section.settings.gel_heading_1 | escape }}{% if section.settings.gel_heading_2 != blank %} <span>{{ section.settings.gel_heading_2 | escape }}</span>{% endif %}</h2>
+        {%- if section.settings.gel_sub != blank -%}<p class="dp-sub">{{ section.settings.gel_sub | escape }}</p>{%- endif -%}
+      </div>
+      <div class="dp-gel-grid">
+        {%- for block in cards -%}
+          {%- assign b = block.settings -%}
+          {%- assign steps = b.label_1 | append: '~~' | append: b.label_2 | append: '~~' | append: b.label_3 | split: '~~' -%}
+          <article class="dp-gel-card" {{ block.shopify_attributes }}>
+            <div class="dp-gel-visual">
+              {%- if b.image != blank -%}
+                {{ b.image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: b.image.alt, widths: '600, 900, 1200', sizes: '(min-width: 750px) 50vw, 100vw' }}
+              {%- else -%}
+                {%- case b.visual -%}
+                  {%- when 'compare' -%}
+                    <div class="dp-gv-compare">
+                      <div class="dp-gv-item"><p>{{ b.label_1 | escape }}</p><span class="dp-gv-cube" aria-hidden="true"></span></div>
+                      <div class="dp-gv-item is-ours"><p>{{ b.label_2 | escape }}</p><span class="dp-gv-cube" aria-hidden="true"></span></div>
+                    </div>
+                  {%- when 'amino' -%}
+                    <div class="dp-gv-amino">
+                      <p class="dp-gv-big">{{ b.label_1 | escape }}<span>{{ b.label_2 | escape }}</span></p>
+                      {%- comment -%} Typical published ranges for gelatin, as a share of total amino acids. Bar length uses the midpoint against a 34% scale. {%- endcomment -%}
+                      <ul class="dp-gv-bars">
+                        <li style="--w:88%"><span>Glycine</span><b>26&ndash;34%</b></li>
+                        <li style="--w:41%"><span>Proline</span><b>10&ndash;18%</b></li>
+                        <li style="--w:32%"><span>Hydroxyproline</span><b>7&ndash;15%</b></li>
+                      </ul>
+                    </div>
+                  {%- when 'flow' -%}
+                    <ol class="dp-gv-flow">
+                      {%- for step in steps -%}
+                        {%- assign parts = step | split: '|' -%}
+                        {%- assign step_name = parts[0] | strip -%}
+                        {%- assign step_note = parts[1] | strip -%}
+                        {%- if step_name != blank -%}
+                          <li{% if forloop.last %} class="is-ours"{% endif %}><span class="dp-gv-node">{{ step_name | escape }}</span>{%- if step_note != blank -%}<small>{{ step_note | escape }}</small>{%- endif -%}</li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ol>
+                  {%- when 'melt' -%}
+                    <div class="dp-gv-melt">
+                      <div class="dp-gv-thermo" aria-hidden="true"><span></span></div>
+                      <ul class="dp-gv-marks">
+                        {%- for step in steps -%}
+                          {%- assign parts = step | split: '|' -%}
+                          {%- assign mark_value = parts[0] | strip -%}
+                          {%- assign mark_note = parts[1] | strip -%}
+                          {%- if mark_value != blank or mark_note != blank -%}
+                            <li><span><b>{{ mark_value | escape }}</b>{{ mark_note | escape }}</span></li>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                {%- endcase -%}
+              {%- endif -%}
+            </div>
+            <div class="dp-gel-caption">
+              <h3>{{ b.title | escape }}</h3>
+              {%- if b.text != blank -%}<p>{{ b.text | escape }}</p>{%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+      {%- if section.settings.gel_note != blank -%}<p class="dp-gel-note">{{ section.settings.gel_note | escape }}</p>{%- endif -%}
+    </div>
+  </section>
+{%- endif -%}

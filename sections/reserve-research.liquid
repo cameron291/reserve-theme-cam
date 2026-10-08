@@ -1,0 +1,82 @@
+<style>
+  .rr{background:var(--ivory);padding:110px 0;border-bottom:1px solid var(--line)}
+  .rr-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);grid-template-areas:"copy media" "list media" "cta media";column-gap:80px;align-items:start}
+  .rr-copy{grid-area:copy}
+  .rr-list{list-style:none;margin:40px 0 0;padding:0;border-top:1px solid #1e201e}
+  .rr-cta{grid-area:cta;margin-top:36px}
+  .rr-media{grid-area:media;position:sticky;top:110px}
+  .rr-eye{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#a4563b;margin:0 0 26px}
+  .rr-h{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:clamp(34px,4.2vw,54px);line-height:1.06;letter-spacing:-.022em;color:#171a1c;margin:0 0 24px;text-wrap:balance}
+  .rr-h em{font-style:italic}
+  .rr-intro p{font-size:17.5px;line-height:1.68;color:#43474a;margin:0;max-width:560px}
+  .rr-i{display:grid;grid-template-columns:1fr;gap:8px;padding:24px 0;border-bottom:1px solid rgba(30,32,30,.13)}
+  .rr-n{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-size:23px;line-height:1.25;color:#171a1c;letter-spacing:-.01em}
+  .rr-f{font-size:15.5px;line-height:1.58;color:#3d4043;margin:0 0 8px}
+  .rr-c{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7b7f7a;margin:0}
+  .rr-c a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(123,127,122,.45);padding-bottom:1px}
+  .rr-c a:hover{color:#171a1c;border-color:#171a1c}
+  .rr-note{font-size:12px;line-height:1.6;color:#7b7f7a;margin:18px 0 0;max-width:600px}
+  .rr-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 34px;background:#1e201e;color:#f4f1eb;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none}
+  .rr-btn:hover{background:#000}
+  .rr-btn svg{width:14px;height:14px}
+  .rr-card{position:relative;overflow:hidden;aspect-ratio:4/5;background:#dcd8d2}
+  .rr-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .rr-ph{position:absolute;inset:0;background:radial-gradient(38% 30% at 30% 28%,rgba(255,255,255,.9),transparent 70%),radial-gradient(45% 36% at 72% 46%,rgba(176,190,204,.55),transparent 72%),radial-gradient(40% 32% at 38% 70%,rgba(160,172,186,.5),transparent 70%),linear-gradient(160deg,#eeece8 0%,#d9dcdf 55%,#c9ced3 100%)}
+  .rr-cap{position:absolute;left:22px;right:22px;bottom:22px;padding:22px 24px;background:rgba(30,32,30,.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#f6f2eb}
+  .rr-ct{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin:0 0 12px;padding-bottom:12px;border-bottom:1px solid rgba(246,242,235,.5)}
+  .rr-cd{font-size:15px;line-height:1.55;margin:0;color:rgba(246,242,235,.92)}
+  @media(max-width:1000px){
+    .rr{padding:80px 0}
+    .rr-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "list" "media" "cta"}
+    .rr-media{position:static;margin-top:44px}
+    .rr-card{aspect-ratio:1/1}
+    .rr-cta{margin-top:24px}
+    .rr-btn{display:flex;width:100%}
+  }
+  @media(max-width:640px){
+    .rr{padding:60px 0}
+    .rr-eye{font-size:10px;margin-bottom:18px}
+    .rr-h{font-size:clamp(32px,9vw,40px);margin-bottom:18px}
+    .rr-intro p{font-size:16px}
+    .rr-list{margin-top:30px}
+    .rr-i{grid-template-columns:1fr;gap:6px;padding:20px 0}
+    .rr-n{font-size:20px}
+    .rr-f{font-size:15px}
+    .rr-c{font-size:10px}
+    .rr-card{aspect-ratio:4/5}
+    .rr-cap{left:14px;right:14px;bottom:14px;padding:18px 18px}
+    .rr-ct{font-size:11px}
+    .rr-cd{font-size:14px}
+  }
+</style>
+<section class="rr" id="research">
+  <div class="wrap rr-grid">
+    <div class="rr-copy">
+      <p class="rr-eye">{{ section.settings.rr_eyebrow | default: 'The research' }}</p>
+      <h2 class="rr-h">{{ section.settings.rr_title | default: 'The research behind' }} <em>{{ section.settings.rr_title_em | default: 'every ingredient.' }}</em></h2>
+      <div class="rr-intro">{{ section.settings.rr_intro | default: '<p>Every active in Cognition has been studied in human clinical trials. Here is what the research found.</p>' }}</div>
+    </div>
+    <div class="rr-listwrap" style="grid-area:list">
+    <ul class="rr-list">
+      <li class="rr-i"><div class="rr-n">{{ section.settings.rr_i1_name | default: 'Magnesium L-threonate' }}</div><div><p class="rr-f">{{ section.settings.rr_i1_text | default: 'Improved overall cognitive ability in older adults with cognitive complaints over 12 weeks.*' }}</p><p class="rr-c"><a href="{{ section.settings.rr_i1_link | default: 'https://pubmed.ncbi.nlm.nih.gov/26519439/' }}" target="_blank" rel="noopener">{{ section.settings.rr_i1_cite | default: 'Liu et al., Journal of Alzheimer’s Disease, 2016' }}</a></p></div></li>
+      <li class="rr-i"><div class="rr-n">{{ section.settings.rr_i2_name | default: 'Citicoline' }}</div><div><p class="rr-f">{{ section.settings.rr_i2_text | default: 'Improved overall and episodic memory in healthy older adults with age-associated memory impairment.*' }}</p><p class="rr-c"><a href="{{ section.settings.rr_i2_link | default: 'https://jn.nutrition.org/article/S0022-3166(22)00267-X/fulltext' }}" target="_blank" rel="noopener">{{ section.settings.rr_i2_cite | default: 'Nakazaki et al., The Journal of Nutrition, 2021' }}</a></p></div></li>
+      <li class="rr-i"><div class="rr-n">{{ section.settings.rr_i3_name | default: 'L-theanine' }}</div><div><p class="rr-f">{{ section.settings.rr_i3_text | default: 'Eased stress-related symptoms and improved verbal fluency and executive function in healthy adults.*' }}</p><p class="rr-c"><a href="{{ section.settings.rr_i3_link | default: 'https://www.mdpi.com/2072-6643/11/10/2362' }}" target="_blank" rel="noopener">{{ section.settings.rr_i3_cite | default: 'Hidese et al., Nutrients, 2019' }}</a></p></div></li>
+      <li class="rr-i"><div class="rr-n">{{ section.settings.rr_i4_name | default: 'B vitamins' }}</div><div><p class="rr-f">{{ section.settings.rr_i4_text | default: 'B6, B12 and folic acid, at the amounts in Cognition, slowed the rate of brain shrinkage over two years in older adults with mild memory decline.*' }}</p><p class="rr-c"><a href="{{ section.settings.rr_i4_link | default: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0012244' }}" target="_blank" rel="noopener">{{ section.settings.rr_i4_cite | default: 'Smith et al., PLoS One, 2010' }}</a></p></div></li>
+      {%- if section.settings.rr_i5_name != blank -%}<li class="rr-i"><div class="rr-n">{{ section.settings.rr_i5_name }}</div><div><p class="rr-f">{{ section.settings.rr_i5_text }}</p>{%- if section.settings.rr_i5_cite != blank -%}<p class="rr-c"><a href="{{ section.settings.rr_i5_link }}" target="_blank" rel="noopener">{{ section.settings.rr_i5_cite }}</a></p>{%- endif -%}</div></li>{%- endif -%}
+    </ul>
+    <p class="rr-note">{{ section.settings.rr_note | default: 'Studies tested each ingredient on its own, not the Cognition formula. *These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.' }}</p>
+    </div>
+    <div class="rr-media">
+      <div class="rr-card">
+        {%- if section.settings.rr_image != blank -%}
+          {{ section.settings.rr_image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 1001px) 45vw, 100vw', widths: '600, 900, 1200, 1400', alt: section.settings.rr_image.alt }}
+        {%- else -%}
+          <div class="rr-ph"></div>
+        {%- endif -%}
+        <div class="rr-cap"><p class="rr-ct">{{ section.settings.rr_card_title | default: 'Matched to the research' }}</p><p class="rr-cd">{{ section.settings.rr_card_text | default: 'The B6, B12 and folate in Cognition match the daily amounts used in the University of Oxford’s VITACOG trial.' }}</p></div>
+      </div>
+    </div>
+    <div class="rr-cta"><a class="rr-btn" href="{{ section.settings.rr_btn_link | default: '/pages/science' }}">{{ section.settings.rr_btn | default: 'The science behind it' }}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></a></div>
+  </div>
+</section>
+{% schema %}{"name": "Research", "settings": [{"type": "text", "id": "rr_eyebrow", "label": "Eyebrow", "default": "The research"}, {"type": "text", "id": "rr_title", "label": "Headline", "default": "The research behind"}, {"type": "text", "id": "rr_title_em", "label": "Headline italic part", "default": "every ingredient."}, {"type": "richtext", "id": "rr_intro", "label": "Intro", "default": "<p>Every active in Cognition has been studied in human clinical trials. Here is what the research found.</p>"}, {"type": "header", "content": "Study 1"}, {"type": "text", "id": "rr_i1_name", "label": "Ingredient", "default": "Magnesium L-threonate"}, {"type": "textarea", "id": "rr_i1_text", "label": "Finding", "default": "Improved overall cognitive ability in older adults with cognitive complaints over 12 weeks.*"}, {"type": "text", "id": "rr_i1_cite", "label": "Citation", "default": "Liu et al., Journal of Alzheimer’s Disease, 2016"}, {"type": "text", "id": "rr_i1_link", "label": "Study link", "default": "https://pubmed.ncbi.nlm.nih.gov/26519439/"}, {"type": "header", "content": "Study 2"}, {"type": "text", "id": "rr_i2_name", "label": "Ingredient", "default": "Citicoline"}, {"type": "textarea", "id": "rr_i2_text", "label": "Finding", "default": "Improved overall and episodic memory in healthy older adults with age-associated memory impairment.*"}, {"type": "text", "id": "rr_i2_cite", "label": "Citation", "default": "Nakazaki et al., The Journal of Nutrition, 2021"}, {"type": "text", "id": "rr_i2_link", "label": "Study link", "default": "https://jn.nutrition.org/article/S0022-3166(22)00267-X/fulltext"}, {"type": "header", "content": "Study 3"}, {"type": "text", "id": "rr_i3_name", "label": "Ingredient", "default": "L-theanine"}, {"type": "textarea", "id": "rr_i3_text", "label": "Finding", "default": "Eased stress-related symptoms and improved verbal fluency and executive function in healthy adults.*"}, {"type": "text", "id": "rr_i3_cite", "label": "Citation", "default": "Hidese et al., Nutrients, 2019"}, {"type": "text", "id": "rr_i3_link", "label": "Study link", "default": "https://www.mdpi.com/2072-6643/11/10/2362"}, {"type": "header", "content": "Study 4"}, {"type": "text", "id": "rr_i4_name", "label": "Ingredient", "default": "B vitamins"}, {"type": "textarea", "id": "rr_i4_text", "label": "Finding", "default": "B6, B12 and folic acid, at the amounts in Cognition, slowed the rate of brain shrinkage over two years in older adults with mild memory decline.*"}, {"type": "text", "id": "rr_i4_cite", "label": "Citation", "default": "Smith et al., PLoS One, 2010"}, {"type": "text", "id": "rr_i4_link", "label": "Study link", "default": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0012244"}, {"type": "header", "content": "Study 5 (optional)"}, {"type": "text", "id": "rr_i5_name", "label": "Ingredient", "info": "Optional. Leave empty to hide this row."}, {"type": "textarea", "id": "rr_i5_text", "label": "Finding"}, {"type": "text", "id": "rr_i5_cite", "label": "Citation"}, {"type": "text", "id": "rr_i5_link", "label": "Study link"}, {"type": "textarea", "id": "rr_note", "label": "Disclaimer", "default": "Studies tested each ingredient on its own, not the Cognition formula. *These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."}, {"type": "header", "content": "Image card"}, {"type": "image_picker", "id": "rr_image", "label": "Image"}, {"type": "text", "id": "rr_card_title", "label": "Card title", "default": "Matched to the research"}, {"type": "textarea", "id": "rr_card_text", "label": "Card text", "default": "The B6, B12 and folate in Cognition match the daily amounts used in the University of Oxford’s VITACOG trial."}, {"type": "header", "content": "Button"}, {"type": "text", "id": "rr_btn", "label": "Button label", "default": "The science behind it"}, {"type": "text", "id": "rr_btn_link", "label": "Button link", "default": "/pages/science"}], "presets": [{"name": "Research"}]}{% endschema %}

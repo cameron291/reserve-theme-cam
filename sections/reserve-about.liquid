@@ -1,0 +1,266 @@
+<style>
+  .ab-serif{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;letter-spacing:-.02em}
+  .ab-eye{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin:0 0 22px}
+  .ab-hero{position:relative;overflow:hidden;background:radial-gradient(120% 120% at 70% 15%,#2d312c 0%,#20231f 48%,#141613 100%);color:#f6f3ec;text-align:center}
+  .ab-hero-media{position:absolute;inset:0}
+  .ab-hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+  .ab-hero-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,19,.55),rgba(20,22,19,.72))}
+  .ab-hero-in{position:relative;max-width:900px;margin:0 auto;padding:150px 24px 140px}
+  .ab-hero .ab-eye{color:#b9bcb4;font-size:11px;line-height:1.4;margin:0 auto 22px}
+  .ab-hero h1{font-size:clamp(40px,5.6vw,80px);line-height:1.02;margin:0 0 30px;color:#f6f3ec;text-wrap:balance}
+  .ab-hero h1 em{color:#e8dbca}
+  .ab-hero p{font-size:18px;line-height:1.7;color:#c9ccc4;max-width:680px;margin:0 auto}
+  .ab-founder{padding:120px 0;border-bottom:1px solid var(--line)}
+  .ab-founder-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:90px;align-items:center}
+  .ab-founder-img{aspect-ratio:4/5;background:#e7e2d8;overflow:hidden}
+  .ab-founder-img img{width:100%;height:100%;object-fit:cover;display:block}
+  .ab-founder-img svg{width:100%;height:100%;display:block;fill:#b3ab9d}
+  .ab-founder h2,.ab-mission h2,.ab-trust h2,.ab-range h2,.ab-join h2{font-size:clamp(34px,4vw,54px);line-height:1.06;margin:0 0 26px}
+  .ab-rich p{font-size:17px;line-height:1.75;color:#3a3d38;margin:0 0 20px}
+  .ab-sign{margin-top:30px;padding-top:22px;border-top:1px solid var(--line);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .ab-sign strong{display:block;margin-bottom:6px;font-family:Georgia,"Times New Roman",serif;font-size:22px;font-weight:400;font-style:italic;letter-spacing:0;text-transform:none;color:var(--ink)}
+  .ab-philo{padding:130px 0;background:var(--paper);border-bottom:1px solid var(--line);text-align:center}
+  .ab-philo-in{max-width:820px;margin:0 auto}
+  .ab-philo h2{font-size:clamp(40px,5vw,72px);line-height:1;margin:0 0 14px}
+  .ab-philo-sub{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:clamp(20px,2vw,26px);color:#9c6f47;margin:0 0 34px}
+  .ab-philo p.ab-body{font-size:18px;line-height:1.75;color:#3a3d38;margin:0 auto;max-width:680px}
+  .ab-mission{padding:120px 0;border-bottom:1px solid var(--line)}
+  .ab-mission-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:90px;align-items:start}
+  .ab-mission-lead{position:sticky;top:120px}
+  .ab-mission-lead h2{font-size:clamp(30px,3.3vw,46px);line-height:1.15}
+  .ab-beliefs{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+  .ab-beliefs li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:18px;padding:30px 0;border-bottom:1px solid var(--line)}
+  .ab-beliefs .ab-num{font-family:Georgia,"Times New Roman",serif;font-size:15px;color:#9c6f47;padding-top:6px}
+  .ab-beliefs h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:26px;line-height:1.2;margin:0 0 8px}
+  .ab-beliefs p{margin:0;font-size:16px;line-height:1.65;color:#5d615b}
+  .ab-trust{background:#1e201e;color:#f4f1eb}
+  .ab-trust-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+  .ab-trust-media{position:relative;min-height:560px;background:#141613;overflow:hidden}
+  .ab-trust-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ab-trust-copy{padding:110px clamp(28px,6vw,110px);align-self:center}
+  .ab-trust .ab-eye{color:#a9ada4}
+  .ab-trust h2{color:#f6f3ec}
+  .ab-trust p.ab-body{font-size:17px;line-height:1.75;color:#c4c8bf;margin:0 0 36px;max-width:520px}
+  .ab-checks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:16px 28px;max-width:560px}
+  .ab-checks li{display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.4;color:#f4f1eb}
+  .ab-checks li:before{content:"";flex:none;width:18px;height:18px;margin-top:1px;border-radius:50%;background:#e8dbca url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.6 6.2 5 8.5l4.4-4.8' fill='none' stroke='%231e201e' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px 11px no-repeat}
+  .ab-approach{position:relative;min-height:640px;display:flex;align-items:center;overflow:hidden;background:#e7e2d8;border-bottom:1px solid var(--line)}
+  .ab-approach-media{position:absolute;inset:0}
+  .ab-approach-media img{width:100%;height:100%;object-fit:cover;object-position:70% 50%;display:block}
+  .ab-approach-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(246,240,232,.9) 0%,rgba(246,240,232,.6) 38%,rgba(246,240,232,0) 62%)}
+  .ab-approach .wrap{position:relative;width:100%}
+  .ab-approach-card{max-width:520px;padding:90px 0}
+  .ab-approach h2{font-size:clamp(34px,4vw,54px);line-height:1.06;margin:0 0 24px}
+  .ab-approach p.ab-body{font-size:17px;line-height:1.75;color:#3a3d38;margin:0}
+  .ab-range{padding:120px 0;background:var(--paper);border-bottom:1px solid var(--line)}
+  .ab-range-head{text-align:center;max-width:720px;margin:0 auto 60px}
+  .ab-range-head p{font-size:17px;line-height:1.7;color:#5d615b;margin:0}
+  .ab-range-head .ab-eye{font-size:11px;line-height:1.4;color:var(--muted);margin:0 0 22px}
+  .ab-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;max-width:1040px;margin:0 auto}
+  .ab-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line)}
+  .ab-card-media{position:relative;aspect-ratio:5/4;overflow:hidden;background:#e7e2d8}
+  .ab-card-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .ab-card:hover .ab-card-media img{transform:scale(1.03)}
+  .ab-card-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(120% 120% at 60% 18%,#2d312c,#191b18);color:#f4f1eb;text-align:center}
+  .ab-card-ph strong{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:40px;letter-spacing:.01em}
+  .ab-card-ph span{margin-top:12px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#b9bcb4}
+  .ab-card-tag{position:absolute;top:18px;left:18px;padding:7px 12px;background:rgba(244,241,235,.92);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+  .ab-card-body{display:flex;flex-direction:column;flex:1;padding:30px 30px 32px}
+  .ab-card-body h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:30px;line-height:1.1;margin:0 0 12px}
+  .ab-card-body p{font-size:15.5px;line-height:1.65;color:#5d615b;margin:0 0 26px}
+  .ab-card-body .ab-btn{margin-top:auto;align-self:flex-start}
+  .ab-btn{display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 26px;background:var(--ink);color:var(--ivory);font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);cursor:pointer;font-family:inherit}
+  .ab-btn:hover{background:#000}
+  .ab-btn-ghost{background:transparent;color:var(--ink)}
+  .ab-btn-ghost:hover{background:rgba(30,32,30,.06)}
+  .ab-btn svg{width:14px;height:14px}
+  .ab-join{padding:120px 0;text-align:center}
+  .ab-join-in{max-width:640px;margin:0 auto}
+  .ab-join p.ab-body{font-size:17px;line-height:1.7;color:#5d615b;margin:0 0 34px}
+  .ab-join-form{display:flex;gap:10px;max-width:520px;margin:0 auto}
+  .ab-join-form input[type=email]{flex:1;min-width:0;height:54px;padding:0 18px;border:1px solid var(--ink);background:transparent;font:inherit;font-size:15px;color:var(--ink)}
+  .ab-join-form input[type=email]:focus{outline:1px solid var(--ink);outline-offset:2px}
+  .ab-join-form .ab-btn{min-height:54px}
+  .ab-join-msg{margin:18px 0 0;font-size:14px;color:#5d615b}
+  .ab-join-fine{margin:18px 0 0;font-size:12px;color:var(--muted)}
+  @media(max-width:900px){
+    .ab-hero-in{padding:100px 22px 96px}
+    .ab-hero p{font-size:16px}
+    .ab-founder,.ab-mission,.ab-range,.ab-join{padding:80px 0}
+    .ab-philo{padding:90px 0}
+    .ab-philo p.ab-body{font-size:16.5px}
+    .ab-founder-grid,.ab-mission-grid{grid-template-columns:minmax(0,1fr);gap:44px}
+    .ab-founder-img{aspect-ratio:1}
+    .ab-mission-lead{position:static}
+    .ab-beliefs li{grid-template-columns:44px minmax(0,1fr);gap:12px;padding:24px 0}
+    .ab-beliefs h3{font-size:22px}
+    .ab-beliefs p{font-size:15px}
+    .ab-trust-grid{grid-template-columns:minmax(0,1fr)}
+    .ab-trust-media{min-height:0;aspect-ratio:16/10}
+    .ab-trust-copy{padding:70px 22px 80px}
+    .ab-checks{grid-template-columns:minmax(0,1fr)}
+    .ab-approach{display:block;min-height:0;background:var(--ivory)}
+    .ab-approach-media{position:relative;aspect-ratio:16/11}
+    .ab-approach-media img{object-position:72% 50%}
+    .ab-approach-media:after{display:none}
+    .ab-approach-card{max-width:none;padding:56px 0 80px}
+    .ab-rich p,.ab-approach p.ab-body,.ab-trust p.ab-body{font-size:16px}
+    .ab-cards{grid-template-columns:minmax(0,1fr);gap:24px}
+    .ab-card-body{padding:24px 22px 26px}
+    .ab-card-body h3{font-size:26px}
+    .ab-join-form{flex-direction:column}
+    .ab-join-form input[type=email]{flex:none;width:100%}
+    .ab-join-form .ab-btn{justify-content:center}
+  }
+</style>
+
+<section class="ab-hero">
+  {%- if section.settings.hero_image != blank -%}
+  <div class="ab-hero-media">{{ section.settings.hero_image | image_url: width: 2400 | image_tag: loading: 'eager', sizes: '100vw', widths: '800, 1200, 1600, 2000, 2400', alt: '' }}</div>
+  {%- endif -%}
+  <div class="ab-hero-in">
+    {%- if section.settings.hero_eyebrow != blank -%}<p class="ab-eye">{{ section.settings.hero_eyebrow }}</p>{%- endif -%}
+    <h1 class="ab-serif">{{ section.settings.hero_title }}{% if section.settings.hero_title_em != blank %} <em>{{ section.settings.hero_title_em }}</em>{% endif %}</h1>
+    {%- if section.settings.hero_text != blank -%}<p>{{ section.settings.hero_text }}</p>{%- endif -%}
+  </div>
+</section>
+
+<section class="ab-founder">
+  <div class="wrap ab-founder-grid">
+    <div class="ab-founder-img">
+      {%- if section.settings.founder_image != blank -%}
+        {{ section.settings.founder_image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 901px) 42vw, 100vw', widths: '600, 900, 1200', alt: section.settings.founder_name }}
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag }}
+      {%- endif -%}
+    </div>
+    <div>
+      {%- if section.settings.founder_eyebrow != blank -%}<p class="ab-eye">{{ section.settings.founder_eyebrow }}</p>{%- endif -%}
+      <h2 class="ab-serif">{{ section.settings.founder_title }}</h2>
+      <div class="ab-rich">{{ section.settings.founder_text }}</div>
+      {%- if section.settings.founder_name != blank -%}
+      <p class="ab-sign"><strong>{{ section.settings.founder_name }}</strong>{{ section.settings.founder_role }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<section class="ab-philo">
+  <div class="wrap ab-philo-in">
+    {%- if section.settings.philo_eyebrow != blank -%}<p class="ab-eye">{{ section.settings.philo_eyebrow }}</p>{%- endif -%}
+    <h2 class="ab-serif">{{ section.settings.philo_title }}</h2>
+    {%- if section.settings.philo_sub != blank -%}<p class="ab-philo-sub">{{ section.settings.philo_sub }}</p>{%- endif -%}
+    {%- if section.settings.philo_text != blank -%}<p class="ab-body">{{ section.settings.philo_text }}</p>{%- endif -%}
+  </div>
+</section>
+
+{%- assign ab_beliefs = section.blocks | where: 'type', 'belief' -%}
+<section class="ab-mission">
+  <div class="wrap ab-mission-grid">
+    <div class="ab-mission-lead">
+      {%- if section.settings.mission_eyebrow != blank -%}<p class="ab-eye">{{ section.settings.mission_eyebrow }}</p>{%- endif -%}
+      <h2 class="ab-serif">{{ section.settings.mission_title }}</h2>
+    </div>
+    {%- if ab_beliefs.size > 0 -%}
+    <ol class="ab-beliefs">
+      {%- for block in ab_beliefs -%}
+      <li {{ block.shopify_attributes }}><span class="ab-num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span><div><h3>{{ block.settings.title }}</h3>{%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}</div></li>
+      {%- endfor -%}
+    </ol>
+    {%- endif -%}
+  </div>
+</section>
+
+<section class="ab-trust">
+  <div class="ab-trust-grid">
+    <div class="ab-trust-media">
+      {%- if section.settings.trust_image != blank -%}
+        {{ section.settings.trust_image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 901px) 50vw, 100vw', widths: '600, 900, 1200, 1600', alt: section.settings.trust_image.alt }}
+      {%- endif -%}
+    </div>
+    <div class="ab-trust-copy">
+      {%- if section.settings.trust_eyebrow != blank -%}<p class="ab-eye">{{ section.settings.trust_eyebrow }}</p>{%- endif -%}
+      <h2 class="ab-serif">{{ section.settings.trust_title }}</h2>
+      {%- if section.settings.trust_text != blank -%}<p class="ab-body">{{ section.settings.trust_text }}</p>{%- endif -%}
+      {%- assign ab_checks = section.settings.trust_points | newline_to_br | split: '<br />' -%}
+      <ul class="ab-checks">
+        {%- for item in ab_checks -%}{%- assign ab_check = item | strip -%}{%- if ab_check != blank -%}<li>{{ ab_check }}</li>{%- endif -%}{%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="ab-approach">
+  <div class="ab-approach-media">
+    {%- if section.settings.approach_image != blank -%}
+      {{ section.settings.approach_image | image_url: width: 2400 | image_tag: loading: 'lazy', sizes: '100vw', widths: '800, 1200, 1600, 2000, 2400', alt: section.settings.approach_image.alt }}
+    {%- endif -%}
+  </div>
+  <div class="wrap">
+    <div class="ab-approach-card">
+      {%- if section.settings.approach_eyebrow != blank -%}<p class="ab-eye">{{ section.settings.approach_eyebrow }}</p>{%- endif -%}
+      <h2 class="ab-serif">{{ section.settings.approach_title }}</h2>
+      {%- if section.settings.approach_text != blank -%}<p class="ab-body">{{ section.settings.approach_text }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- assign ab_cards = section.blocks | where: 'type', 'card' -%}
+{%- if ab_cards.size > 0 -%}
+<section class="ab-range">
+  <div class="wrap">
+    <div class="ab-range-head">
+      {%- if section.settings.range_eyebrow != blank -%}<p class="ab-eye">{{ section.settings.range_eyebrow }}</p>{%- endif -%}
+      <h2 class="ab-serif">{{ section.settings.range_title }}</h2>
+      {%- if section.settings.range_text != blank -%}<p>{{ section.settings.range_text }}</p>{%- endif -%}
+    </div>
+    <div class="ab-cards">
+      {%- for block in ab_cards -%}
+      {%- assign ab_p = block.settings.product -%}
+      {%- assign ab_link = block.settings.link -%}
+      {%- if ab_link == blank and ab_p != blank -%}{%- assign ab_link = ab_p.url -%}{%- endif -%}
+      <article class="ab-card" {{ block.shopify_attributes }}>
+        <div class="ab-card-media">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 901px) 500px, 100vw', widths: '500, 750, 1000', alt: block.settings.title }}
+          {%- elsif ab_p != blank and ab_p.featured_media -%}
+            {{ ab_p.featured_media | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 901px) 500px, 100vw', widths: '500, 750, 1000', alt: block.settings.title }}
+          {%- else -%}
+            <div class="ab-card-ph"><strong>{{ block.settings.title }}</strong><span>Reserve Nutrition</span></div>
+          {%- endif -%}
+          {%- if block.settings.tag != blank -%}<span class="ab-card-tag">{{ block.settings.tag }}</span>{%- endif -%}
+        </div>
+        <div class="ab-card-body">
+          <h3>{{ block.settings.title }}</h3>
+          {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+          {%- if block.settings.button != blank and ab_link != blank -%}
+          <a class="ab-btn{% if block.settings.ghost %} ab-btn-ghost{% endif %}" href="{{ ab_link }}">{{ block.settings.button }} <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg></a>
+          {%- endif -%}
+        </div>
+      </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+<section class="ab-join" id="ab-join">
+  <div class="wrap ab-join-in">
+    <h2 class="ab-serif">{{ section.settings.join_title }}</h2>
+    {%- if section.settings.join_text != blank -%}<p class="ab-body">{{ section.settings.join_text }}</p>{%- endif -%}
+    {%- form 'customer', id: 'ab-join-form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      {%- if form.posted_successfully? -%}
+        <p class="ab-join-msg">{{ section.settings.join_thanks }}</p>
+      {%- else -%}
+        <div class="ab-join-form">
+          <label for="ab-join-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email</label>
+          <input id="ab-join-email" type="email" name="contact[email]" placeholder="Email address" autocomplete="email" required>
+          <button type="submit" class="ab-btn">{{ section.settings.join_button }}</button>
+        </div>
+        {%- if form.errors -%}<p class="ab-join-msg">{{ form.errors | default_errors }}</p>{%- endif -%}
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+{% schema %}{"name": "Reserve about", "settings": [{"type": "header", "content": "Hero"}, {"type": "image_picker", "id": "hero_image", "label": "Background image", "info": "Optional. Leave empty for the dark background."}, {"type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Our story"}, {"type": "text", "id": "hero_title", "label": "Headline", "default": "Functional gummies held to the standard of"}, {"type": "text", "id": "hero_title_em", "label": "Headline italic ending", "default": "real food."}, {"type": "textarea", "id": "hero_text", "label": "Intro", "default": "Most of us want the same things: a clear head, steady energy and a good night's sleep. Yet most gummies made for those goals are candy first: built on pectin and sugar, brightly colored, and dosed to fit the gummy rather than the research. Reserve Nutrition exists to make the opposite: functional gummies set in grass-fed gelatin, flavored with real fruit, and dosed to match the studies behind them."}, {"type": "header", "content": "Founder"}, {"type": "image_picker", "id": "founder_image", "label": "Founder photo"}, {"type": "text", "id": "founder_eyebrow", "label": "Eyebrow", "default": "The founder"}, {"type": "text", "id": "founder_title", "label": "Heading", "default": "The person behind the brand."}, {"type": "richtext", "id": "founder_text", "label": "Founder story", "default": "<p>[Placeholder: introduce yourself. Who you are, where you're based, and what you did before Reserve Nutrition.]</p><p>[Placeholder: the moment you decided gummies could be better, and why you started the brand.]</p><p>[Placeholder: what quality means to you, and what you want every customer to feel when they open a jar.]</p>"}, {"type": "text", "id": "founder_name", "label": "Name", "default": "[Founder name]"}, {"type": "text", "id": "founder_role", "label": "Title", "default": "Founder, Reserve Nutrition"}, {"type": "header", "content": "Philosophy"}, {"type": "text", "id": "philo_eyebrow", "label": "Eyebrow", "default": "Our philosophy"}, {"type": "text", "id": "philo_title", "label": "Heading", "default": "Made like food, not candy."}, {"type": "text", "id": "philo_sub", "label": "Subheading", "default": "Functional gummies, reconsidered."}, {"type": "textarea", "id": "philo_text", "label": "Text", "default": "A gummy is something you eat every day, so we hold it to the standard of food. That starts with 100% grass-fed beef gelatin instead of the pectin most gummies are built on, real fruit for flavor, and formulas developed with our formulator around the doses used in human research."}, {"type": "header", "content": "Mission"}, {"type": "text", "id": "mission_eyebrow", "label": "Eyebrow", "default": "Our mission"}, {"type": "textarea", "id": "mission_title", "label": "Mission statement", "default": "To make functional gummies clean enough to take every day, and dosed well enough to be worth it."}, {"type": "header", "content": "Trust and transparency"}, {"type": "image_picker", "id": "trust_image", "label": "Image"}, {"type": "text", "id": "trust_eyebrow", "label": "Eyebrow", "default": "Trust and transparency"}, {"type": "text", "id": "trust_title", "label": "Heading", "default": "Proof, not promises."}, {"type": "textarea", "id": "trust_text", "label": "Text", "default": "Supplements don't need FDA approval before they're sold, and it shows. Proprietary blends hide the numbers, and finished products don't always match their labels. You deserve to know exactly what you're taking, so we print every dose and have our finished products independently tested."}, {"type": "textarea", "id": "trust_points", "label": "Commitments", "default": "Third-party tested\nMade in a cGMP-certified US facility\nFull, disclosed doses\nVery low sugar\nOrganic ingredients\nGMO-free\nNo seed oils\nNothing artificial", "info": "One per line."}, {"type": "header", "content": "Approach"}, {"type": "image_picker", "id": "approach_image", "label": "Image"}, {"type": "text", "id": "approach_eyebrow", "label": "Eyebrow", "default": "Our approach"}, {"type": "text", "id": "approach_title", "label": "Heading", "default": "Where the research meets the kitchen."}, {"type": "textarea", "id": "approach_text", "label": "Text", "default": "Every Reserve formula starts with the evidence and finishes in the kitchen. We choose each ingredient for its human research and set it at the dose studied, then refine flavor, texture and stability with our formulator until the result is something you would enjoy even if it did nothing at all."}, {"type": "header", "content": "Product range"}, {"type": "text", "id": "range_eyebrow", "label": "Eyebrow", "default": "The range"}, {"type": "text", "id": "range_title", "label": "Heading", "default": "One standard, carried into every formula."}, {"type": "textarea", "id": "range_text", "label": "Text", "default": "Cognition is our first release. More formulas are on the way, each held to the same standard."}, {"type": "header", "content": "Newsletter"}, {"type": "text", "id": "join_title", "label": "Heading", "default": "Join the Reserve list."}, {"type": "textarea", "id": "join_text", "label": "Text", "default": "New formulas, first releases and the occasional note from our kitchen, sent sparingly."}, {"type": "text", "id": "join_button", "label": "Button", "default": "Join"}, {"type": "text", "id": "join_thanks", "label": "Thank-you message", "default": "Thank you. You're on the list."}], "blocks": [{"type": "belief", "name": "Belief", "limit": 6, "settings": [{"type": "text", "id": "title", "label": "Title"}, {"type": "textarea", "id": "text", "label": "Text"}]}, {"type": "card", "name": "Product card", "limit": 3, "settings": [{"type": "product", "id": "product", "label": "Product", "info": "Optional. Uses the product's image and link."}, {"type": "image_picker", "id": "image", "label": "Image", "info": "Optional. Replaces the product image."}, {"type": "text", "id": "tag", "label": "Tag"}, {"type": "text", "id": "title", "label": "Title"}, {"type": "textarea", "id": "text", "label": "Text"}, {"type": "text", "id": "button", "label": "Button label"}, {"type": "text", "id": "link", "label": "Button link", "info": "Optional. Defaults to the product page. Use #ab-join to jump to the newsletter."}, {"type": "checkbox", "id": "ghost", "label": "Outline button", "default": false}]}]}{% endschema %}

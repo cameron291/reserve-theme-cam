@@ -1,0 +1,58 @@
+<style>
+  .rd{background:#101011;color:#f3efe8;padding:110px 0;overflow:hidden}
+  .rd-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);grid-template-areas:"copy media" "feats media";column-gap:56px;align-items:center}
+  .rd-copy{grid-area:copy;align-self:end}
+  .rd-media{grid-area:media}
+  .rd-feats{grid-area:feats;align-self:start;list-style:none;margin:52px 0 0;padding:0;display:grid;gap:34px}
+  .rd-h{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:clamp(40px,4.8vw,68px);line-height:1.02;letter-spacing:-.02em;margin:0 0 26px;color:#f6f2eb}
+  .rd-h span{display:block}
+  .rd-h em{font-style:italic}
+  .rd-body p{font-size:18px;line-height:1.6;color:rgba(243,239,232,.82);margin:0 0 14px;max-width:520px}
+  .rd-body p:last-child{margin-bottom:0}
+  .rd-media img{display:block;width:100%;height:auto}
+  .rd-ph{aspect-ratio:948/585;background:radial-gradient(ellipse 45% 55% at 50% 55%,rgba(214,170,118,.26),transparent 70%)}
+  .rd-f{display:grid;grid-template-columns:60px 1fr;gap:26px;align-items:center}
+  .rd-ic{width:60px;height:60px;border:1px solid rgba(243,239,232,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#f3efe8}
+  .rd-ic svg{width:28px;height:28px}
+  .rd-ft{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:26px;line-height:1.2;letter-spacing:-.01em;margin:0 0 6px;color:#f6f2eb}
+  .rd-fd{font-size:15.5px;line-height:1.55;color:rgba(243,239,232,.76);margin:0}
+  @media(max-width:1000px){
+    .rd{padding:80px 0 72px}
+    .rd-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "media" "feats"}
+    .rd-media{margin:18px calc(50% - 50vw) 0}
+    .rd-feats{margin-top:36px}
+  }
+  @media(max-width:640px){
+    .rd{padding:60px 0 56px}
+    .rd-h{font-size:clamp(34px,9.6vw,44px);margin-bottom:18px}
+    .rd-body p{font-size:16px;line-height:1.58}
+    .rd-media{margin-top:6px}
+    .rd-feats{margin-top:24px;gap:28px}
+    .rd-f{grid-template-columns:52px 1fr;gap:18px;align-items:start}
+    .rd-ic{width:52px;height:52px}
+    .rd-ic svg{width:24px;height:24px}
+    .rd-ft{font-size:21px;margin-bottom:4px}
+    .rd-fd{font-size:14.5px}
+  }
+</style>
+<section class="rd" id="delivery">
+  <div class="wrap rd-grid">
+    <div class="rd-copy">
+      <h2 class="rd-h"><span>{{ section.settings.rd_title_1 | default: 'Same science.' }}</span> <span>{{ section.settings.rd_title_2 | default: 'Upgraded' }} <em>{{ section.settings.rd_title_em | default: 'delivery.' }}</em></span></h2>
+      <div class="rd-body">{{ section.settings.rd_body | default: '<p>Reserve pairs 100% grass-fed beef gelatin with well-supported cognitive ingredients, including creatine, citicoline, magnesium and L-theanine. The result is a premium gummy built for taste, texture and a cleaner daily ritual.</p>' }}</div>
+    </div>
+    <div class="rd-media">
+      {%- if section.settings.rd_image != blank -%}
+        {{ section.settings.rd_image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 1001px) 55vw, 100vw', widths: '600, 900, 1200, 1600', alt: 'Reserve Nutrition Cognition jar with three gummies' }}
+      {%- else -%}
+        <div class="rd-ph"></div>
+      {%- endif -%}
+    </div>
+    <ul class="rd-feats">
+      <li class="rd-f"><span class="rd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c-3.2 4.2-5.6 7.2-5.6 10.2a5.6 5.6 0 0 0 11.2 0c0-3-2.4-6-5.6-10.2Z"/><path d="M9.3 14.4a2.8 2.8 0 0 0 2.8 2.7"/></svg></span><div><h3 class="rd-ft">{{ section.settings.rd_f1_title | default: 'No grit, no chalkiness' }}</h3><p class="rd-fd">{{ section.settings.rd_f1_text | default: 'Just a smooth, premium gummy with a clean finish.' }}</p></div></li>
+      <li class="rd-f"><span class="rd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 15.5C4.2 9 8.3 4.8 15 4.3c.6 6.6-3.4 10.9-10.5 11.2Z"/><path d="M4.5 15.5 12 8"/><circle cx="15.5" cy="15.5" r="1.4"/><circle cx="20" cy="18.5" r="1.4"/><circle cx="15" cy="20.5" r="1.4"/><path d="M16.7 16.3l2.1 1.4M15.4 16.9l-.3 2.2"/></svg></span><div><h3 class="rd-ft">{{ section.settings.rd_f2_title | default: 'Science-backed ingredients' }}</h3><p class="rd-fd">{{ section.settings.rd_f2_text | default: 'Creatine, citicoline, magnesium and L-theanine, thoughtfully combined.' }}</p></div></li>
+      <li class="rd-f"><span class="rd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.8 18.5 9 9.5l3.6 5 2.4-3.2 6.2 7.2"/><path d="M7.3 12l1.7 1.3 1.4-1.2"/></svg></span><div><h3 class="rd-ft">{{ section.settings.rd_f3_title | default: 'Built around the base' }}</h3><p class="rd-fd">{{ section.settings.rd_f3_text | default: '100% grass-fed beef gelatin, chosen to support the formula and the experience.' }}</p></div></li>
+    </ul>
+  </div>
+</section>
+{% schema %}{"name": "Delivery", "settings": [{"type": "image_picker", "id": "rd_image", "label": "Image", "info": "Dark background product shot."}, {"type": "text", "id": "rd_title_1", "label": "Headline line 1", "default": "Same science."}, {"type": "text", "id": "rd_title_2", "label": "Headline line 2", "default": "Upgraded"}, {"type": "text", "id": "rd_title_em", "label": "Headline italic word", "default": "delivery."}, {"type": "richtext", "id": "rd_body", "label": "Body", "default": "<p>Reserve pairs 100% grass-fed beef gelatin with well-supported cognitive ingredients, including creatine, citicoline, magnesium and L-theanine. The result is a premium gummy built for taste, texture and a cleaner daily ritual.</p>"}, {"type": "header", "content": "Feature 1"}, {"type": "text", "id": "rd_f1_title", "label": "Title", "default": "No grit, no chalkiness"}, {"type": "textarea", "id": "rd_f1_text", "label": "Text", "default": "Just a smooth, premium gummy with a clean finish."}, {"type": "header", "content": "Feature 2"}, {"type": "text", "id": "rd_f2_title", "label": "Title", "default": "Science-backed ingredients"}, {"type": "textarea", "id": "rd_f2_text", "label": "Text", "default": "Creatine, citicoline, magnesium and L-theanine, thoughtfully combined."}, {"type": "header", "content": "Feature 3"}, {"type": "text", "id": "rd_f3_title", "label": "Title", "default": "Built around the base"}, {"type": "textarea", "id": "rd_f3_text", "label": "Text", "default": "100% grass-fed beef gelatin, chosen to support the formula and the experience."}], "presets": [{"name": "Delivery"}]}{% endschema %}

@@ -1,0 +1,66 @@
+<style>
+  .rs-feature{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:8px}
+  .rs-media{background:radial-gradient(120% 120% at 60% 18%,#2d312c,#191b18);min-height:520px;display:flex;align-items:center;justify-content:center;padding:40px}
+  .rs-jar{width:62%;max-width:300px}
+  .rs-jar svg{width:100%;height:auto;display:block}
+  .rs-name{font-size:clamp(30px,4vw,46px);line-height:1.02;letter-spacing:-.04em;font-weight:500;margin:14px 0 18px}
+  .rs-desc{color:var(--muted);font-size:16px;line-height:1.65;margin:0 0 4px;max-width:460px}
+  .rs-facts{list-style:none;padding:18px 0 0;margin:22px 0 24px;color:var(--muted);font-size:13px;line-height:2;border-top:1px solid var(--line)}
+  .rs-price{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin:0 0 26px}
+  .rs-cta{display:flex;gap:12px;flex-wrap:wrap}
+  @media(max-width:800px){.rs-feature{grid-template-columns:1fr;gap:30px}.rs-media{min-height:380px}}
+</style>
+
+<section class="section"><div class="wrap">
+  <div class="section-head"><h2>Shop the first release.</h2><p class="lead">One product to begin. The same standard will carry every release that follows.</p></div>
+  <div class="rs-feature">
+    <div class="rs-media">
+      <div class="rs-jar">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reserve Nutrition Cognition jar">
+          <defs>
+            <filter id="rs-shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+            <linearGradient id="rs-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F1ECE2"/><stop offset="1" stop-color="#E2DBCC"/></linearGradient>
+            <linearGradient id="rs-lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34302A"/><stop offset="1" stop-color="#201E19"/></linearGradient>
+            <linearGradient id="rs-yuzu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ECDD9A"/><stop offset="1" stop-color="#DCC56E"/></linearGradient>
+            <linearGradient id="rs-blood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D27B49"/><stop offset="1" stop-color="#B5572E"/></linearGradient>
+            <linearGradient id="rs-peach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EDC7AD"/><stop offset="1" stop-color="#DDAB8A"/></linearGradient>
+            <clipPath id="rs-jarclip"><rect x="118" y="150" width="164" height="292" rx="30"/></clipPath>
+          </defs>
+          <ellipse cx="200" cy="470" rx="116" ry="15" fill="#0c0e0b" opacity="0.4" filter="url(#rs-shadow)"/>
+          <rect x="118" y="150" width="164" height="292" rx="30" fill="url(#rs-glass)"/>
+          <g clip-path="url(#rs-jarclip)">
+            <g>
+              <rect x="141" y="314" width="34" height="34" rx="6" fill="url(#rs-peach)"/><rect x="147" y="319" width="16" height="5" rx="2.5" fill="#ffffff" opacity="0.16"/>
+              <rect x="183" y="314" width="34" height="34" rx="6" fill="url(#rs-blood)"/><rect x="189" y="319" width="16" height="5" rx="2.5" fill="#ffffff" opacity="0.16"/>
+              <rect x="225" y="314" width="34" height="34" rx="6" fill="url(#rs-yuzu)"/><rect x="231" y="319" width="16" height="5" rx="2.5" fill="#ffffff" opacity="0.16"/>
+              <rect x="141" y="354" width="34" height="34" rx="6" fill="url(#rs-yuzu)"/><rect x="147" y="359" width="16" height="5" rx="2.5" fill="#ffffff" opacity="0.16"/>
+              <rect x="183" y="354" width="34" height="34" rx="6" fill="url(#rs-peach)"/><rect x="189" y="359" width="16" height="5" rx="2.5" fill="#ffffff" opacity="0.16"/>
+              <rect x="225" y="354" width="34" height="34" rx="6" fill="url(#rs-blood)"/><rect x="231" y="359" width="16" height="5" rx="2.5" fill="#ffffff" opacity="0.16"/>
+              <rect x="141" y="394" width="34" height="34" rx="6" fill="url(#rs-blood)"/><rect x="147" y="399" width="16" height="5" rx="2.5" fill="#ffffff" opacity="0.16"/>
+              <rect x="183" y="394" width="34" height="34" rx="6" fill="url(#rs-yuzu)"/><rect x="189" y="399" width="16" height="5" rx="2.5" fill="#ffffff" opacity="0.16"/>
+              <rect x="225" y="394" width="34" height="34" rx="6" fill="url(#rs-peach)"/><rect x="231" y="399" width="16" height="5" rx="2.5" fill="#ffffff" opacity="0.16"/>
+            </g>
+            <rect x="118" y="150" width="164" height="292" fill="#ffffff" opacity="0.05"/>
+            <rect x="132" y="168" width="22" height="250" rx="11" fill="#ffffff" opacity="0.16"/>
+          </g>
+          <rect x="140" y="126" width="120" height="34" rx="8" fill="url(#rs-glass)"/>
+          <rect x="132" y="96" width="136" height="42" rx="12" fill="url(#rs-lid)"/>
+          <rect x="132" y="98" width="136" height="8" rx="8" fill="#3d3931" opacity="0.55"/>
+          <rect x="118" y="150" width="164" height="292" rx="30" fill="none" stroke="#cfc7b6" stroke-width="1.5"/>
+          <rect x="140" y="126" width="120" height="34" rx="8" fill="none" stroke="#cfc7b6" stroke-width="1.2"/>
+          <text x="200" y="214" text-anchor="middle" font-family="Georgia, serif" font-size="11" letter-spacing="2" fill="#2b2723" opacity="0.9">RESERVE NUTRITION</text>
+          <text x="200" y="235" text-anchor="middle" font-family="Georgia, serif" font-size="10" letter-spacing="4" fill="#6f6656">COGNITION</text>
+        </svg>
+      </div>
+    </div>
+    <div class="rs-detail">
+      <div class="eyebrow">Cognition · Daily gummy</div>
+      <h3 class="rs-name">Reserve Nutrition Cognition</h3>
+      <p class="rs-desc">A caffeine-free daily cognition gummy. Full, disclosed doses of creatine monohydrate, magnesium L-threonate, citicoline, L-theanine, and standardized Bacopa, in three real-fruit flavors.</p>
+      <ul class="rs-facts"><li>30 softened-cube gummies per jar</li><li>15-gummy daily serving</li><li>Lemon Yuzu · Blood Orange · White Peach Ginger</li><li>Low sugar, caffeine-free, no proprietary blends</li></ul>
+      <p class="rs-price">Premium tier · final price set at launch</p>
+      <div class="rs-cta"><a class="button button-dark" href="/products/reserve-nutrition-cognition">Shop Cognition</a><a class="button button-quiet" href="/#reserve">Join first release</a></div>
+    </div>
+  </div>
+</div></section>
+{% schema %}{"name":"Reserve shop","settings":[]}{% endschema %}

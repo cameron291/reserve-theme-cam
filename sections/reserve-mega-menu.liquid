@@ -1,0 +1,210 @@
+{%- assign mm_menu = linklists.shop -%}
+{%- assign mm_heading = section.settings.heading | default: 'Shop by formula' -%}
+<style>
+  .rn-mm-trigger{display:inline-flex;align-items:center;gap:8px}
+  .rn-caret{width:5px;height:5px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .35s ease}
+  .rn-mm-open .rn-mm-trigger{color:var(--ink)}
+  .rn-mm-open .rn-caret{transform:translateY(1px) rotate(-135deg)}
+  .rn-mm{position:absolute;left:0;right:0;top:100%;z-index:2;background:var(--ivory);border-bottom:1px solid var(--line);box-shadow:0 30px 60px -40px rgba(20,21,19,.35);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .28s ease,transform .4s cubic-bezier(.2,.7,.2,1),visibility 0s linear .4s}
+  .rn-mm-open .rn-mm{opacity:1;visibility:visible;transform:none;transition:opacity .28s ease,transform .4s cubic-bezier(.2,.7,.2,1),visibility 0s}
+  .rn-mm-ov{position:fixed;left:0;right:0;bottom:0;top:0;z-index:1;background:rgba(20,21,19,.26);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
+  .rn-mm-open .rn-mm-ov{opacity:1;visibility:visible;transition:opacity .35s ease,visibility 0s}
+  .rn-mm-in{display:grid;grid-template-columns:220px 1fr;gap:80px;padding:48px 28px 56px}
+  .rn-mm-h{margin:0 0 24px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .rn-mm-list{list-style:none;margin:0;padding:0}
+  .rn-mm-list li+li{margin-top:12px}
+  .rn-mm-link{display:inline-flex;align-items:baseline;gap:12px;font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-size:25px;line-height:1.25;color:var(--ink)}
+  a.rn-mm-link{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .35s ease}
+  a.rn-mm-link:hover,a.rn-mm-link:focus-visible{background-size:100% 1px;outline:none}
+  .rn-mm-soon{color:#9fa29b}
+  .rn-mm-soon em{font-family:Arial,Helvetica,sans-serif;font-style:normal;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:3px 7px;transform:translateY(-4px)}
+  .rn-mm-list .rn-mm-all{margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}
+  .rn-mm-all a{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+  .rn-mm-all a:after{content:"\2192";display:inline-block;margin-left:10px;transition:transform .3s ease}
+  .rn-mm-all a:hover:after,.rn-mm-all a:focus-visible:after{transform:translateX(4px)}
+  .rn-mm-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .rn-mm-card{display:block;color:var(--ink)}
+  .rn-mm-img{aspect-ratio:1;overflow:hidden;background:#e7e2d8;margin-bottom:16px}
+  .rn-mm-img img,.rn-mm-img svg{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+  .rn-mm-img svg{fill:#b3ab9d}
+  .rn-mm-card:hover .rn-mm-img img,.rn-mm-card:focus-visible .rn-mm-img img{transform:scale(1.035)}
+  .rn-mm-card:focus-visible{outline:1px solid var(--ink);outline-offset:6px}
+  .rn-mm-card strong{display:block;font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:19px;line-height:1.25;margin-bottom:6px}
+  .rn-mm-card span{display:block;font-size:13px;line-height:1.5;color:var(--muted)}
+  @media(max-width:800px){.rn-mm,.rn-mm-ov,.rn-caret{display:none}}
+  @media(prefers-reduced-motion:reduce){.rn-mm,.rn-mm-ov,.rn-caret,.rn-mm-img img{transition:none}}
+</style>
+<div class="rn-mm" id="rn-mega" data-mm-panel>
+  <div class="wrap rn-mm-in">
+    <nav class="rn-mm-nav" aria-label="{{ mm_heading | escape }}">
+      <p class="rn-mm-h">{{ mm_heading }}</p>
+      <ul class="rn-mm-list">
+        {%- if mm_menu.links.size > 0 -%}
+          {%- for link in mm_menu.links -%}
+            {%- assign mm_t = link.title | downcase -%}
+            {%- if mm_t contains 'shop all' -%}
+              <li class="rn-mm-all"><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- elsif link.url == '#' -%}
+              <li><span class="rn-mm-link rn-mm-soon">{{ link.title }}<em>Soon</em></span></li>
+            {%- else -%}
+              <li><a class="rn-mm-link" href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          <li><a class="rn-mm-link" href="/products/reserve-nutrition-cognition">Cognition</a></li>
+          <li class="rn-mm-all"><a href="/pages/shop">Shop All</a></li>
+        {%- endif -%}
+      </ul>
+    </nav>
+    <div class="rn-mm-cards">
+      {%- for block in section.blocks -%}
+        {%- case forloop.index -%}
+          {%- when 1 -%}
+            {%- assign mm_fb_img = all_products['reserve-nutrition-cognition'].featured_image -%}
+            {%- assign mm_fb_url = '/products/reserve-nutrition-cognition' -%}
+          {%- when 2 -%}
+            {%- assign mm_fb_img = images['reserve-delivery.jpg'] -%}
+            {%- assign mm_fb_url = '/pages/about' -%}
+          {%- else -%}
+            {%- assign mm_fb_img = images['Gemini_Generated_Image_g0fd5jg0fd5jg0fd.jpg'] -%}
+            {%- assign mm_fb_url = '/pages/science' -%}
+        {%- endcase -%}
+        {%- assign mm_img = block.settings.image | default: mm_fb_img -%}
+        <a class="rn-mm-card" href="{{ block.settings.link | default: mm_fb_url }}" {{ block.shopify_attributes }}>
+          <div class="rn-mm-img">
+            {%- if mm_img != blank -%}
+              {{ mm_img | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 1240px) 300px, 24vw', alt: block.settings.title }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+          <strong>{{ block.settings.title }}</strong>
+          {%- if block.settings.subtitle != blank -%}<span>{{ block.settings.subtitle }}</span>{%- endif -%}
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+<div class="rn-mm-ov" data-mm-overlay aria-hidden="true"></div>
+<script>
+  (function () {
+    var hd = document.querySelector('.rn-hd');
+    var trig = document.querySelector('[data-mm-trigger]');
+    var panel = document.getElementById('rn-mega');
+    var ov = document.querySelector('[data-mm-overlay]');
+    if (!hd || !trig || !panel) return;
+    var wide = window.matchMedia('(min-width: 801px)');
+    var canHover = window.matchMedia('(hover: hover)');
+    var timer = null;
+    var isOpen = false;
+    var skipFocusOpen = false;
+    function place() { if (ov) ov.style.top = Math.max(0, hd.getBoundingClientRect().bottom) + 'px'; }
+    function open() {
+      clearTimeout(timer);
+      if (isOpen || !wide.matches) return;
+      isOpen = true;
+      place();
+      panel.removeAttribute('inert');
+      hd.classList.add('rn-mm-open');
+      trig.setAttribute('aria-expanded', 'true');
+    }
+    function close(now) {
+      clearTimeout(timer);
+      var run = function () {
+        if (!isOpen) return;
+        isOpen = false;
+        hd.classList.remove('rn-mm-open');
+        trig.setAttribute('aria-expanded', 'false');
+        panel.setAttribute('inert', '');
+      };
+      if (now) run(); else timer = setTimeout(run, 160);
+    }
+    panel.setAttribute('inert', '');
+    trig.addEventListener('mouseenter', function () { clearTimeout(timer); timer = setTimeout(open, 60); });
+    panel.addEventListener('mouseenter', function () { clearTimeout(timer); });
+    hd.addEventListener('mouseleave', function () { close(); });
+    if (ov) {
+      ov.addEventListener('mouseenter', function () { close(); });
+      ov.addEventListener('click', function () { close(true); });
+    }
+    hd.querySelectorAll('.rn-navmain a:not([data-mm-trigger]), .rn-utils a, .rn-wm').forEach(function (a) {
+      a.addEventListener('mouseenter', function () { close(true); });
+    });
+    trig.addEventListener('click', function (e) {
+      if (wide.matches && !canHover.matches && !isOpen) { e.preventDefault(); open(); }
+    });
+    trig.addEventListener('focus', function () {
+      if (skipFocusOpen) { skipFocusOpen = false; return; }
+      if (trig.matches(':focus-visible')) open();
+    });
+    trig.addEventListener('blur', function (e) { if (!panel.contains(e.relatedTarget)) close(true); });
+    trig.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || (e.key === 'Tab' && !e.shiftKey && isOpen)) {
+        var first = panel.querySelector('a');
+        if (!first) return;
+        e.preventDefault();
+        open();
+        first.focus();
+      }
+    });
+    panel.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var links = panel.querySelectorAll('a');
+      if (!links.length) return;
+      if (e.shiftKey && document.activeElement === links[0]) { e.preventDefault(); trig.focus(); }
+      else if (!e.shiftKey && document.activeElement === links[links.length - 1]) {
+        e.preventDefault();
+        close(true);
+        (trig.nextElementSibling || trig).focus();
+      }
+    });
+    panel.addEventListener('focusout', function (e) {
+      if (!panel.contains(e.relatedTarget) && e.relatedTarget !== trig) close(true);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen) { close(true); skipFocusOpen = true; trig.focus(); }
+    });
+    window.addEventListener('scroll', function () { if (isOpen) place(); }, { passive: true });
+    window.addEventListener('resize', function () { if (!wide.matches) close(true); else if (isOpen) place(); });
+    document.addEventListener('shopify:section:select', function (e) { if (e.target.contains(panel)) open(); });
+    document.addEventListener('shopify:block:select', function (e) { if (panel.contains(e.target)) open(); });
+    document.addEventListener('shopify:section:deselect', function (e) { if (e.target.contains(panel)) close(true); });
+  })();
+</script>
+{% schema %}
+{
+  "name": "Shop mega menu",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Text links come from the menu with the handle \"shop\" (Content > Menus). Point a link to # to show it as Soon. A link titled Shop All becomes the link at the bottom."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by formula"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Card title" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "default": {
+    "blocks": [
+      { "type": "card", "settings": { "title": "Cognition", "subtitle": "Focus, clarity and mental performance" } },
+      { "type": "card", "settings": { "title": "The Reserve Standard", "subtitle": "100% grass-fed beef gelatin" } },
+      { "type": "card", "settings": { "title": "Our Formulation Philosophy", "subtitle": "Science-backed ingredients. Purposeful doses." } }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "reserve-shop",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

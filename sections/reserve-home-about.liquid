@@ -1,0 +1,43 @@
+<style>
+  .ha{background:var(--paper);padding:110px 0;border-bottom:1px solid var(--line)}
+  .ha-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:88px;align-items:center}
+  .ha-media{position:relative;overflow:hidden;aspect-ratio:4/5;background:#e7e1d8}
+  .ha-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ha-ph{position:absolute;inset:0;background:radial-gradient(45% 35% at 50% 38%,rgba(255,252,247,.85),transparent 72%),radial-gradient(60% 40% at 50% 100%,rgba(176,160,140,.45),transparent 75%),linear-gradient(180deg,#ece6dd 0%,#ddd4c8 100%)}
+  .ha-eye{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#a4563b;margin:0 0 22px}
+  .ha-h{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:clamp(38px,4.4vw,60px);line-height:1.04;letter-spacing:-.022em;color:#171a1c;margin:0 0 26px}
+  .ha-lead{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-size:clamp(20px,1.8vw,24px);line-height:1.42;color:#4a4e50;margin:0 0 26px;max-width:540px}
+  .ha-body p{font-size:16.5px;line-height:1.7;color:#3d4043;margin:0 0 16px;max-width:560px}
+  .ha-body p:last-child{margin-bottom:0}
+  .ha-btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 40px;margin-top:34px;background:#1e201e;color:#f4f1eb;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none}
+  .ha-btn:hover{background:#000}
+  @media(max-width:1000px){.ha{padding:80px 0}.ha-grid{gap:56px}}
+  @media(max-width:760px){
+    .ha{padding:40px 0 60px}
+    .ha-grid{grid-template-columns:minmax(0,1fr);gap:34px}
+    .ha-media{aspect-ratio:1/1}
+    .ha-eye{font-size:10px;margin-bottom:16px}
+    .ha-h{font-size:40px;margin-bottom:18px}
+    .ha-lead{font-size:19px;margin-bottom:20px}
+    .ha-body p{font-size:15.5px}
+    .ha-btn{display:flex;width:100%;margin-top:28px}
+  }
+</style>
+<section class="ha" id="about">
+  <div class="wrap ha-grid">
+    <div class="ha-media">
+      {%- if section.settings.ha_image != blank -%}
+        {{ section.settings.ha_image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 761px) 50vw, 100vw', widths: '600, 900, 1200, 1400', alt: section.settings.ha_image.alt }}
+      {%- else -%}
+        <div class="ha-ph"></div>
+      {%- endif -%}
+    </div>
+    <div class="ha-copy">
+      <h2 class="ha-h">{{ section.settings.ha_title | default: 'About Us' }}</h2>
+      <p class="ha-lead">{{ section.settings.ha_lead | default: 'Reserve Nutrition exists to make daily supplements you can verify: named ingredients, disclosed doses, and a finished product tested to match its label.' }}</p>
+      <div class="ha-body">{{ section.settings.ha_body | default: '<p>Reserve was founded by Ryan, a longtime nootropics and supplement researcher who spent years building and testing his own daily stacks. He kept running into the same problem: good ingredients, underdosed, hidden inside proprietary blends, or lost in a gummy that never matched its label.</p><p>Ryan has also spent more than a decade in software quality engineering, where the job is to prove something works rather than assume it does. Reserve brings that same standard to nutrition, starting with Cognition: a daily gummy built on 100% grass-fed beef gelatin, with every batch third-party tested.</p>' }}</div>
+      <a class="ha-btn" href="{{ section.settings.ha_btn_link | default: '/pages/about' }}">{{ section.settings.ha_btn | default: 'Our story' }}</a>
+    </div>
+  </div>
+</section>
+{% schema %}{"name": "Home about", "settings": [{"type": "image_picker", "id": "ha_image", "label": "Image"}, {"type": "text", "id": "ha_title", "label": "Headline", "default": "About Us"}, {"type": "textarea", "id": "ha_lead", "label": "Mission line", "default": "Reserve Nutrition exists to make daily supplements you can verify: named ingredients, disclosed doses, and a finished product tested to match its label."}, {"type": "richtext", "id": "ha_body", "label": "Body", "default": "<p>Reserve was founded by Ryan, a longtime nootropics and supplement researcher who spent years building and testing his own daily stacks. He kept running into the same problem: good ingredients, underdosed, hidden inside proprietary blends, or lost in a gummy that never matched its label.</p><p>Ryan has also spent more than a decade in software quality engineering, where the job is to prove something works rather than assume it does. Reserve brings that same standard to nutrition, starting with Cognition: a daily gummy built on 100% grass-fed beef gelatin, with every batch third-party tested.</p>"}, {"type": "text", "id": "ha_btn", "label": "Button label", "default": "Our story"}, {"type": "text", "id": "ha_btn_link", "label": "Button link", "default": "/pages/about"}], "presets": [{"name": "Home about"}]}{% endschema %}

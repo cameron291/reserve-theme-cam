@@ -1,0 +1,48 @@
+{% doc %}
+  Drive buy box highlights row and detail dropdowns.
+  @param {object} section - Buy box section; reads inside_list, other_ingredients, how_to, allergens and formula_note
+  @param {object} highlights - The section's highlight blocks
+  @example
+  {% render 'reserve-drive-pdp-details', section: section, highlights: highlights %}
+{% enddoc %}
+{%- assign s = section.settings -%}
+{%- if highlights.size > 0 -%}
+  <ul class="dp-trust">
+    {%- for block in highlights -%}
+      {%- if block.settings.text != blank -%}
+        <li {{ block.shopify_attributes }}>{% render 'reserve-drive-icon', name: block.settings.icon %}<span>{{ block.settings.text | escape }}</span></li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- endif -%}
+
+<div class="dp-acc">
+  {%- if s.inside_list != blank or s.other_ingredients != blank -%}
+    <details>
+      <summary>What's inside</summary>
+      <div class="dp-acc-body">
+        {%- if s.inside_list != blank -%}
+          {%- assign inside_lines = s.inside_list | newline_to_br | split: '<br />' -%}
+          <ul class="dp-acc-list">
+            {%- for line in inside_lines -%}
+              {%- assign parts = line | split: '|' -%}
+              {%- assign item_name = parts[0] | strip -%}
+              {%- assign item_amount = parts[1] | strip -%}
+              {%- if item_name != blank -%}<li><span>{{ item_name | escape }}</span><span>{{ item_amount | escape }}</span></li>{%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- if s.other_ingredients != blank -%}<p><strong>Other ingredients:</strong> {{ s.other_ingredients | escape }}</p>{%- endif -%}
+      </div>
+    </details>
+  {%- endif -%}
+  {%- if s.how_to != blank -%}
+    <details><summary>How to take it</summary><div class="dp-acc-body"><p>{{ s.how_to | escape | newline_to_br }}</p></div></details>
+  {%- endif -%}
+  {%- if s.allergens != blank -%}
+    <details><summary>Allergens and diet</summary><div class="dp-acc-body"><p>{{ s.allergens | escape | newline_to_br }}</p></div></details>
+  {%- endif -%}
+  {%- if s.formula_note != blank -%}
+    <details><summary>About this formula</summary><div class="dp-acc-body"><p>{{ s.formula_note | escape | newline_to_br }}</p></div></details>
+  {%- endif -%}
+</div>

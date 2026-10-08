@@ -1,0 +1,161 @@
+{% doc %}
+  Drive product page content below the buy box: ingredient cards, numbers band,
+  reasons to believe, gelatin comparison grid (reserve-drive-pdp-gelatin), FAQ,
+  closing banner, sticky shop bar and supplement facts dialog.
+  @param {object} section - Owning section; reads its settings and ingredient blocks
+  @param {object} product - Product shown on the page
+  @param {object} ings - The section's ingredient blocks
+  @param {number} servings - Servings per container
+  @example
+  {% render 'reserve-drive-pdp-more', section: section, product: product, ings: ings, servings: servings %}
+{% enddoc %}
+{%- assign s = section.settings -%}
+{%- assign buy_href = '#dp-buy-' | append: section.id -%}
+{%- assign shop_label = s.close_button | default: 'Shop now' -%}
+
+{%- if ings.size > 0 -%}
+  <section class="dp-sec dp-ings">
+    <div class="dp-wrap">
+      <div class="dp-head">
+        {%- if s.ing_eyebrow != blank -%}<p class="dp-eyebrow">{{ s.ing_eyebrow | escape }}</p>{%- endif -%}
+        <h2 class="dp-h2">{{ s.ing_heading | escape }}</h2>
+        {%- if s.ing_sub != blank -%}<p class="dp-sub">{{ s.ing_sub | escape }}</p>{%- endif -%}
+      </div>
+      <div class="dp-ing-grid">
+        {%- for block in ings -%}
+          {%- if block.settings.featured -%}
+            <article class="dp-ing-card" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}<div class="dp-ing-img">{{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}</div>{%- endif -%}
+              {%- if block.settings.amount != blank -%}<p class="dp-ing-amt">{{ block.settings.amount | escape }}<span>per serving</span></p>{%- endif -%}
+              <h3 class="dp-ing-name">{{ block.settings.name | escape }}</h3>
+              {%- if block.settings.short != blank -%}<p class="dp-ing-role">{{ block.settings.short | escape }}</p>{%- endif -%}
+              {%- if block.settings.text != blank -%}<p class="dp-ing-text">{{ block.settings.text | escape }}</p>{%- endif -%}
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- capture also_chips -%}{%- for block in ings -%}{%- unless block.settings.featured -%}<span class="dp-chip" {{ block.shopify_attributes }}>{{ block.settings.name | escape }}{% if block.settings.short != blank %} <span>&middot; {{ block.settings.short | escape }}</span>{% endif %}</span>{%- endunless -%}{%- endfor -%}{%- endcapture -%}
+      {%- if also_chips != blank -%}
+        <div class="dp-also">{%- if s.also_label != blank -%}<span class="dp-also-label">{{ s.also_label | escape }}</span>{%- endif -%}{{ also_chips }}</div>
+      {%- endif -%}
+      <div class="dp-center"><button type="button" class="dp-pill-btn" data-dp-sf-open aria-controls="dp-sfd-{{ section.id }}">{% render 'reserve-drive-icon', name: 'doc' %}{{ s.facts_button | default: 'View supplement facts' | escape }}</button></div>
+    </div>
+  </section>
+{%- endif -%}
+
+{%- if s.stats != blank -%}
+  <section class="dp-stats">
+    <div class="dp-wrap">
+      {%- if s.stats_heading != blank -%}<h2 class="dp-h2">{{ s.stats_heading | escape }}</h2>{%- endif -%}
+      <dl class="dp-stats-grid">
+        {%- assign stat_lines = s.stats | newline_to_br | split: '<br />' -%}
+        {%- for line in stat_lines -%}
+          {%- assign stat_parts = line | split: '|' -%}
+          {%- assign stat_value = stat_parts[0] | strip -%}
+          {%- assign stat_label = stat_parts[1] | strip -%}
+          {%- if stat_value != blank -%}<div><dt>{{ stat_label | escape }}</dt><dd>{{ stat_value | escape }}</dd></div>{%- endif -%}
+        {%- endfor -%}
+      </dl>
+      {%- if s.stats_note != blank -%}<p class="dp-stats-note">{{ s.stats_note | escape }}</p>{%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{%- if s.why_heading != blank -%}
+  <section class="dp-sec dp-why">
+    <div class="dp-wrap">
+      <div class="dp-head">
+        {%- if s.why_eyebrow != blank -%}<p class="dp-eyebrow">{{ s.why_eyebrow | escape }}</p>{%- endif -%}
+        <h2 class="dp-h2">{{ s.why_heading | escape }}</h2>
+      </div>
+      <div class="dp-why-grid">
+        {%- assign why_icons = 'target,doc,leaf,calendar' | split: ',' -%}
+        {%- for i in (1..4) -%}
+          {%- assign w_title_key = 'why_' | append: i | append: '_title' -%}
+          {%- assign w_text_key = 'why_' | append: i | append: '_text' -%}
+          {%- assign w_title = s[w_title_key] -%}
+          {%- assign w_text = s[w_text_key] -%}
+          {%- if w_title != blank -%}
+            <article class="dp-why-card">
+              <span class="dp-why-icon">{% render 'reserve-drive-icon', name: why_icons[forloop.index0] %}</span>
+              <h3>{{ w_title | escape }}</h3>
+              {%- if w_text != blank -%}<p>{{ w_text | escape }}</p>{%- endif -%}
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% render 'reserve-drive-pdp-gelatin', section: section %}
+
+<section class="dp-sec dp-faq" id="dp-faq-{{ section.id }}">
+  <div class="dp-wrap dp-faq-grid">
+    <div class="dp-faq-head">
+      <h2 class="dp-h2">{{ s.faq_heading | escape }}</h2>
+      {%- if s.faq_sub != blank -%}<p class="dp-sub">{{ s.faq_sub | escape }}</p>{%- endif -%}
+    </div>
+    <div>
+      <div class="dp-acc">
+        {%- for i in (1..6) -%}
+          {%- assign q_key = 'q' | append: i -%}
+          {%- assign a_key = 'a' | append: i -%}
+          {%- assign q = s[q_key] -%}
+          {%- assign a = s[a_key] -%}
+          {%- if q != blank and a != blank -%}
+            <details><summary>{{ q | escape }}</summary><div class="dp-acc-body"><p>{{ a | escape | newline_to_br }}</p></div></details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if s.legal != blank -%}<p class="dp-legal">{{ s.legal | escape }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- if s.close_heading != blank -%}
+  <section class="dp-close">
+    <div class="dp-wrap">
+      <div class="dp-close-card">
+        <div>
+          {%- if s.close_eyebrow != blank -%}<p class="dp-eyebrow">{{ s.close_eyebrow | escape }}</p>{%- endif -%}
+          <h2 class="dp-h2">{{ s.close_heading | escape }}</h2>
+          {%- if s.close_sub != blank -%}<p class="dp-sub">{{ s.close_sub | escape }}</p>{%- endif -%}
+          <a class="dp-cta" href="{{ buy_href }}">{{ shop_label | escape }}</a>
+        </div>
+        {%- if product.featured_media -%}
+          <div class="dp-close-media">{{ product.featured_media.preview_image | image_url: width: 800 | image_tag: alt: '', loading: 'lazy', widths: '400, 600, 800', sizes: '(min-width: 750px) 340px, 80vw' }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<div class="dp-sticky" data-dp-sticky inert>
+  <div class="dp-wrap dp-sticky-in">
+    <div class="dp-sticky-copy"><strong>{{ product.title | escape }}</strong>{%- if s.subtitle != blank -%}<span>{{ s.subtitle | escape }}</span>{%- endif -%}</div>
+    <a class="dp-cta" href="{{ buy_href }}">{{ shop_label | escape }}</a>
+  </div>
+</div>
+
+{%- if ings.size > 0 -%}
+  <dialog class="dp-sfd" id="dp-sfd-{{ section.id }}" aria-labelledby="dp-sfd-title-{{ section.id }}">
+    <div class="dp-sfd-in">
+      <button type="button" class="dp-sfd-x" data-dp-sf-close aria-label="Close">&times;</button>
+      {%- if s.sf_tag != blank -%}<span class="dp-sfd-tag">{{ s.sf_tag | escape }}</span>{%- endif -%}
+      <div class="dp-sf">
+        <h3 id="dp-sfd-title-{{ section.id }}">Supplement Facts</h3>
+        <div class="dp-sf-serv">{% if s.serving_size != blank %}Serving size: {{ s.serving_size | escape }}<br>{% endif %}{% if servings > 0 %}Servings per container: {{ servings }}{% endif %}</div>
+        <div class="dp-sf-row dp-sf-head"><span>Amount per serving</span><span></span><span class="dv">% DV</span></div>
+        {%- for block in ings -%}
+          {%- if block.settings.featured -%}
+            {%- assign facts_name = block.settings.facts_label | default: block.settings.name -%}
+            <div class="dp-sf-row"><span><b>{{ facts_name | escape }}</b></span><span>{{ block.settings.amount | escape }}</span><span class="dv">*</span></div>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if s.sf_footnote != blank -%}<div class="dp-sf-foot">{{ s.sf_footnote | escape }}</div>{%- endif -%}
+      </div>
+      {%- if s.other_ingredients != blank -%}<p class="dp-sf-other"><b>Other ingredients:</b> {{ s.other_ingredients | escape }}</p>{%- endif -%}
+    </div>
+  </dialog>
+{%- endif -%}

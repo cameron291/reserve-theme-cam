@@ -1,0 +1,8 @@
+{% doc %}
+  Loads the Drive product page stylesheets. Every Drive section renders this, so each
+  one keeps its styling when sections are reordered, removed or added on their own.
+  @example
+  {% render 'reserve-drive-styles' %}
+{% enddoc %}
+{{ 'reserve-drive-pdp.css' | asset_url | stylesheet_tag }}
+{{ 'reserve-drive-pdp-sections.css' | asset_url | stylesheet_tag }}

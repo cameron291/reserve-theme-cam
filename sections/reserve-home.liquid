@@ -1,0 +1,98 @@
+<style>
+  .rh-hero{position:relative;overflow:hidden;background:#f3ece3;color:var(--ink);border-bottom:1px solid var(--line)}
+  .rh-media{position:absolute;inset:0}
+  .rh-media img{width:100%;height:100%;object-fit:cover;object-position:58% 50%;display:block}
+  .rh-ph{width:100%;height:100%;background:radial-gradient(90% 120% at 35% 25%,#fbf7f1 0%,#efe6da 55%,#ddccb8 100%)}
+  .rh-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(246,240,232,.72) 0%,rgba(246,240,232,.42) 30%,rgba(246,240,232,0) 50%);pointer-events:none}
+  .rh-hero-in{position:relative;display:flex;align-items:center;min-height:clamp(560px,42.4vw,820px);padding:76px 28px}
+  .rh-copy{max-width:min(520px,42vw)}
+  .rh-badge{display:inline-flex;align-items:center;gap:10px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#3b3e39;border:1px solid rgba(30,32,30,.2);background:rgba(251,250,247,.55);padding:8px 14px;border-radius:2px;margin-bottom:30px}
+  .rh-badge:before{content:"";width:8px;height:8px;background:#b0452d;border-radius:50%;display:inline-block}
+  .rh-h1{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;font-size:clamp(44px,4.4vw,72px);line-height:1.02;text-wrap:balance;letter-spacing:-.025em;margin:0 0 24px;color:#1b1c1a}
+  .rh-h1 em{font-style:italic}
+  .rh-sub{font-size:18px;line-height:1.58;color:#3d403b;max-width:460px;margin:0 0 34px}
+  .rh-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px}
+  .rh-btn{display:inline-flex;align-items:center;min-height:52px;padding:0 28px;background:var(--ink);color:var(--ivory);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  .rh-btn:hover{background:#000}
+  .rh-btn-ghost{display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border:1px solid rgba(30,32,30,.38);color:var(--ink);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  .rh-btn-ghost:hover{background:rgba(255,255,255,.4)}
+  .rh-bar{display:inline-flex;align-items:center;gap:8px;padding:7px;border-radius:12px;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.6);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);box-shadow:0 10px 30px rgba(70,52,34,.08)}
+  .rh-mark{display:flex;align-items:center;justify-content:center;width:42px;height:40px;color:#232522}
+  .rh-mark svg{width:23px;height:23px}
+  .rh-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:8px;background:rgba(255,255,255,.52);font-size:13.5px;color:#232522;white-space:nowrap}
+  .rh-chip svg{width:19px;height:19px;flex:none}
+  @media(max-width:1279px){
+    .rh-media{position:relative;inset:auto;aspect-ratio:2/1}
+    .rh-media img{object-position:90% 50%}
+    .rh-shade{display:none}
+    .rh-hero{display:flex;flex-direction:column}
+    .rh-media{order:2}
+    .rh-hero-in{width:100%}
+    .rh-hero-in{min-height:0;padding:40px 22px 40px;justify-content:center;text-align:center}
+    .rh-copy{max-width:600px;margin:0 auto}
+    .rh-sub{margin-left:auto;margin-right:auto}
+    .rh-cta{justify-content:center}
+    .rh-bar{flex-wrap:wrap;justify-content:center}
+  }
+  @media(max-width:640px){
+    .rh-hero{background:#f4ece3}
+    .rh-media{aspect-ratio:4/3}
+    .rh-media img{object-position:90% 50%}
+    .rh-media:before{content:"";position:absolute;left:0;right:0;top:0;height:30%;background:linear-gradient(#f4ece3,rgba(244,236,227,0));z-index:1;pointer-events:none}
+    .rh-hero-in{padding:22px 18px 6px}
+    .rh-badge{margin-bottom:14px;font-size:9.5px;padding:6px 11px}
+    .rh-h1{font-size:min(9.4vw,42px);line-height:1.05;margin-bottom:12px}
+    .rh-sub{font-size:15px;line-height:1.5;margin-bottom:18px}
+    .rh-cta{margin-bottom:14px}
+    .rh-btn{flex:1 1 100%;justify-content:center;min-height:48px}
+    .rh-mark{display:none}
+    .rh-bar{gap:5px;padding:5px;border-radius:10px}
+    .rh-chip{font-size:11.5px;padding:7px 9px;gap:6px;border-radius:7px}
+    .rh-chip svg{width:14px;height:14px}
+    .rh-has-m{display:grid;background:#f5efe7}
+    .rh-has-m .rh-media,.rh-has-m .rh-hero-in{grid-area:1/1}
+    .rh-has-m .rh-media{position:relative;inset:auto;aspect-ratio:var(--m-ar,.587);order:0}
+    .rh-has-m .rh-media img{object-position:50% 100%}
+    .rh-has-m .rh-media:before{display:none}
+    .rh-has-m .rh-hero-in{align-self:end;z-index:2;padding:0 20px calc(100vw / var(--m-ar,.587) * .43);text-align:center}
+    .rh-has-m .rh-bar{display:flex;background:transparent;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:0;justify-content:center}
+    .rh-has-m .rh-chip{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.7)}
+  }
+  .rh-media picture{display:block;width:100%;height:100%}
+</style>
+{%- assign hero_alt = section.settings.hero_image.alt | default: 'Reserve Nutrition Daily Cognition jar with three loose gummies on stone' -%}
+<section class="rh-hero{% if section.settings.hero_image != blank and section.settings.hero_image_mobile != blank %} rh-has-m{% endif %}" style="--m-ar:{{ section.settings.hero_image_mobile.aspect_ratio | default: 0.587 }}">
+  <div class="rh-media">
+    {% comment %}rh-media-start{% endcomment %}
+    {%- if section.settings.hero_image != blank -%}
+      <picture>
+        {%- if section.settings.hero_image_mobile != blank -%}
+          <source media="(max-width: 640px)" sizes="100vw" srcset="{{ section.settings.hero_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.hero_image_mobile | image_url: width: 1080 }} 1080w, {{ section.settings.hero_image_mobile | image_url: width: 1500 }} 1500w">
+        {%- endif -%}
+        {{ section.settings.hero_image | image_url: width: 3200 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '750, 1100, 1500, 2000, 2600, 3200', alt: hero_alt }}
+      </picture>
+    {%- else -%}
+      <div class="rh-ph"></div>
+    {%- endif -%}
+    {% comment %}rh-media-end{% endcomment %}
+    <div class="rh-shade"></div>
+  </div>
+  <div class="rh-hero-in" style="max-width:var(--max);margin:0 auto">
+    <div class="rh-copy">
+      {%- if section.settings.hero_badge != blank -%}<div class="rh-badge">{{ section.settings.hero_badge }}</div>{%- endif -%}
+      <h1 class="rh-h1">{{ section.settings.hero_title | default: 'Ultra-clean functional' }}{% if section.settings.hero_title_em != blank %} <em>{{ section.settings.hero_title_em }}</em>{% endif %}</h1>
+      <p class="rh-sub">{{ section.settings.hero_sub | default: 'Made with grass-fed gelatin, real fruit and full research‑backed doses. No seed oils, nothing artificial.' }}</p>
+      <div class="rh-cta">
+        <a class="rh-btn" href="/products/reserve-nutrition-cognition">Shop Cognition</a>
+        <a class="rh-btn-ghost" href="/products/drive">View Drive</a>
+      </div>
+      <div class="rh-bar">
+        <span class="rh-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4Z"/><path d="M4 7.4 12 12l8-4.6M12 12v9.2"/></svg></span>
+        <span class="rh-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3.5h6M10 3.5v5.2L5.2 17.3a2.2 2.2 0 0 0 1.9 3.2h9.8a2.2 2.2 0 0 0 1.9-3.2L14 8.7V3.5"/><path d="M7.4 14.5h9.2"/></svg>{{ section.settings.hero_chip1 | default: 'Third-Party Tested' }}</span>
+        <span class="rh-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6.5l5.5 3.1v6.2L9 18.9l-5.5-3.1V9.6Z"/><path d="M3.5 9.6 9 12.7l5.5-3.1M9 12.7v6.2"/><path d="M19.5 5v9M16.9 11.4l2.6 2.6 2.6-2.6"/></svg>{{ section.settings.hero_chip2 | default: 'Very Low Sugar' }}</span>
+        <span class="rh-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h17v13h-17z"/><path d="M10.5 8.8h10M10.5 12h10M3.5 15.3h17"/><path d="M3.5 5.5h7v6.5h-7z" fill="currentColor" stroke="none"/></svg>{{ section.settings.hero_chip3 | default: 'Made in the USA' }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}{"name": "Reserve home", "settings": [{"type": "header", "content": "Hero"}, {"type": "image_picker", "id": "hero_image", "label": "Hero image"}, {"type": "image_picker", "id": "hero_image_mobile", "label": "Hero image (phones)", "info": "Tall portrait version. On phones the text sits on top of it."}, {"type": "text", "id": "hero_badge", "label": "Badge", "info": "Leave empty to hide."}, {"type": "text", "id": "hero_title", "label": "Headline", "default": "Ultra-clean functional"}, {"type": "text", "id": "hero_title_em", "label": "Headline italic ending", "info": "Optional. Shown in italics after the headline."}, {"type": "textarea", "id": "hero_sub", "label": "Subhead", "default": "Made with grass-fed gelatin, real fruit and full research‑backed doses. No seed oils, nothing artificial."}, {"type": "text", "id": "hero_btn", "label": "Primary button", "default": "Shop Now"}, {"type": "text", "id": "hero_chip1", "label": "Trust chip 1 (beaker icon)", "default": "Third-Party Tested"}, {"type": "text", "id": "hero_chip2", "label": "Trust chip 2 (sugar cube icon)", "default": "Very Low Sugar"}, {"type": "text", "id": "hero_chip3", "label": "Trust chip 3 (flag icon)", "default": "Made in the USA"}]}{% endschema %}

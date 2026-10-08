@@ -1,0 +1,167 @@
+{% stylesheet %}
+.rp-drive-standard{background:#0c0d0f;color:#f4f1eb;padding:clamp(4rem,8vw,8rem) clamp(1.25rem,6vw,6rem);overflow:hidden}
+.rp-drive-standard__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.65fr);gap:2rem;align-items:end;margin:0 auto clamp(3rem,6vw,5rem);max-width:1400px}
+.rp-drive-standard__eyebrow,.rp-drive-standard__label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+.rp-drive-standard__eyebrow{color:#b9a5ff;margin:0 0 1.6rem}
+.rp-drive-standard__title{margin:0;max-width:850px;font-size:clamp(3rem,6.3vw,6.7rem);line-height:.97;letter-spacing:-.07em;color:#f4f1eb}
+.rp-drive-standard__accent{display:block;color:#b9a5ff}
+.rp-drive-standard__deck{margin:0 0 .6rem;justify-self:end;max-width:360px;color:#b8b6bc;font-size:clamp(1rem,1.4vw,1.35rem);line-height:1.45}
+.rp-drive-standard__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:1400px;margin:0 auto}
+.rp-drive-standard__card{min-width:0;overflow:hidden;border-radius:28px;background:#f0ede6;color:#19191b}
+.rp-drive-standard__visual{position:relative;height:250px;overflow:hidden;padding:2.15rem;isolation:isolate}
+.rp-drive-standard__visual:after{content:"";position:absolute;inset:auto -10% -35% -10%;height:45%;background:rgba(10,12,15,.22);border-radius:50% 50% 0 0;z-index:-1}
+.rp-drive-standard__visual--base{background:linear-gradient(135deg,#171821 0%,#4b3b6b 100%)}
+.rp-drive-standard__visual--stack{background:linear-gradient(135deg,#242027 0%,#503e62 55%,#b68c76 100%)}
+.rp-drive-standard__visual--standard{background:linear-gradient(135deg,#19252b 0%,#3c6a67 100%)}
+.rp-drive-standard__visual--dose{background:linear-gradient(135deg,#e7e2c8 0%,#b9c6a5 100%)}
+.rp-drive-standard__label{position:relative;z-index:3;color:#f6f1f7}
+.rp-drive-standard__visual--standard .rp-drive-standard__label{color:#d1efdf}
+.rp-drive-standard__visual--dose .rp-drive-standard__label{color:#334031}
+.rp-drive-standard__copy{padding:2.2rem 2.15rem 2.35rem;min-height:270px;display:flex;flex-direction:column}
+.rp-drive-standard__copy h3{margin:0 0 1.2rem;font-size:clamp(1.65rem,2vw,2.1rem);line-height:1.05;letter-spacing:-.045em}
+.rp-drive-standard__copy p{margin:0;color:#58585b;font-size:1.05rem;line-height:1.55;max-width:34rem}
+.rp-drive-standard__meta{margin-top:auto;padding-top:2.8rem;color:#7a7880;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.rp-drive-standard__cubes{position:absolute;inset:2.9rem 16% 2rem;display:flex;align-items:center;justify-content:center}
+.rp-drive-standard__cube{display:block;width:132px;aspect-ratio:1;border-radius:22px;transform:rotate(var(--rotate));margin-left:-20px;opacity:.9}
+.rp-drive-standard__cube--one{background:#d6c6ed;--rotate:-13deg}
+.rp-drive-standard__cube--two{background:#f3d9bb;--rotate:9deg}
+.rp-drive-standard__cube--three{background:#b2d0c5;--rotate:22deg}
+.rp-drive-standard__nodes{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:1.4rem}
+.rp-drive-standard__node{display:grid;place-items:center;width:156px;aspect-ratio:1;border-radius:50%;font-size:1rem;font-weight:700;text-align:center;line-height:1.1}
+.rp-drive-standard__node--tongkat{background:#caa7d9;color:#201d24}
+.rp-drive-standard__node--zinc{background:#d9bd87;color:#2e2520;transform:translateY(-22px)}
+.rp-drive-standard__node--boron{background:#a8c6ba;color:#1e2c28;transform:translateY(22px)}
+.rp-drive-standard__nodes:after{content:"";position:absolute;width:42%;height:1px;background:#f5e9d5;opacity:.75;transform:rotate(-16deg)}
+.rp-drive-standard__specs{position:absolute;left:7%;right:7%;top:5.6rem;color:#c9e8de;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;letter-spacing:.02em}
+.rp-drive-standard__spec{display:flex;justify-content:space-between;padding:.8rem 0;border-bottom:1px solid rgba(201,232,222,.42)}
+.rp-drive-standard__dose-row{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-evenly;color:#1b211c}
+.rp-drive-standard__dose-number{font-size:clamp(3rem,5vw,5rem);line-height:.9;font-weight:700;letter-spacing:-.07em}
+.rp-drive-standard__dose-unit{display:block;margin-top:.65rem;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.rp-drive-standard__note{max-width:1400px;margin:2.4rem auto 0;color:#97979d;font-size:.9rem;line-height:1.5}
+@media (max-width:860px){
+  .rp-drive-standard{padding:4rem 1.25rem}
+  .rp-drive-standard__head{display:block;margin-bottom:3rem}
+  .rp-drive-standard__title{font-size:clamp(3rem,11vw,5rem)}
+  .rp-drive-standard__deck{margin-top:1.5rem;max-width:28rem}
+  .rp-drive-standard__grid{grid-template-columns:1fr;gap:1rem}
+  .rp-drive-standard__visual{height:152px;padding:1.45rem}
+  .rp-drive-standard__copy{min-height:0;padding:1.6rem 1.45rem 1.8rem}
+  .rp-drive-standard__copy h3{font-size:1.65rem}
+  .rp-drive-standard__copy p{font-size:1rem}
+  .rp-drive-standard__meta{padding-top:2rem}
+  .rp-drive-standard__cube{width:94px;border-radius:16px;margin-left:-13px}
+  .rp-drive-standard__nodes{gap:1rem}
+  .rp-drive-standard__node{width:96px;font-size:.78rem}
+  .rp-drive-standard__specs{top:3.65rem;font-size:11px}
+  .rp-drive-standard__spec{padding:.35rem 0}
+  .rp-drive-standard__dose-number{font-size:3rem}
+  .rp-drive-standard__dose-unit{font-size:9px;letter-spacing:.1em}
+}
+{% endstylesheet %}
+
+{%- comment -%}
+  Section contract.
+  Drive standard: "Not all gummies are created equal" comparison with up to four cards
+  (Card blocks). Each card picks a graphic: base (three cubes), stack (one circle per
+  line), standard (spec rows) or dose (number rows). Originally prototyped with all text
+  hard-coded; same markup and styles, now editable in the theme editor.
+{%- endcomment -%}
+{%- assign cards = section.blocks | where: 'type', 'card' -%}
+{%- assign node_mods = 'tongkat,zinc,boron' | split: ',' -%}
+
+<section id="drive-standard" class="rp-drive-standard" aria-labelledby="drive-standard-title">
+  <div class="rp-drive-standard__head">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="rp-drive-standard__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2 id="drive-standard-title" class="rp-drive-standard__title">{{ section.settings.title | escape }}{%- if section.settings.accent != blank -%}<span class="rp-drive-standard__accent">{{ section.settings.accent | escape }}</span>{%- endif -%}</h2>
+    </div>
+    {%- if section.settings.deck != blank -%}<p class="rp-drive-standard__deck">{{ section.settings.deck | escape | newline_to_br }}</p>{%- endif -%}
+  </div>
+  <div class="rp-drive-standard__grid">
+    {%- for block in cards -%}
+      {%- assign b = block.settings -%}
+      {%- assign lines = b.visual_lines | newline_to_br | split: '<br />' -%}
+      <article class="rp-drive-standard__card" {{ block.shopify_attributes }}>
+        <div class="rp-drive-standard__visual rp-drive-standard__visual--{{ b.visual }}">
+          {%- if b.label != blank -%}<span class="rp-drive-standard__label">{{ b.label | escape }}</span>{%- endif -%}
+          {%- case b.visual -%}
+            {%- when 'base' -%}
+              <div class="rp-drive-standard__cubes" aria-hidden="true"><span class="rp-drive-standard__cube rp-drive-standard__cube--one"></span><span class="rp-drive-standard__cube rp-drive-standard__cube--two"></span><span class="rp-drive-standard__cube rp-drive-standard__cube--three"></span></div>
+            {%- when 'stack' -%}
+              <div class="rp-drive-standard__nodes" aria-hidden="true">
+                {%- for line in lines limit: 3 -%}
+                  {%- assign node = line | strip -%}
+                  {%- if node != blank -%}<span class="rp-drive-standard__node rp-drive-standard__node--{{ node_mods[forloop.index0] }}">{{ node | escape | replace: '|', '<br>' }}</span>{%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- when 'standard' -%}
+              <div class="rp-drive-standard__specs" aria-hidden="true">
+                {%- for line in lines -%}
+                  {%- assign parts = line | split: '|' -%}
+                  {%- assign spec_name = parts[0] | strip -%}
+                  {%- assign spec_value = parts[1] | strip -%}
+                  {%- if spec_name != blank -%}<div class="rp-drive-standard__spec"><span>{{ spec_name | escape }}</span><span>{{ spec_value | escape }}</span></div>{%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- when 'dose' -%}
+              <div class="rp-drive-standard__dose-row" aria-hidden="true">
+                {%- for line in lines -%}
+                  {%- assign parts = line | split: '|' -%}
+                  {%- assign dose_number = parts[0] | strip -%}
+                  {%- assign dose_unit = parts[1] | strip -%}
+                  {%- if dose_number != blank -%}<div><strong class="rp-drive-standard__dose-number">{{ dose_number | escape }}</strong><span class="rp-drive-standard__dose-unit">{{ dose_unit | escape }}</span></div>{%- endif -%}
+                {%- endfor -%}
+              </div>
+          {%- endcase -%}
+        </div>
+        <div class="rp-drive-standard__copy">
+          <h3>{{ b.title | escape }}</h3>
+          {%- if b.text != blank -%}<p>{{ b.text | escape }}</p>{%- endif -%}
+          {%- if b.meta != blank -%}<span class="rp-drive-standard__meta">{{ b.meta | escape }}</span>{%- endif -%}
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+  {%- if section.settings.note != blank -%}<p class="rp-drive-standard__note">{{ section.settings.note | escape }}</p>{%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Drive standard",
+  "limit": 1,
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Reserve Nutrition / Drive" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Not all gummies are created equal." },
+    { "type": "text", "id": "accent", "label": "Heading accent line", "default": "Ours are built differently." },
+    { "type": "textarea", "id": "deck", "label": "Side text", "info": "Line breaks are kept.", "default": "A deliberate base. Three named actives.\nClear amounts. Nothing proprietary." },
+    { "type": "textarea", "id": "note", "label": "Note under cards", "default": "Gelatin and pectin are different materials with different gel behavior. We use gelatin because it fits the texture and formulation philosophy of Drive." }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "limit": 4,
+      "settings": [
+        { "type": "select", "id": "visual", "label": "Graphic", "default": "base", "options": [{ "value": "base", "label": "Three cubes" }, { "value": "stack", "label": "Ingredient circles" }, { "value": "standard", "label": "Spec rows" }, { "value": "dose", "label": "Dose numbers" }] },
+        { "type": "text", "id": "label", "label": "Graphic label", "info": "For example 01 / The base." },
+        { "type": "textarea", "id": "visual_lines", "label": "Graphic text", "info": "One item per line. Circles: name, use | for a line break. Spec rows: name | value. Dose numbers: number | unit. Not used by the cubes." },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "meta", "label": "Small print" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Drive standard",
+      "blocks": [
+        { "type": "card", "settings": { "visual": "base", "label": "01 / The base", "title": "Protein base, not a pectin gel.", "text": "100% grass-fed bovine gelatin gives Drive its distinct elastic bite and collagen-derived base.", "meta": "Different materials / Different texture" } },
+        { "type": "card", "settings": { "visual": "stack", "label": "02 / The stack", "visual_lines": "Tongkat|Ali\nZinc\nBoron", "title": "Three actives. One clear job.", "text": "Tongkat Ali leads. Zinc and boron complete the compact, fully disclosed stack.", "meta": "No proprietary blends / No hidden doses" } },
+        { "type": "card", "settings": { "visual": "standard", "label": "03 / The standard", "visual_lines": "Source | Standardized\nIdentity | Tested\nFormula | Disclosed", "title": "Potency starts with the source.", "text": "We specify identity-tested raw materials and confirm final forms before production.", "meta": "Source / Specification / Stability" } },
+        { "type": "card", "settings": { "visual": "dose", "label": "04 / The dose", "visual_lines": "200 | mg Tongkat Ali\n10 | mg Zinc\n3 | mg Boron", "title": "Target amounts, plainly shown.", "text": "One serving is two gummies. Final amounts are confirmed after formulation and stability testing.", "meta": "2 Gummies / 1 Daily Serving" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
