@@ -70,7 +70,8 @@
         "definition": "Often referred to as “Malaysian ginseng.”",
         "heading_font": "raleway_n4",
         "text_color": "#1f2420",
-        "accent_color": "#9a4f1f"
+        "accent_color": "#9a4f1f",
+        "mobile_fade_color": "#16130f"
       }
     },
     "history": {
@@ -112,6 +113,7 @@
         "ref_fourth"
       ],
       "settings": {
+        "mobile_hide_image": true,
         "color_scheme": "dark",
         "aria_label": "The history of Tongkat Ali",
         "latin_label": "Latin",

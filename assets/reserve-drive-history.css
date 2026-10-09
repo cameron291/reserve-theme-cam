@@ -33,5 +33,11 @@
   .dh__body p{font-size:21px}
   .dh__rule{grid-row:3;padding:0 20px 14px}
   .dh__refs{grid-row:4;padding:0 20px 56px}
+  /* Hide image on phones: text starts the section, flowing out of the forest fade above. */
+  .dh--no-img-mobile{grid-template-rows:auto auto auto}
+  .dh--no-img-mobile .dh__media,.dh--no-img-mobile .dh__cap{display:none}
+  .dh--no-img-mobile .dh__text{grid-row:1;padding-top:40px}
+  .dh--no-img-mobile .dh__rule{grid-row:2}
+  .dh--no-img-mobile .dh__refs{grid-row:3}
 }
 @media (prefers-reduced-motion:reduce){.dh__refs a{transition:none}}

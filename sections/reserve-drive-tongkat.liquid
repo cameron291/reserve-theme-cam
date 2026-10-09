@@ -22,6 +22,9 @@
     --dt-font: {{ font.family }}, {{ font.fallback_families }};
     --dt-ink: {{ section.settings.text_color }};
     --dt-accent: {{ section.settings.accent_color }};
+    {%- if section.settings.mobile_fade_color != blank %}
+    --dt-fade: {{ section.settings.mobile_fade_color }};
+    {%- endif %}
   }
 </style>
 
@@ -48,6 +51,7 @@
     {%- endif -%}
   </div>
 
+  {%- if section.settings.mobile_fade_color != blank -%}<div class="dt-hero__fade" aria-hidden="true"></div>{%- endif -%}
   <div class="dt-hero__copy">
     {%- if section.settings.title != blank -%}
       <h2 class="dt-hero__title" id="dt-title-{{ section.id }}">{{ section.settings.title | escape }}</h2>
@@ -75,7 +79,8 @@
     { "type": "header", "content": "Style" },
     { "type": "font_picker", "id": "heading_font", "label": "Font", "default": "raleway_n4" },
     { "type": "color", "id": "text_color", "label": "Text color", "default": "#1f2420" },
-    { "type": "color", "id": "accent_color", "label": "Accent bar color", "default": "#9a4f1f" }
+    { "type": "color", "id": "accent_color", "label": "Accent bar color", "default": "#9a4f1f" },
+    { "type": "color", "id": "mobile_fade_color", "label": "Phone: fade bottom into color", "info": "Phones only. Set it to the next section's background to blend the photo into it. Leave empty for no fade." }
   ],
   "presets": [{ "name": "Drive Tongkat Ali" }]
 }

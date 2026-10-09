@@ -31,7 +31,7 @@
   }
 </style>
 
-<section class="dh{% if section.settings.color_scheme == 'dark' %} dh--dark{% endif %}" aria-label="{{ section.settings.aria_label | escape }}">
+<section class="dh{% if section.settings.color_scheme == 'dark' %} dh--dark{% endif %}{% if section.settings.mobile_hide_image %} dh--no-img-mobile{% endif %}" aria-label="{{ section.settings.aria_label | escape }}">
   <div class="dh__text">
     {%- if section.settings.latin_label != blank or section.settings.latin_name != blank -%}
       <p class="dh__label">
@@ -86,6 +86,9 @@
   "name": "Drive history",
   "enabled_on": { "templates": ["product"] },
   "settings": [
+    {
+      "type": "checkbox", "id": "mobile_hide_image", "label": "Hide image on phones", "default": false
+    },
     {
       "type": "select", "id": "color_scheme", "label": "Color scheme", "default": "light",
       "options": [ { "value": "light", "label": "Light" }, { "value": "dark", "label": "Dark" } ]
