@@ -101,9 +101,11 @@
   }
 
   // The facts dialog lives in the ingredients section; buttons anywhere on the page open it,
-  // and hide themselves when that section has been removed.
+  // and hide themselves when that section has been removed. On pages built on
+  // reserve-product (Cognition) the facts dialog is .rp-sfd, which has its own close handlers.
+  function factsDialog() { return document.querySelector('.dp-sfd') || document.querySelector('.rp-sfd'); }
   function initFacts() {
-    var dlg = document.querySelector('.dp-sfd');
+    var dlg = factsDialog();
     if (dlg && dlg.showModal && !dlg.hasAttribute('data-dp-ready')) {
       dlg.setAttribute('data-dp-ready', '');
       dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
@@ -115,7 +117,7 @@
       if (btn.hasAttribute('data-dp-ready')) return;
       btn.setAttribute('data-dp-ready', '');
       btn.addEventListener('click', function () {
-        var d = document.querySelector('.dp-sfd');
+        var d = factsDialog();
         if (d && d.showModal) d.showModal();
       });
     });

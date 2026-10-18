@@ -1,7 +1,8 @@
 {% comment %}
   Section contract.
-  Drive buy box: gallery, title, purchase options (Recharge subscription app block),
-  highlight blocks, detail dropdowns and the sticky shop bar. The rest of the Drive page
+  Product buy box (Drive, and Cognition via templates/product.json): gallery, title, purchase
+  options (Recharge subscription app block), highlight blocks, detail dropdowns, an optional
+  "Tested by" lab card and the sticky shop bar. The rest of the Drive page
   is split into its own sections (reserve-drive-ingredients, -numbers, -why, -faq, -cta
   and reserve-drive-standard) so each can be moved, hidden or removed in the theme editor.
   Styles: snippets/reserve-drive-styles.liquid. Behavior: assets/reserve-drive-pdp.js.
@@ -95,6 +96,16 @@
         </div>
 
         {% render 'reserve-drive-pdp-details', section: section, highlights: highlights %}
+
+        {%- if section.settings.lab_name != blank -%}
+          <a class="dp-lab" href="{{ section.settings.lab_url | default: '#' }}">
+            <span class="dp-lab-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg></span>
+            <span class="dp-lab-copy">
+              <span class="dp-lab-top">Tested by {{ section.settings.lab_name | escape }}{% if section.settings.lab_date != blank %} in <span class="dp-lab-date">{{ section.settings.lab_date | escape }}</span>{% endif %}</span>
+              {%- if section.settings.lab_sub != blank -%}<span class="dp-lab-sub">{{ section.settings.lab_sub | escape }} <span aria-hidden="true">&rarr;</span></span>{%- endif -%}
+            </span>
+          </a>
+        {%- endif -%}
       </div>
     </div>
   </section>
@@ -115,6 +126,11 @@
   "limit": 1,
   "enabled_on": { "templates": ["product"] },
   "settings": [
+    { "type": "header", "content": "Lab test card" },
+    { "type": "text", "id": "lab_name", "label": "Lab name", "info": "Leave empty to hide the card." },
+    { "type": "text", "id": "lab_date", "label": "Test date" },
+    { "type": "text", "id": "lab_sub", "label": "Card subtitle", "default": "View the full lab report" },
+    { "type": "url", "id": "lab_url", "label": "Lab report link" },
     { "type": "text", "id": "badge_text", "label": "Badge", "info": "Shown above the title until the product has reviews.", "default": "New release" },
     { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Daily male vitality gummy" },
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "200 mg of Tongkat Ali with zinc and boron, set in two grass-fed gelatin gummies a day." },

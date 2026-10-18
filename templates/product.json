@@ -1,12 +1,64 @@
 {
   "sections": {
     "main": {
-      "type": "reserve-product",
+      "type": "reserve-drive-pdp",
       "blocks": {
         "recharge_subscriptions_subscription_widget_v2_M8V9G3": {
           "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget-v2/371eed76-0b44-4869-9813-730372ea378e",
           "settings": {}
         },
+        "highlight_subscribe": {
+          "type": "highlight",
+          "settings": {
+            "icon": "refresh",
+            "text": "Subscribe & save"
+          }
+        },
+        "highlight_formula": {
+          "type": "highlight",
+          "settings": {
+            "icon": "doc",
+            "text": "Full formula disclosed"
+          }
+        },
+        "highlight_gelatin": {
+          "type": "highlight",
+          "settings": {
+            "icon": "leaf",
+            "text": "Grass-fed beef gelatin"
+          }
+        }
+      },
+      "block_order": [
+        "recharge_subscriptions_subscription_widget_v2_M8V9G3",
+        "highlight_subscribe",
+        "highlight_formula",
+        "highlight_gelatin"
+      ],
+      "settings": {
+        "badge_text": "First release",
+        "subtitle": "Daily cognitive support gummy",
+        "lede": "Many gummies are built on pectin and sugar. Cognition is set in 100% grass-fed beef gelatin instead: a richer, cleaner base with a dense, satisfying chew, carrying full, disclosed doses in every serving.",
+        "checks": "100% grass-fed beef gelatin\nNo proprietary blends\nLow sugar\nCaffeine-free\nThird-party tested",
+        "servings": 0,
+        "show_facts": true,
+        "facts_button": "View supplement facts",
+        "inside_list": "Magnesium L-threonate (Magtein®) | 2 g\nCiticoline | 500 mg\nL-theanine | 200 mg\nVitamin B6 | 20 mg\nFolate | 800 mcg\nVitamin B12 | 500 mcg",
+        "other_ingredients": "100% grass-fed beef gelatin, fruit juice concentrates, fruit powders, natural citrus oils, ginger. Low-sugar sweetener system being finalized with our formulator.",
+        "how_to": "Cognition is one serving a day. The exact gummy count is being finalized with our formulator, and every 30-gummy jar has ten of each flavor.",
+        "allergens": "Made with 100% grass-fed beef gelatin, so Cognition is not vegetarian or vegan.",
+        "formula_note": "Target formula shown. Final doses, base, and shelf-life claims are confirmed through production and stability testing before launch.",
+        "show_sticky": true,
+        "sticky_button": "Shop Cognition",
+        "lab_name": "Placeholder Lab",
+        "lab_date": "AUG 2026",
+        "lab_sub": "View the full lab report",
+        "lab_url": ""
+      }
+    },
+    "details": {
+      "type": "reserve-product",
+      "blocks": {
         "ingredient_magtein": {
           "type": "ingredient",
           "settings": {
@@ -69,7 +121,6 @@
         }
       },
       "block_order": [
-        "recharge_subscriptions_subscription_widget_v2_M8V9G3",
         "ingredient_magtein",
         "ingredient_citicoline",
         "ingredient_theanine",
@@ -79,11 +130,13 @@
       ],
       "settings": {
         "qa_sub": "Cognition is made in the USA in a cGMP-certified facility and independently third-party tested for purity, consistency, and quality.",
-        "qa_points": "cGMP manufacturing\nThird-party tested\nMade in the USA\nScientifically formulated\nFull, disclosed doses\nNo proprietary blends"
+        "qa_points": "cGMP manufacturing\nThird-party tested\nMade in the USA\nScientifically formulated\nFull, disclosed doses\nNo proprietary blends",
+        "show_hero": false
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "details"
   ]
 }
