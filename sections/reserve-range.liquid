@@ -1,0 +1,219 @@
+{% comment %}
+  Section contract.
+  Product range: the "The range" block from the About page (heading plus product cards), and
+  waitlist cards for formulas that aren't out yet. Product cards sit in a two-column row; waitlist
+  cards follow in a three-column row, each with a grayed-out image and its own signup form.
+  Card styles are copied from reserve-about (.ab-range / .ab-card) so both pages match.
+  Waitlist signups use Shopify's customer form: they create a customer with email marketing
+  consent, tagged "waitlist" and "waitlist-<list tag>".
+{% endcomment %}
+{%- liquid
+  assign cards = section.blocks | where: 'type', 'card'
+  assign waitlists = section.blocks | where: 'type', 'waitlist'
+-%}
+<style>
+  .rg{padding:120px 0;background:var(--paper);border-bottom:1px solid var(--line)}
+  .rg-serif{font-family:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;font-weight:400;letter-spacing:-.02em}
+  .rg-head{text-align:center;max-width:720px;margin:0 auto 60px}
+  .rg-head h1,.rg-head h2{font-size:clamp(34px,4vw,54px);line-height:1.06;margin:0 0 26px}
+  .rg-head p{font-size:17px;line-height:1.7;color:#5d615b;margin:0}
+  .rg-eye{font-size:11px;line-height:1.4;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin:0 0 22px}
+  .rg-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;max-width:1040px;margin:0 auto}
+  .rg-cards--wl{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:32px}
+  .rg-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line)}
+  .rg-card-media{position:relative;aspect-ratio:5/4;overflow:hidden;background:#e7e2d8}
+  .rg-card-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .rg-card:hover .rg-card-media img{transform:scale(1.03)}
+  .rg-card-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(120% 120% at 60% 18%,#2d312c,#191b18);color:#f4f1eb;text-align:center}
+  .rg-card-ph strong{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:40px;letter-spacing:.01em}
+  .rg-card-ph span{margin-top:12px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#b9bcb4}
+  .rg-card-tag{position:absolute;top:18px;left:18px;padding:7px 12px;background:rgba(244,241,235,.92);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+  .rg-card-body{display:flex;flex-direction:column;flex:1;padding:30px 30px 32px}
+  .rg-card-body h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:30px;line-height:1.1;margin:0 0 12px}
+  .rg-card-body p{font-size:15.5px;line-height:1.65;color:#5d615b;margin:0 0 26px}
+  .rg-card-body .rg-btn{margin-top:auto;align-self:flex-start}
+  .rg-btn{display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 26px;background:var(--ink);color:var(--ivory);font:inherit;font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);cursor:pointer}
+  .rg-btn:hover{background:#000}
+  .rg-btn-ghost{background:transparent;color:var(--ink)}
+  .rg-btn-ghost:hover{background:rgba(30,32,30,.06)}
+  .rg-btn svg{width:14px;height:14px}
+
+  .rg-wl .rg-card-media{aspect-ratio:4/3}
+  .rg-wl .rg-card-media img{filter:grayscale(1);opacity:.55}
+  .rg-wl:hover .rg-card-media img{transform:none}
+  .rg-wl .rg-card-ph{background:radial-gradient(120% 120% at 60% 18%,#4a4b48,#2a2b29);color:#d9d9d5}
+  .rg-wl .rg-card-ph strong{font-size:34px}
+  .rg-wl .rg-card-body{padding:26px 24px 28px}
+  .rg-wl .rg-card-body h3{font-size:26px}
+  .rg-wl .rg-card-body p{font-size:15px;margin-bottom:20px}
+  .rg-wl-form{display:grid;gap:10px;margin-top:auto}
+  .rg-wl-form label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .rg-wl-form input{width:100%;height:48px;padding:0 14px;border:1px solid var(--line);border-radius:0;background:#fff;font:inherit;font-size:15px;color:var(--ink)}
+  .rg-wl-form input:focus{outline:1px solid var(--ink);outline-offset:0;border-color:var(--ink)}
+  .rg-wl-form .rg-btn{justify-content:center;width:100%;margin-top:4px}
+  .rg-wl-fine{margin:4px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted)}
+  .rg-wl-thanks,.rg-wl-err{display:none;margin:0;font-size:15px;line-height:1.6}
+  .rg-wl-err{margin-bottom:10px;font-size:13px;color:#9a3b2a}
+  .rg-wl.is-joined .rg-wl-form{display:none}
+  .rg-wl.is-joined .rg-wl-thanks{display:block;margin-top:auto;padding:16px 18px;border:1px solid var(--line);background:var(--paper)}
+  .rg-wl.is-error .rg-wl-err{display:block}
+  @media(max-width:900px){
+    .rg{padding:80px 0}
+    .rg-cards--wl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  @media(max-width:700px){
+    .rg-cards,.rg-cards--wl{grid-template-columns:minmax(0,1fr)}
+    .rg-card-body{padding:26px 22px 28px}
+  }
+  @media(prefers-reduced-motion:reduce){.rg-card-media img{transition:none}}
+</style>
+
+<section class="rg" id="rg-{{ section.id }}">
+  <div class="wrap">
+    <div class="rg-head">
+      {%- if section.settings.eyebrow != blank -%}<p class="rg-eye">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      {%- if section.settings.title != blank -%}
+        {%- if section.settings.title_is_page_heading -%}
+          <h1 class="rg-serif">{{ section.settings.title | escape }}</h1>
+        {%- else -%}
+          <h2 class="rg-serif">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+    </div>
+
+    {%- if cards.size > 0 -%}
+      <div class="rg-cards">
+        {%- for block in cards -%}
+          {%- assign p = block.settings.product -%}
+          {%- assign link = block.settings.link -%}
+          {%- if link == blank and p != blank -%}{%- assign link = p.url -%}{%- endif -%}
+          <article class="rg-card" {{ block.shopify_attributes }}>
+            <div class="rg-card-media">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 901px) 500px, 100vw', widths: '500, 750, 1000', alt: block.settings.title }}
+              {%- elsif p != blank and p.featured_media -%}
+                {{ p.featured_media | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 901px) 500px, 100vw', widths: '500, 750, 1000', alt: block.settings.title }}
+              {%- else -%}
+                <div class="rg-card-ph"><strong>{{ block.settings.title | escape }}</strong><span>Reserve Nutrition</span></div>
+              {%- endif -%}
+              {%- if block.settings.tag != blank -%}<span class="rg-card-tag">{{ block.settings.tag | escape }}</span>{%- endif -%}
+            </div>
+            <div class="rg-card-body">
+              <h3>{{ block.settings.title | escape }}</h3>
+              {%- if block.settings.text != blank -%}<p>{{ block.settings.text | escape }}</p>{%- endif -%}
+              {%- if block.settings.button != blank and link != blank -%}
+                <a class="rg-btn{% if block.settings.ghost %} rg-btn-ghost{% endif %}" href="{{ link }}">{{ block.settings.button | escape }} <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg></a>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if waitlists.size > 0 -%}
+      <div class="rg-cards rg-cards--wl">
+        {%- for block in waitlists -%}
+          {%- assign list = block.settings.list_tag | default: block.settings.title | handleize -%}
+          {%- assign form_id = 'rg-wl-' | append: block.id -%}
+          <article class="rg-card rg-wl" {{ block.shopify_attributes }}>
+            <div class="rg-card-media">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 901px) 340px, 100vw', widths: '400, 600, 800', alt: '' }}
+              {%- else -%}
+                <div class="rg-card-ph"><strong>{{ block.settings.title | escape }}</strong><span>Reserve Nutrition</span></div>
+              {%- endif -%}
+              {%- if block.settings.tag != blank -%}<span class="rg-card-tag">{{ block.settings.tag | escape }}</span>{%- endif -%}
+            </div>
+            <div class="rg-card-body">
+              <h3>{{ block.settings.title | escape }}</h3>
+              {%- if block.settings.text != blank -%}<p>{{ block.settings.text | escape }}</p>{%- endif -%}
+              {%- form 'customer', id: form_id, class: 'rg-wl-form-wrap' -%}
+                {%- if form.posted_successfully? -%}<span data-rg-posted hidden></span>{%- endif -%}
+                {%- if form.errors -%}<span data-rg-failed hidden></span><div class="rg-wl-err">{{ form.errors | default_errors }}</div>{%- endif -%}
+                <p class="rg-wl-thanks">{{ block.settings.thanks | escape }}</p>
+                <div class="rg-wl-form">
+                  <input type="hidden" name="contact[tags]" value="waitlist, waitlist-{{ list }}">
+                  <label for="{{ form_id }}-name">Name</label>
+                  <input id="{{ form_id }}-name" type="text" name="contact[first_name]" placeholder="Name" autocomplete="given-name" required>
+                  <label for="{{ form_id }}-phone">Phone number</label>
+                  <input id="{{ form_id }}-phone" type="tel" name="contact[phone]" placeholder="Phone number" autocomplete="tel"{% if block.settings.phone_required %} required{% endif %}>
+                  <label for="{{ form_id }}-email">Email</label>
+                  <input id="{{ form_id }}-email" type="email" name="contact[email]" placeholder="Email" autocomplete="email" required>
+                  <button type="submit" class="rg-btn">{{ block.settings.button | default: 'Join the waitlist' | escape }}</button>
+                  {%- if section.settings.fine_print != blank -%}<p class="rg-wl-fine">{{ section.settings.fine_print | escape }}</p>{%- endif -%}
+                </div>
+              {%- endform -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+      <script>
+        (function () {
+          var root = document.getElementById('rg-{{ section.id }}');
+          if (!root) return;
+          var key = 'rg-wl-last';
+          root.querySelectorAll('.rg-wl form').forEach(function (f) {
+            f.addEventListener('submit', function () { try { sessionStorage.setItem(key, f.id); } catch (e) {} });
+          });
+          var posted = root.querySelector('[data-rg-posted]');
+          var failed = root.querySelector('[data-rg-failed]');
+          if (!posted && !failed) return;
+          var id = location.hash ? decodeURIComponent(location.hash.slice(1)) : '';
+          try { id = sessionStorage.getItem(key) || id; sessionStorage.removeItem(key); } catch (e) {}
+          var form = id ? document.getElementById(id) : null;
+          var card = form ? form.closest('.rg-wl') : null;
+          if (!card) return;
+          card.classList.add(posted ? 'is-joined' : 'is-error');
+          card.scrollIntoView({ block: 'center' });
+        })();
+      </script>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product range",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The range" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "One standard, carried into every formula." },
+    { "type": "checkbox", "id": "title_is_page_heading", "label": "Use the heading as the page title", "info": "Turn on when this is the first section on the page (for example the Shop page).", "default": false },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Cognition is our first release. More formulas are on the way, each held to the same standard." },
+    { "type": "textarea", "id": "fine_print", "label": "Waitlist fine print", "default": "By joining, you agree to receive launch emails and texts from Reserve Nutrition. Message and data rates may apply. Unsubscribe anytime." }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Product card",
+      "limit": 4,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product", "info": "Optional. Uses the product's image and link." },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Optional. Replaces the product image." },
+        { "type": "text", "id": "tag", "label": "Tag" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "button", "label": "Button label" },
+        { "type": "text", "id": "link", "label": "Button link", "info": "Optional. Defaults to the product page." },
+        { "type": "checkbox", "id": "ghost", "label": "Outline button", "default": false }
+      ]
+    },
+    {
+      "type": "waitlist",
+      "name": "Waitlist card",
+      "limit": 6,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Shown grayed out." },
+        { "type": "text", "id": "tag", "label": "Tag", "default": "Coming soon" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "list_tag", "label": "Waitlist tag", "info": "Signups are tagged waitlist-<this>. Defaults to the title, for example waitlist-sleep." },
+        { "type": "checkbox", "id": "phone_required", "label": "Require phone number", "default": false },
+        { "type": "text", "id": "button", "label": "Button label", "default": "Join the waitlist" },
+        { "type": "text", "id": "thanks", "label": "Thank-you message", "default": "You're on the list. We'll let you know the moment it launches." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product range" }]
+}
+{% endschema %}
