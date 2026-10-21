@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -11,6 +20,18 @@
             "title": "Daily Cognition",
             "text": "Daily support for focus, memory and calm. Caffeine-free, set in grass-fed gelatin, in three real-fruit flavors.",
             "button": "Shop Cognition",
+            "link": "",
+            "ghost": false
+          }
+        },
+        "card_drive": {
+          "type": "card",
+          "settings": {
+            "product": "drive",
+            "tag": "Available now",
+            "title": "Drive",
+            "text": "200 mg of Tongkat Ali with zinc and boron, set in two grass-fed gelatin gummies a day.",
+            "button": "Shop Drive",
             "link": "",
             "ghost": false
           }
@@ -47,18 +68,6 @@
             "button": "Join the waitlist",
             "thanks": "You're on the list. We'll let you know the moment it launches."
           }
-        },
-        "card_drive": {
-          "type": "card",
-          "settings": {
-            "product": "drive",
-            "tag": "Available now",
-            "title": "Drive",
-            "text": "200 mg of Tongkat Ali with zinc and boron, set in two grass-fed gelatin gummies a day.",
-            "button": "Shop Drive",
-            "link": "",
-            "ghost": false
-          }
         }
       },
       "block_order": [
@@ -69,10 +78,10 @@
         "waitlist_cognition_plus"
       ],
       "settings": {
-        "eyebrow": "The range",
-        "title": "One standard, carried into every formula.",
+        "eyebrow": "The Reserve standard",
+        "title": "Grass-Fed Functional Gummies You Can Feel",
         "title_is_page_heading": true,
-        "text": "Cognition is our first release. More formulas are on the way, each held to the same standard.",
+        "text": "",
         "fine_print": "By joining, you agree to receive launch emails from Reserve Nutrition. Unsubscribe anytime."
       }
     }
