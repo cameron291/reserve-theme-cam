@@ -15,18 +15,6 @@
             "ghost": false
           }
         },
-        "card_vitality": {
-          "type": "card",
-          "settings": {
-            "product": "",
-            "tag": "Coming next",
-            "title": "Vitality",
-            "text": "Our second formula, built for daily energy and vitality. In development now.",
-            "button": "Join the list",
-            "link": "/pages/about#ab-join",
-            "ghost": true
-          }
-        },
         "waitlist_sleep": {
           "type": "waitlist",
           "settings": {
@@ -34,7 +22,6 @@
             "title": "Sleep",
             "text": "",
             "list_tag": "sleep",
-            "phone_required": false,
             "button": "Join the waitlist",
             "thanks": "You're on the list. We'll let you know the moment it launches."
           }
@@ -46,7 +33,6 @@
             "title": "Gut Immunity",
             "text": "",
             "list_tag": "gut-immunity",
-            "phone_required": false,
             "button": "Join the waitlist",
             "thanks": "You're on the list. We'll let you know the moment it launches."
           }
@@ -58,15 +44,26 @@
             "title": "Cognition+",
             "text": "",
             "list_tag": "cognition-plus",
-            "phone_required": false,
             "button": "Join the waitlist",
             "thanks": "You're on the list. We'll let you know the moment it launches."
+          }
+        },
+        "card_drive": {
+          "type": "card",
+          "settings": {
+            "product": "drive",
+            "tag": "Available now",
+            "title": "Drive",
+            "text": "200 mg of Tongkat Ali with zinc and boron, set in two grass-fed gelatin gummies a day.",
+            "button": "Shop Drive",
+            "link": "",
+            "ghost": false
           }
         }
       },
       "block_order": [
         "card_cognition",
-        "card_vitality",
+        "card_drive",
         "waitlist_sleep",
         "waitlist_gut",
         "waitlist_cognition_plus"
@@ -76,7 +73,7 @@
         "title": "One standard, carried into every formula.",
         "title_is_page_heading": true,
         "text": "Cognition is our first release. More formulas are on the way, each held to the same standard.",
-        "fine_print": "By joining, you agree to receive launch emails and texts from Reserve Nutrition. Message and data rates may apply. Unsubscribe anytime."
+        "fine_print": "By joining, you agree to receive launch emails from Reserve Nutrition. Unsubscribe anytime."
       }
     }
   },

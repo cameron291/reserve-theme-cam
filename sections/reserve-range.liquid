@@ -2,7 +2,7 @@
   Section contract.
   Product range: the "The range" block from the About page (heading plus product cards), and
   waitlist cards for formulas that aren't out yet. Product cards sit in a two-column row; waitlist
-  cards follow in a three-column row, each with a grayed-out image and its own signup form.
+  cards follow in a three-column row, each with a grayed-out image and its own name and email signup.
   Card styles are copied from reserve-about (.ab-range / .ab-card) so both pages match.
   Waitlist signups use Shopify's customer form: they create a customer with email marketing
   consent, tagged "waitlist" and "waitlist-<list tag>".
@@ -136,8 +136,6 @@
                   <input type="hidden" name="contact[tags]" value="waitlist, waitlist-{{ list }}">
                   <label for="{{ form_id }}-name">Name</label>
                   <input id="{{ form_id }}-name" type="text" name="contact[first_name]" placeholder="Name" autocomplete="given-name" required>
-                  <label for="{{ form_id }}-phone">Phone number</label>
-                  <input id="{{ form_id }}-phone" type="tel" name="contact[phone]" placeholder="Phone number" autocomplete="tel"{% if block.settings.phone_required %} required{% endif %}>
                   <label for="{{ form_id }}-email">Email</label>
                   <input id="{{ form_id }}-email" type="email" name="contact[email]" placeholder="Email" autocomplete="email" required>
                   <button type="submit" class="rg-btn">{{ block.settings.button | default: 'Join the waitlist' | escape }}</button>
@@ -180,7 +178,7 @@
     { "type": "text", "id": "title", "label": "Heading", "default": "One standard, carried into every formula." },
     { "type": "checkbox", "id": "title_is_page_heading", "label": "Use the heading as the page title", "info": "Turn on when this is the first section on the page (for example the Shop page).", "default": false },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Cognition is our first release. More formulas are on the way, each held to the same standard." },
-    { "type": "textarea", "id": "fine_print", "label": "Waitlist fine print", "default": "By joining, you agree to receive launch emails and texts from Reserve Nutrition. Message and data rates may apply. Unsubscribe anytime." }
+    { "type": "textarea", "id": "fine_print", "label": "Waitlist fine print", "default": "By joining, you agree to receive launch emails from Reserve Nutrition. Unsubscribe anytime." }
   ],
   "blocks": [
     {
@@ -208,7 +206,6 @@
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "textarea", "id": "text", "label": "Text" },
         { "type": "text", "id": "list_tag", "label": "Waitlist tag", "info": "Signups are tagged waitlist-<this>. Defaults to the title, for example waitlist-sleep." },
-        { "type": "checkbox", "id": "phone_required", "label": "Require phone number", "default": false },
         { "type": "text", "id": "button", "label": "Button label", "default": "Join the waitlist" },
         { "type": "text", "id": "thanks", "label": "Thank-you message", "default": "You're on the list. We'll let you know the moment it launches." }
       ]
