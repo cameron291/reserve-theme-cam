@@ -116,6 +116,7 @@
         "ref_testosterone",
         "ref_fourth"
       ],
+      "disabled": true,
       "settings": {
         "mobile_hide_image": true,
         "color_scheme": "dark",
@@ -150,7 +151,7 @@
             "short": "Primary active for daily vitality",
             "amount": "200 mg",
             "facts_label": "Tongkat Ali root extract",
-            "text": "Eurycoma longifolia root extract. Final extract specification and identity testing confirmed with the manufacturer.",
+            "text": "Eurycoma longifolia root extract",
             "featured": true
           }
         },
@@ -161,7 +162,7 @@
             "short": "Compact supporting mineral",
             "amount": "10 mg",
             "facts_label": "",
-            "text": "Target form is zinc citrate or zinc bisglycinate. Final form confirmed before production.",
+            "text": "",
             "featured": true
           }
         },
@@ -172,7 +173,29 @@
             "short": "Supporting component of the stack",
             "amount": "3 mg",
             "facts_label": "",
-            "text": "Target form is boron citrate. Final form confirmed before production.",
+            "text": "",
+            "featured": true
+          }
+        },
+        "ingredient_8QKaTG": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Vitamin D",
+            "short": "Essential for maintaining cellular health",
+            "amount": "4000 IU",
+            "facts_label": "",
+            "text": "",
+            "featured": true
+          }
+        },
+        "ingredient_w6cVUk": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Copper",
+            "short": "works with zinc to support cellular energy",
+            "amount": "2mg",
+            "facts_label": "",
+            "text": "",
             "featured": true
           }
         },
@@ -214,12 +237,14 @@
         "ingredient_tongkat",
         "ingredient_zinc",
         "ingredient_boron",
+        "ingredient_8QKaTG",
+        "ingredient_w6cVUk",
         "ingredient_gelatin",
         "ingredient_juice",
         "ingredient_honey"
       ],
       "settings": {
-        "eyebrow": "",
+        "eyebrow": "5 ingedients in 1 powerful formula",
         "heading": "What’s Inside Drive?",
         "sub": "Most gummies use BS sweeteners, pectins, and gut irritating binders. We sourced the highest quality ingredients for a gummy your body actually knows what to do with. Our mission is to make the #1 performance gummy on the market that not only supports performance, but is also gut-friendly.",
         "also_label": "Also in every gummy:",
@@ -277,6 +302,7 @@
         "why_base",
         "why_daily"
       ],
+      "disabled": true,
       "settings": {
         "eyebrow": "Why Drive",
         "heading": "Simple by design."
