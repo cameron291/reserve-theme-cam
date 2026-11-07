@@ -45,10 +45,14 @@
         "highlight_gelatin"
       ],
       "settings": {
+        "lab_name": "",
+        "lab_date": "",
+        "lab_sub": "View the full lab report",
+        "lab_url": "",
         "badge_text": "New release",
         "subtitle": "Daily male vitality gummy",
         "lede": "200 mg of Tongkat Ali with zinc and boron, set in two grass-fed gelatin gummies a day.",
-        "checks": "Tongkat Ali centered: 200 mg per serving\nSupported by zinc and boron\n100% grass-fed bovine gelatin, no proprietary blend",
+        "checks": "5 Potent Research-Backed Ingredients\nZero \"Proprietary\" Blends\nFormulated in the USA & Third Party Tested\n100% grass-fed bovine gelatin\nFast & Free Shipping on First Order",
         "servings": 15,
         "show_facts": true,
         "facts_button": "View supplement facts",
