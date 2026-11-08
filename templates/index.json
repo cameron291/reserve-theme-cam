@@ -1,10 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "reserve-home",
       "settings": {
-        "hero_image": "shopify://shop_images/Gemini_Generated_Image_g0fd5jg0fd5jg0fd.jpg",
+        "hero_image": "shopify://shop_images/Gemini_Generated_Image_4m157z4m157z4m15.jpg",
         "hero_image_mobile": "shopify://shop_images/reserve-hero-phone.jpg",
+        "hero_badge": "",
         "hero_title": "Ultra-clean functional",
         "hero_title_em": "gummies.",
         "hero_sub": "Made with grass-fed gelatin, real fruit and full research‑backed doses. No seed oils, nothing artificial.",
@@ -35,10 +45,6 @@
         "pot_source": "Cohen et al., JAMA, 2023; NOW, February 2024."
       }
     },
-    "more": {
-      "type": "reserve-home-more",
-      "settings": {}
-    },
     "delivery": {
       "type": "reserve-delivery",
       "settings": {
@@ -57,11 +63,16 @@
     },
     "about": {
       "type": "reserve-home-about",
-      "settings": {}
+      "settings": {
+        "ha_title": "About Us",
+        "ha_lead": "Reserve Nutrition exists to make daily supplements you can verify: named ingredients, disclosed doses, and a finished product tested to match its label.",
+        "ha_body": "<p>Reserve was founded by Ryan, a longtime nootropics and supplement researcher who spent years building and testing his own daily stacks. He kept running into the same problem: good ingredients, underdosed, hidden inside proprietary blends, or lost in a gummy that never matched its label.</p><p>Ryan has also spent more than a decade in software quality engineering, where the job is to prove something works rather than assume it does. Reserve brings that same standard to nutrition, starting with Cognition: a daily gummy built on 100% grass-fed beef gelatin, with every batch third-party tested.</p>",
+        "ha_btn": "Our story",
+        "ha_btn_link": "/pages/about"
+      }
     },
     "ingredients": {
       "type": "reserve-ingredients",
-      "disabled": true,
       "blocks": {
         "ing2": {
           "type": "ingredient",
@@ -126,9 +137,17 @@
         "ing6",
         "ing7"
       ],
+      "disabled": true,
       "settings": {
+        "ri_title": "Nothing hidden",
+        "ri_title_em": "in the fine print.",
+        "ri_intro": "Every active is named and dosed. Swipe through one daily serving.",
         "ri_note": "Amounts shown are targets for one daily serving and will be confirmed after production and stability testing. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
       }
+    },
+    "more": {
+      "type": "reserve-home-more",
+      "settings": {}
     }
   },
   "order": [
