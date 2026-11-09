@@ -29,10 +29,10 @@
     "potency": {
       "type": "reserve-potency",
       "settings": {
-        "pot_eyebrow": "The problem with gummies",
+        "pot_eyebrow": "",
         "pot_title": "Most gummies are BS.",
         "pot_title_size": 64,
-        "pot_body": "<p>Most gummies are made like candy. The base is glucose syrup and sugar, set with pectin or starch, and the actives get whatever room is left. When labs test them, the dose often doesn’t match the label.</p><p><strong>We use real ingredients.</strong> Real fruit, research‑backed actives at the doses used in human studies, and every amount printed on the label. No seed oils, nothing artificial.</p><p><strong>We use 100% grass‑fed beef gelatin, while others use pectin or starch.</strong> Classic pectin won’t set unless the mix is more than 55% sugar and other dissolved solids. Gelatin sets on its own, it’s over 92% protein, and it gives every gummy a dense, clean chew that melts in your mouth.</p>",
+        "pot_body": "<p>If you’ve ever searched for a functional gummy, you probably found a candy combined with a bunch of random mushrooms. Most gummy brands are using glucose syrup, stevia, sugar inverts, pectins or starches.</p><p>At Reserve Nutrition, we set out to make the cleanest gummy possible.</p><p>Something that we would be proud to take with our daily performance stack.</p><p>All of our gummy products are set in 100% grass‑fed beef gelatin, while others use pectin or starch.</p><p>Beef gelatin is also much more bioavailable for the gut microbiome, which not only makes these functional… but it also makes these the most gut-friendly gummies you’ll ever treat yourself to.</p>",
         "pot_side_title": "What we do differently",
         "pot_i1_eyebrow": "The base",
         "pot_i1_title": "100% grass‑fed beef gelatin",
@@ -43,8 +43,8 @@
         "pot_i3_eyebrow": "The dose",
         "pot_i3_title": "Full doses, tested",
         "pot_i3_text": "Every active at the dose used in human research, printed on the label and tested in the finished product.",
-        "pot_why": "In a 2023 JAMA study, 22 of 25 melatonin gummies didn’t match their label, with actual doses from 74% to 347% of the amount stated. In 2024, NOW tested 12 creatine gummy brands and 6 failed to meet their label claim.",
-        "pot_source": "Cohen et al., JAMA, 2023; NOW, February 2024."
+        "pot_why": "",
+        "pot_source": ""
       }
     },
     "delivery": {
