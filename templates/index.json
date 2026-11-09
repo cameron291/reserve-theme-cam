@@ -12,7 +12,7 @@
     "main": {
       "type": "reserve-home",
       "settings": {
-        "hero_image": "shopify://shop_images/Gemini_Generated_Image_4m157z4m157z4m15.jpg",
+        "hero_image": "",
         "hero_image_mobile": "shopify://shop_images/reserve-hero-phone.jpg",
         "hero_scheme": "dark",
         "hero_scheme_phone": "light",

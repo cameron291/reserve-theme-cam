@@ -64,8 +64,8 @@
   }
   .rh-media picture{display:block;width:100%;height:100%}
 </style>
-{%- assign hero_alt = section.settings.hero_image.alt | default: 'Reserve Nutrition Daily Cognition jar with three loose gummies on stone' -%}
-<section class="rh-hero{% if section.settings.hero_image != blank and section.settings.hero_image_mobile != blank %} rh-has-m{% endif %}{% if section.settings.hero_scheme == 'dark' %} rh-dark{% endif %}{% if section.settings.hero_scheme_phone == 'dark' %} rh-dark-phone{% endif %}" style="--m-ar:{{ section.settings.hero_image_mobile.aspect_ratio | default: 0.587 }}">
+{%- assign hero_alt = section.settings.hero_image.alt | default: 'Reserve Nutrition Cognition jar with loose gummies on a dark surface' -%}
+<section class="rh-hero{% if section.settings.hero_image_mobile != blank %} rh-has-m{% endif %}{% if section.settings.hero_scheme == 'dark' %} rh-dark{% endif %}{% if section.settings.hero_scheme_phone == 'dark' %} rh-dark-phone{% endif %}" style="--m-ar:{{ section.settings.hero_image_mobile.aspect_ratio | default: 0.587 }}">
   <div class="rh-media">
     {% comment %}rh-media-start{% endcomment %}
     {%- if section.settings.hero_image != blank -%}
@@ -76,7 +76,12 @@
         {{ section.settings.hero_image | image_url: width: 3200 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '750, 1100, 1500, 2000, 2600, 3200', alt: hero_alt }}
       </picture>
     {%- else -%}
-      <div class="rh-ph"></div>
+      <picture>
+        {%- if section.settings.hero_image_mobile != blank -%}
+          <source media="(max-width: 640px)" sizes="100vw" srcset="{{ section.settings.hero_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.hero_image_mobile | image_url: width: 1080 }} 1080w, {{ section.settings.hero_image_mobile | image_url: width: 1500 }} 1500w">
+        {%- endif -%}
+        <img src="{{ 'reserve-hero-cognition-1800.jpg' | asset_url }}" srcset="{{ 'reserve-hero-cognition-1100.jpg' | asset_url }} 1100w, {{ 'reserve-hero-cognition-1800.jpg' | asset_url }} 1800w, {{ 'reserve-hero-cognition-2752.jpg' | asset_url }} 2752w" sizes="100vw" width="2752" height="1536" alt="{{ hero_alt | escape }}" loading="eager" fetchpriority="high">
+      </picture>
     {%- endif -%}
     {% comment %}rh-media-end{% endcomment %}
     <div class="rh-shade"></div>
@@ -99,4 +104,4 @@
     </div>
   </div>
 </section>
-{% schema %}{"name": "Reserve home", "settings": [{"type": "header", "content": "Hero"}, {"type": "image_picker", "id": "hero_image", "label": "Hero image"}, {"type": "image_picker", "id": "hero_image_mobile", "label": "Hero image (phones)", "info": "Tall portrait version. On phones the text sits on top of it."}, {"type": "select", "id": "hero_scheme", "label": "Color scheme (desktop and tablet)", "default": "light", "options": [{"value": "light", "label": "Light gradient, dark text"}, {"value": "dark", "label": "Dark gradient, white text"}]}, {"type": "select", "id": "hero_scheme_phone", "label": "Color scheme (phones)", "default": "light", "info": "Match this to the phone image.", "options": [{"value": "light", "label": "Light, dark text"}, {"value": "dark", "label": "Dark, white text"}]}, {"type": "text", "id": "hero_badge", "label": "Badge", "info": "Leave empty to hide."}, {"type": "text", "id": "hero_title", "label": "Headline", "default": "Ultra-clean functional"}, {"type": "text", "id": "hero_title_em", "label": "Headline italic ending", "info": "Optional. Shown in italics after the headline."}, {"type": "textarea", "id": "hero_sub", "label": "Subhead", "default": "Made with grass-fed gelatin, real fruit and full research‑backed doses. No seed oils, nothing artificial."}, {"type": "text", "id": "hero_btn", "label": "Primary button", "default": "Shop Now"}, {"type": "text", "id": "hero_chip1", "label": "Trust chip 1 (beaker icon)", "default": "Third-Party Tested"}, {"type": "text", "id": "hero_chip2", "label": "Trust chip 2 (sugar cube icon)", "default": "Very Low Sugar"}, {"type": "text", "id": "hero_chip3", "label": "Trust chip 3 (flag icon)", "default": "Made in the USA"}]}{% endschema %}
+{% schema %}{"name": "Reserve home", "settings": [{"type": "header", "content": "Hero"}, {"type": "image_picker", "id": "hero_image", "label": "Hero image", "info": "Leave empty to use the built-in Cognition jar photo."}, {"type": "image_picker", "id": "hero_image_mobile", "label": "Hero image (phones)", "info": "Tall portrait version. On phones the text sits on top of it."}, {"type": "select", "id": "hero_scheme", "label": "Color scheme (desktop and tablet)", "default": "light", "options": [{"value": "light", "label": "Light gradient, dark text"}, {"value": "dark", "label": "Dark gradient, white text"}]}, {"type": "select", "id": "hero_scheme_phone", "label": "Color scheme (phones)", "default": "light", "info": "Match this to the phone image.", "options": [{"value": "light", "label": "Light, dark text"}, {"value": "dark", "label": "Dark, white text"}]}, {"type": "text", "id": "hero_badge", "label": "Badge", "info": "Leave empty to hide."}, {"type": "text", "id": "hero_title", "label": "Headline", "default": "Ultra-clean functional"}, {"type": "text", "id": "hero_title_em", "label": "Headline italic ending", "info": "Optional. Shown in italics after the headline."}, {"type": "textarea", "id": "hero_sub", "label": "Subhead", "default": "Made with grass-fed gelatin, real fruit and full research‑backed doses. No seed oils, nothing artificial."}, {"type": "text", "id": "hero_btn", "label": "Primary button", "default": "Shop Now"}, {"type": "text", "id": "hero_chip1", "label": "Trust chip 1 (beaker icon)", "default": "Third-Party Tested"}, {"type": "text", "id": "hero_chip2", "label": "Trust chip 2 (sugar cube icon)", "default": "Very Low Sugar"}, {"type": "text", "id": "hero_chip3", "label": "Trust chip 3 (flag icon)", "default": "Made in the USA"}]}{% endschema %}
